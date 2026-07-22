@@ -47,6 +47,7 @@ import java.util.concurrent.Executors
 class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceChangeListener {
     companion object {
         private const val TAG = "Mindful.MindfulAccessibilityService"
+        private const val TOAST_MIN_INTERVAL_MS = 1500L
 
         const val ACTION_PERFORM_HOME_PRESS = "com.mindful.android.action.performHomePress"
         const val ACTION_MIDNIGHT_ACCESSIBILITY_RESET =
@@ -80,6 +81,8 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
     private lateinit var trackingManager: TrackingManager
 
     private var wellbeing = Wellbeing()
+    private var lastBlockedToastAtMs: Long = 0L
+    private var lastForegroundPackage: String = ""
 
     override fun onCreate() {
         super.onCreate()
@@ -95,7 +98,7 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
         browserManager = BrowserManager(
             context = this,
             shortsPlatformManager = shortsPlatformManager,
-            blockedContentGoBack = this::goBackWithToast
+            exitBlockedContent = this::exitBlockedContent
         )
 
         // Register shared prefs listener and load data
@@ -144,6 +147,12 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
                 val eventPackageName = event.packageName.toString()
                 val node = if (eventPackageName == REDDIT_PACKAGE) event.source
                 else rootInActiveWindow ?: event.source
+
+                // Sticky NSFW clears when leaving the browser that was blocked
+                if (eventPackageName != lastForegroundPackage) {
+                    lastForegroundPackage = eventPackageName
+                    browserManager.onForegroundPackageChanged(eventPackageName)
+                }
 
                 node?.let {
                     // Broadcast event
@@ -213,22 +222,44 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
 
 
     /**
-     * Performs the back action and shows a toast message indicating that the content is blocked.
+     * Performs the back action (throttled) for shorts / device features.
      */
     private fun goBackWithToast(customAction: Int? = null) {
         throttler.submit {
-            ThreadUtils.runOnMainThread {
-                // Perform the back action (can be done on background thread)
-                performGlobalAction(customAction ?: GLOBAL_ACTION_BACK)
+            exitBlockedContent(
+                action = customAction ?: GLOBAL_ACTION_BACK,
+                immediate = true
+            )
+        }
+    }
 
-                // Post Toast to main thread
-                Toast.makeText(
-                    this@MindfulAccessibilityService,
-                    getString(R.string.toast_blocked_content),
-                    Toast.LENGTH_LONG
-                ).show()
+    /**
+     * Exit blocked content. NSFW passes [immediate]=true so HOME is not delayed by SafeSearch-style waits.
+     * Toast is always rate-limited separately to avoid spam on rapid retries.
+     */
+    private fun exitBlockedContent(action: Int, immediate: Boolean) {
+        val run = {
+            ThreadUtils.runOnMainThread {
+                performGlobalAction(action)
+                maybeShowBlockedToast()
             }
         }
+        if (immediate) {
+            run()
+        } else {
+            throttler.submit(run)
+        }
+    }
+
+    private fun maybeShowBlockedToast() {
+        val now = System.currentTimeMillis()
+        if (now - lastBlockedToastAtMs < TOAST_MIN_INTERVAL_MS) return
+        lastBlockedToastAtMs = now
+        Toast.makeText(
+            this@MindfulAccessibilityService,
+            getString(R.string.toast_blocked_content),
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     /**

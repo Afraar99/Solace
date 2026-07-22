@@ -72,6 +72,17 @@ class NavigationService {
   /// no duplicate routes on top of each other.
   ///
   /// If [replaceCurrent] is TRUE the route is replaced otherwise pushed to the current route
+  Future<void> goToRoute(
+    String routePath, {
+    Map<String, String>? parameters,
+    bool replaceCurrent = false,
+  }) =>
+      _goToRoute(
+        routePath,
+        parameters: parameters,
+        replaceCurrent: replaceCurrent,
+      );
+
   Future<void> _goToRoute(
     String routePath, {
     Map<String, String>? parameters,

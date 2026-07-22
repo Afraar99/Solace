@@ -130,6 +130,35 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_screen_usage_config" />
         </receiver>
+        <receiver
+            android:name=".widgets.TodoWidgetProvider"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.mindful.android.action.refreshTodoWidgetProvider" />
+                <action android:name="com.mindful.android.action.todoWidgetCelebratePulse" />
+                <action android:name="com.mindful.android.action.todoWidgetCompleteTodo" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_todos_config" />
+        </receiver>
+
+        <receiver
+            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver"
+            android:exported="false" />
+        <receiver
+            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
 
         <!-- _________________________________________________________________________________ -->
         <!-- ________________________________ RECEIVERS ______________________________________ -->

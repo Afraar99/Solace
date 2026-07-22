@@ -13,7 +13,7 @@
     <string name="accessibility_description">The Mindful app uses accessibility services to block websites and short-form content on apps. It checks URLs and content against your blocklist and prevents access to help you stay focused.\n\n⚠️Note: Your privacy is our priority.Mindful is 100% secure and works offline. We do not collect or store any personal data.</string>
     <string name="admin_description">Mindful does not collect, store, or transmit any user data. As Free and Open Source Software (FOSS), you can review and modify the source code. Administrative privileges are required solely for essential system operations, ensuring the app functions correctly without compromising your privacy.</string>
     <string name="toast_enable_notification">Please enable notification</string>
-    <string name="toast_blocked_content">Content blocked! going back</string>
+    <string name="toast_blocked_content">Blocked. Returning home.</string>
     <string name="toast_redirecting">Filtering search results</string>
     <string name="toast_dnd_utilized_by_feature" comment="Placeholder is the name of feature like Focus mode, Bedtime or more" formatted="true">%s is currently using DND mode.</string>
     <string name="service_running_notification_title">Mindful is running</string>
@@ -26,6 +26,8 @@
     <string name="focus_quick_tile_status_active">Active</string>
     <string name="usage_widget_description">Get a daily view of your screen and data usage</string>
     <string name="widget_screen_time_label">Screen time</string>
+    <string name="widget_todos_label">Tasks today</string>
+    <string name="widget_todos_add">Add task</string>
     <string name="widget_mobile_data_label">Mobile</string>
     <string name="widget_wifi_data_label">Wifi</string>
     <string name="widget_aggregated_usage_label">Aggregated usage</string>

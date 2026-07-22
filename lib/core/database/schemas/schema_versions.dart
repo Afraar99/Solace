@@ -3089,6 +3089,375 @@ i1.GeneratedColumn<String> _column_92(String aliasedName) =>
     i1.GeneratedColumn<String>('reminder_type', aliasedName, false,
         type: i1.DriftSqlType.string,
         defaultValue: Constant(ReminderType.toast.name));
+
+final class Schema10 extends i0.VersionedSchema {
+  Schema10({required super.database}) : super(version: 10);
+  @override
+  late final List<i1.DatabaseSchemaEntity> entities = [
+    appRestrictionTable,
+    bedtimeScheduleTable,
+    crashLogsTable,
+    focusModeTable,
+    focusProfileTable,
+    focusSessionsTable,
+    mindfulSettingsTable,
+    parentalControlsTable,
+    restrictionGroupsTable,
+    wellbeingTable,
+    sharedUniqueDataTable,
+    appUsageTable,
+    notificationSettingsTable,
+    notificationsTable,
+    todosTable,
+  ];
+  late final Shape26 appRestrictionTable = Shape26(
+      source: i0.VersionedTable(
+        entityName: 'app_restriction_table',
+        withoutRowId: false,
+        isStrict: false,
+        tableConstraints: [
+          'PRIMARY KEY(app_package)',
+        ],
+        columns: [
+          _column_0,
+          _column_1,
+          _column_2,
+          _column_3,
+          _column_4,
+          _column_5,
+          _column_7,
+          _column_6,
+          _column_92,
+        ],
+        attachedDatabase: database,
+      ),
+      alias: null);
+  late final Shape1 bedtimeScheduleTable = Shape1(
+      source: i0.VersionedTable(
+        entityName: 'bedtime_schedule_table',
+        withoutRowId: false,
+        isStrict: false,
+        tableConstraints: [
+          'PRIMARY KEY(id)',
+        ],
+        columns: [
+          _column_10,
+          _column_11,
+          _column_12,
+          _column_13,
+          _column_69,
+          _column_15,
+          _column_16,
+          _column_17,
+        ],
+        attachedDatabase: database,
+      ),
+      alias: null);
+  late final Shape2 crashLogsTable = Shape2(
+      source: i0.VersionedTable(
+        entityName: 'crash_logs_table',
+        withoutRowId: false,
+        isStrict: false,
+        tableConstraints: [],
+        columns: [
+          _column_18,
+          _column_19,
+          _column_20,
+          _column_21,
+          _column_22,
+        ],
+        attachedDatabase: database,
+      ),
+      alias: null);
+  late final Shape3 focusModeTable = Shape3(
+      source: i0.VersionedTable(
+        entityName: 'focus_mode_table',
+        withoutRowId: false,
+        isStrict: false,
+        tableConstraints: [
+          'PRIMARY KEY(id)',
+        ],
+        columns: [
+          _column_10,
+          _column_23,
+          _column_24,
+          _column_25,
+          _column_26,
+        ],
+        attachedDatabase: database,
+      ),
+      alias: null);
+  late final Shape20 focusProfileTable = Shape20(
+      source: i0.VersionedTable(
+        entityName: 'focus_profile_table',
+        withoutRowId: false,
+        isStrict: false,
+        tableConstraints: [
+          'PRIMARY KEY(session_type)',
+        ],
+        columns: [
+          _column_27,
+          _column_28,
+          _column_79,
+          _column_16,
+          _column_17,
+        ],
+        attachedDatabase: database,
+      ),
+      alias: null);
+  late final Shape21 focusSessionsTable = Shape21(
+      source: i0.VersionedTable(
+        entityName: 'focus_sessions_table',
+        withoutRowId: false,
+        isStrict: false,
+        tableConstraints: [],
+        columns: [
+          _column_18,
+          _column_29,
+          _column_30,
+          _column_31,
+          _column_32,
+          _column_80,
+        ],
+        attachedDatabase: database,
+      ),
+      alias: null);
+  late final Shape14 mindfulSettingsTable = Shape14(
+      source: i0.VersionedTable(
+        entityName: 'mindful_settings_table',
+        withoutRowId: false,
+        isStrict: false,
+        tableConstraints: [
+          'PRIMARY KEY(id)',
+        ],
+        columns: [
+          _column_10,
+          _column_33,
+          _column_34,
+          _column_35,
+          _column_36,
+          _column_39,
+          _column_40,
+          _column_41,
+          _column_70,
+          _column_43,
+          _column_44,
+          _column_45,
+          _column_19,
+        ],
+        attachedDatabase: database,
+      ),
+      alias: null);
+  late final Shape18 parentalControlsTable = Shape18(
+      source: i0.VersionedTable(
+        entityName: 'parental_controls_table',
+        withoutRowId: false,
+        isStrict: false,
+        tableConstraints: [
+          'PRIMARY KEY(id)',
+        ],
+        columns: [
+          _column_10,
+          _column_46,
+          _column_47,
+          _column_48,
+          _column_77,
+          _column_49,
+          _column_50,
+          _column_51,
+          _column_52,
+          _column_53,
+          _column_54,
+          _column_55,
+        ],
+        attachedDatabase: database,
+      ),
+      alias: null);
+  late final Shape8 restrictionGroupsTable = Shape8(
+      source: i0.VersionedTable(
+        entityName: 'restriction_groups_table',
+        withoutRowId: false,
+        isStrict: false,
+        tableConstraints: [],
+        columns: [
+          _column_18,
+          _column_56,
+          _column_1,
+          _column_3,
+          _column_4,
+          _column_5,
+          _column_17,
+        ],
+        attachedDatabase: database,
+      ),
+      alias: null);
+  late final Shape19 wellbeingTable = Shape19(
+      source: i0.VersionedTable(
+        entityName: 'wellbeing_table',
+        withoutRowId: false,
+        isStrict: false,
+        tableConstraints: [
+          'PRIMARY KEY(id)',
+        ],
+        columns: [
+          _column_10,
+          _column_57,
+          _column_78,
+          _column_63,
+          _column_64,
+          _column_71,
+        ],
+        attachedDatabase: database,
+      ),
+      alias: null);
+  late final Shape22 sharedUniqueDataTable = Shape22(
+      source: i0.VersionedTable(
+        entityName: 'shared_unique_data_table',
+        withoutRowId: false,
+        isStrict: false,
+        tableConstraints: [
+          'PRIMARY KEY(id)',
+        ],
+        columns: [
+          _column_10,
+          _column_42,
+        ],
+        attachedDatabase: database,
+      ),
+      alias: null);
+  late final Shape17 appUsageTable = Shape17(
+      source: i0.VersionedTable(
+        entityName: 'app_usage_table',
+        withoutRowId: false,
+        isStrict: false,
+        tableConstraints: [
+          'PRIMARY KEY(package_name, date)',
+        ],
+        columns: [
+          _column_72,
+          _column_73,
+          _column_74,
+          _column_75,
+          _column_76,
+        ],
+        attachedDatabase: database,
+      ),
+      alias: null);
+  late final Shape23 notificationSettingsTable = Shape23(
+      source: i0.VersionedTable(
+        entityName: 'notification_settings_table',
+        withoutRowId: false,
+        isStrict: false,
+        tableConstraints: [
+          'PRIMARY KEY(id)',
+        ],
+        columns: [
+          _column_10,
+          _column_81,
+          _column_82,
+          _column_83,
+          _column_84,
+          _column_85,
+        ],
+        attachedDatabase: database,
+      ),
+      alias: null);
+  late final Shape24 notificationsTable = Shape24(
+      source: i0.VersionedTable(
+        entityName: 'notifications_table',
+        withoutRowId: false,
+        isStrict: false,
+        tableConstraints: [],
+        columns: [
+          _column_18,
+          _column_86,
+          _column_72,
+          _column_20,
+          _column_87,
+          _column_88,
+          _column_89,
+          _column_90,
+        ],
+        attachedDatabase: database,
+      ),
+      alias: null);
+  late final Shape27 todosTable = Shape27(
+      source: i0.VersionedTable(
+        entityName: 'todos_table',
+        withoutRowId: false,
+        isStrict: false,
+        tableConstraints: [],
+        columns: [
+          _column_18,
+          _column_93,
+          _column_94,
+          _column_95,
+          _column_96,
+          _column_97,
+          _column_98,
+          _column_99,
+          _column_100,
+          _column_101,
+        ],
+        attachedDatabase: database,
+      ),
+      alias: null);
+}
+
+class Shape27 extends i0.VersionedTable {
+  Shape27({required super.source, required super.alias}) : super.aliased();
+  i1.GeneratedColumn<int> get id =>
+      columnsByName['id']! as i1.GeneratedColumn<int>;
+  i1.GeneratedColumn<String> get title =>
+      columnsByName['title']! as i1.GeneratedColumn<String>;
+  i1.GeneratedColumn<DateTime> get dueDate =>
+      columnsByName['due_date']! as i1.GeneratedColumn<DateTime>;
+  i1.GeneratedColumn<int> get dueTimeMinutes =>
+      columnsByName['due_time_minutes']! as i1.GeneratedColumn<int>;
+  i1.GeneratedColumn<DateTime> get reminderAt =>
+      columnsByName['reminder_at']! as i1.GeneratedColumn<DateTime>;
+  i1.GeneratedColumn<int> get priority =>
+      columnsByName['priority']! as i1.GeneratedColumn<int>;
+  i1.GeneratedColumn<bool> get isCompleted =>
+      columnsByName['is_completed']! as i1.GeneratedColumn<bool>;
+  i1.GeneratedColumn<DateTime> get completedAt =>
+      columnsByName['completed_at']! as i1.GeneratedColumn<DateTime>;
+  i1.GeneratedColumn<DateTime> get createdAt =>
+      columnsByName['created_at']! as i1.GeneratedColumn<DateTime>;
+  i1.GeneratedColumn<int> get sortOrder =>
+      columnsByName['sort_order']! as i1.GeneratedColumn<int>;
+}
+
+i1.GeneratedColumn<String> _column_93(String aliasedName) =>
+    i1.GeneratedColumn<String>('title', aliasedName, false,
+        type: i1.DriftSqlType.string);
+i1.GeneratedColumn<DateTime> _column_94(String aliasedName) =>
+    i1.GeneratedColumn<DateTime>('due_date', aliasedName, true,
+        type: i1.DriftSqlType.dateTime);
+i1.GeneratedColumn<int> _column_95(String aliasedName) =>
+    i1.GeneratedColumn<int>('due_time_minutes', aliasedName, true,
+        type: i1.DriftSqlType.int);
+i1.GeneratedColumn<DateTime> _column_96(String aliasedName) =>
+    i1.GeneratedColumn<DateTime>('reminder_at', aliasedName, true,
+        type: i1.DriftSqlType.dateTime);
+i1.GeneratedColumn<int> _column_97(String aliasedName) =>
+    i1.GeneratedColumn<int>('priority', aliasedName, false,
+        type: i1.DriftSqlType.int, defaultValue: const Constant(1));
+i1.GeneratedColumn<bool> _column_98(String aliasedName) =>
+    i1.GeneratedColumn<bool>('is_completed', aliasedName, false,
+        type: i1.DriftSqlType.bool,
+        defaultConstraints: i1.GeneratedColumn.constraintIsAlways(
+            'CHECK ("is_completed" IN (0, 1))'),
+        defaultValue: const Constant(false));
+i1.GeneratedColumn<DateTime> _column_99(String aliasedName) =>
+    i1.GeneratedColumn<DateTime>('completed_at', aliasedName, true,
+        type: i1.DriftSqlType.dateTime);
+i1.GeneratedColumn<DateTime> _column_100(String aliasedName) =>
+    i1.GeneratedColumn<DateTime>('created_at', aliasedName, false,
+        type: i1.DriftSqlType.dateTime, defaultValue: currentDateAndTime);
+i1.GeneratedColumn<int> _column_101(String aliasedName) =>
+    i1.GeneratedColumn<int>('sort_order', aliasedName, false,
+        type: i1.DriftSqlType.int, defaultValue: const Constant(0));
 i0.MigrationStepWithVersion migrationSteps({
   required Future<void> Function(i1.Migrator m, Schema2 schema) from1To2,
   required Future<void> Function(i1.Migrator m, Schema3 schema) from2To3,
@@ -3098,6 +3467,7 @@ i0.MigrationStepWithVersion migrationSteps({
   required Future<void> Function(i1.Migrator m, Schema7 schema) from6To7,
   required Future<void> Function(i1.Migrator m, Schema8 schema) from7To8,
   required Future<void> Function(i1.Migrator m, Schema9 schema) from8To9,
+  required Future<void> Function(i1.Migrator m, Schema10 schema) from9To10,
 }) {
   return (currentVersion, database) async {
     switch (currentVersion) {
@@ -3141,6 +3511,11 @@ i0.MigrationStepWithVersion migrationSteps({
         final migrator = i1.Migrator(database, schema);
         await from8To9(migrator, schema);
         return 9;
+      case 9:
+        final schema = Schema10(database: database);
+        final migrator = i1.Migrator(database, schema);
+        await from9To10(migrator, schema);
+        return 10;
       default:
         throw ArgumentError.value('Unknown migration from $currentVersion');
     }
@@ -3156,6 +3531,7 @@ i1.OnUpgrade stepByStep({
   required Future<void> Function(i1.Migrator m, Schema7 schema) from6To7,
   required Future<void> Function(i1.Migrator m, Schema8 schema) from7To8,
   required Future<void> Function(i1.Migrator m, Schema9 schema) from8To9,
+  required Future<void> Function(i1.Migrator m, Schema10 schema) from9To10,
 }) =>
     i0.VersionedSchema.stepByStepHelper(
         step: migrationSteps(
@@ -3167,4 +3543,5 @@ i1.OnUpgrade stepByStep({
       from6To7: from6To7,
       from7To8: from7To8,
       from8To9: from8To9,
+      from9To10: from9To10,
     ));

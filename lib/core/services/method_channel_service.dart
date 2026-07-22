@@ -432,4 +432,21 @@ class MethodChannelService {
   /// Prompts the user to add Quick Focus Tile to the status bar
   Future<bool> promptForQuickTile() async =>
       await _methodChannel.invokeMethod('promptForQuickTile');
+
+  /// Syncs today's todo snapshot for the home screen widget.
+  Future<bool> updateTodoWidgetSnapshot(String snapshotJson) async =>
+      await _methodChannel.invokeMethod(
+        'updateTodoWidgetSnapshot',
+        snapshotJson,
+      );
+
+  /// Todo ids completed from the home-screen widget, waiting to sync into Drift.
+  Future<List<int>> consumePendingTodoCompletions() async {
+    final raw =
+        await _methodChannel.invokeMethod<List<dynamic>>(
+              'consumePendingTodoCompletions',
+            ) ??
+            const [];
+    return raw.map((e) => (e as num).toInt()).toList();
+  }
 }

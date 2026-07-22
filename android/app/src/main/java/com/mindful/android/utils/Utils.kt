@@ -139,13 +139,7 @@ object Utils {
         // First try using URI class for proper URL parsing
         runCatching { URI(url).host }
             .onSuccess { host ->
-                host?.let { originalHost ->
-                    return when {
-                        originalHost.startsWith("mobile.") -> originalHost.substring(7)
-                        originalHost.startsWith("m.") -> originalHost.substring(2)
-                        else -> originalHost
-                    }
-                }
+                host?.let { return normalizeHost(it) }
             }
             .onFailure { e ->
                 Log.w(
@@ -169,6 +163,65 @@ object Utils {
             // Trim everything after first slash
             val slashIndex = indexOf('/')
             if (slashIndex > 0) setLength(slashIndex)
-        }.takeIf { it.isNotEmpty() }
+        }.takeIf { it.isNotEmpty() }?.let { normalizeHost(it) }
+    }
+
+    /**
+     * Lowercases and strips common mobile/www prefixes from a host.
+     */
+    fun normalizeHost(host: String): String {
+        var h = host.lowercase().trim().trimEnd('.')
+        when {
+            h.startsWith("www.") -> h = h.substring(4)
+            h.startsWith("mobile.") -> h = h.substring(7)
+            h.startsWith("m.") -> h = h.substring(2)
+        }
+        return h
+    }
+
+    /**
+     * Label-safe domain match: [host] equals [blocked] or is a subdomain of [blocked].
+     * e.g. m.pornhub.com matches pornhub.com; notpornhub.com does not.
+     */
+    fun hostMatchesBlockedDomain(host: String, blockedDomain: String): Boolean {
+        val h = normalizeHost(host)
+        val b = normalizeHost(blockedDomain)
+        if (h.isEmpty() || b.isEmpty()) return false
+        return h == b || h.endsWith(".$b")
+    }
+
+    /**
+     * True if [host] or any of its parent domains appears in [blockedHosts].
+     * Walks labels upward (a.b.example.com → b.example.com → example.com) so lookup
+     * stays O(labels) instead of scanning the full blocklist.
+     */
+    fun isHostBlockedBySet(host: String, blockedHosts: Set<String>): Boolean {
+        var candidate = normalizeHost(host)
+        if (candidate.isEmpty()) return false
+        while (true) {
+            if (blockedHosts.contains(candidate)) return true
+            val dot = candidate.indexOf('.')
+            if (dot < 0) break
+            candidate = candidate.substring(dot + 1)
+            // Stop before matching a bare TLD like "com"
+            if (!candidate.contains('.')) break
+        }
+        return false
+    }
+
+    /**
+     * Same as [isHostBlockedBySet] for a Map used as a domain set (values ignored).
+     */
+    fun isHostBlockedByMap(host: String, blockedHosts: Map<String, Boolean>): Boolean {
+        var candidate = normalizeHost(host)
+        if (candidate.isEmpty()) return false
+        while (true) {
+            if (blockedHosts[candidate] == true) return true
+            val dot = candidate.indexOf('.')
+            if (dot < 0) break
+            candidate = candidate.substring(dot + 1)
+            if (!candidate.contains('.')) break
+        }
+        return false
     }
 }

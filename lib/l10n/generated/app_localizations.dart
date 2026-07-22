@@ -1119,7 +1119,7 @@ abstract class AppLocalizations {
   /// No description provided for @batch_recap_option_summery_only.
   ///
   /// In en, this message translates to:
-  /// **'Summery only'**
+  /// **'Summary only'**
   String get batch_recap_option_summery_only;
 
   /// No description provided for @batch_recap_option_all_notifications.

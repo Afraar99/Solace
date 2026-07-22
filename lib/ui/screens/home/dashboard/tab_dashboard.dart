@@ -194,10 +194,8 @@ class TabDashboard extends ConsumerWidget {
           titleText: "Tasks and todos",
           subtitleText: "Plan your future with tasks and todos.",
           trailing: const Icon(FluentIcons.chevron_right_20_regular),
-          onPressed: () => context.showSnackAlert(
-            "Coming soon...",
-            icon: FluentIcons.info_20_filled,
-          ),
+          onPressed: () =>
+              Navigator.of(context).pushNamed(AppRoutes.tasksPath),
         ),
 
         /// Notes & lists

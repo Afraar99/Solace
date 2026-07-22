@@ -16,7 +16,9 @@ import 'package:mindful/core/services/bg_executor_service.dart';
 import 'package:mindful/core/services/crash_log_service.dart';
 import 'package:mindful/core/services/drift_db_service.dart';
 import 'package:mindful/core/services/method_channel_service.dart';
+import 'package:mindful/core/services/todo_reminder_service.dart';
 import 'package:mindful/mindful_app.dart';
+import 'package:mindful/providers/todos/todos_provider.dart';
 
 /// Dart background
 @pragma('vm:entry-point')
@@ -32,6 +34,15 @@ Future<void> main() async {
   /// Initialize method channel and drift Database
   await MethodChannelService.instance.init();
   await DriftDbService.instance.init();
+  await TodoReminderService.instance.init();
+
+  final pendingTodos =
+      await DriftDbService.instance.driftDb.todosDao.fetchPendingTodos();
+  await TodoReminderService.instance.rescheduleAll(pendingTodos);
+
+  final todosNotifier = TodosNotifier();
+  await todosNotifier.applyPendingWidgetCompletions();
+  await todosNotifier.syncWidgetSnapshot();
 
   FlutterError.onError = (errorDetails) {
     CrashLogService.instance.recordCrashError(

@@ -112,6 +112,22 @@ class FgMethodCallHandler(
                 result.success(true)
             }
 
+            "updateTodoWidgetSnapshot" -> {
+                SharedPrefsHelper.getSetTodoWidgetSnapshot(context, call.arguments() ?: "{}")
+                val refreshIntent = Intent(
+                    context.applicationContext,
+                    com.mindful.android.widgets.TodoWidgetProvider::class.java
+                ).setAction(
+                    com.mindful.android.widgets.TodoWidgetProvider.ACTION_REFRESH_WIDGET
+                )
+                context.sendBroadcast(refreshIntent)
+                result.success(true)
+            }
+
+            "consumePendingTodoCompletions" -> {
+                result.success(SharedPrefsHelper.consumePendingTodoCompletions(context))
+            }
+
             "getDeviceInfo" -> {
                 result.success(AppUtils.getDeviceInfoMap(context))
             }

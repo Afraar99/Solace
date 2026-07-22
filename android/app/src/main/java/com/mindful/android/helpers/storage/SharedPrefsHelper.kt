@@ -33,6 +33,8 @@ object SharedPrefsHelper {
     private const val PREF_KEY_SHORTS_SCREEN_TIME = "shortsScreenTime"
     private const val PREF_KEY_DND_WAKE_LOCK = "dndWakeLock"
     private const val PREF_KEY_EXCLUDED_APPS = "excludedApps"
+    private const val PREF_KEY_TODO_WIDGET_SNAPSHOT = "todoWidgetSnapshot"
+    private const val PREF_KEY_PENDING_TODO_COMPLETIONS = "pendingTodoCompletions"
 
     private var mListenablePrefs: SharedPreferences? = null
     private const val LISTENABLE_PREFS_BOX = "UniquePrefs"
@@ -167,6 +169,53 @@ object SharedPrefsHelper {
             mUniquePrefs!!.edit().putString(PREF_KEY_EXCLUDED_APPS, jsonExcludedApps).apply()
             return JsonUtils.parseStringSet(jsonExcludedApps)
         }
+    }
+
+    /**
+     * Fetches the todo widget snapshot if jsonSnapshot is null else stores it.
+     */
+    fun getSetTodoWidgetSnapshot(context: Context, jsonSnapshot: String?): String {
+        checkAndInitializeUniquePrefs(context)
+        if (jsonSnapshot == null) {
+            return mUniquePrefs!!.getString(PREF_KEY_TODO_WIDGET_SNAPSHOT, "{}")!!
+        } else {
+            mUniquePrefs!!.edit().putString(PREF_KEY_TODO_WIDGET_SNAPSHOT, jsonSnapshot).apply()
+            return jsonSnapshot
+        }
+    }
+
+    /** Queue a todo id completed from the home-screen widget for Flutter to sync into Drift. */
+    fun enqueuePendingTodoCompletion(context: Context, todoId: Int) {
+        checkAndInitializeUniquePrefs(context)
+        val existing = mUniquePrefs!!.getString(PREF_KEY_PENDING_TODO_COMPLETIONS, "[]")
+        val array = try {
+            JSONArray(existing)
+        } catch (_: Exception) {
+            JSONArray()
+        }
+        for (i in 0 until array.length()) {
+            if (array.optInt(i) == todoId) return
+        }
+        array.put(todoId)
+        mUniquePrefs!!.edit().putString(PREF_KEY_PENDING_TODO_COMPLETIONS, array.toString()).apply()
+    }
+
+    /** Returns and clears pending widget completion ids. */
+    fun consumePendingTodoCompletions(context: Context): List<Int> {
+        checkAndInitializeUniquePrefs(context)
+        val existing = mUniquePrefs!!.getString(PREF_KEY_PENDING_TODO_COMPLETIONS, "[]")
+        val array = try {
+            JSONArray(existing)
+        } catch (_: Exception) {
+            JSONArray()
+        }
+        val ids = mutableListOf<Int>()
+        for (i in 0 until array.length()) {
+            val id = array.optInt(i, -1)
+            if (id > 0) ids.add(id)
+        }
+        mUniquePrefs!!.edit().putString(PREF_KEY_PENDING_TODO_COMPLETIONS, "[]").apply()
+        return ids
     }
 
     /**

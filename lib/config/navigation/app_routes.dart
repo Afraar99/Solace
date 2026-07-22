@@ -22,6 +22,7 @@ import 'package:mindful/ui/screens/restriction_groups/restriction_groups_screen.
 import 'package:mindful/ui/screens/settings/settings_screen.dart';
 import 'package:mindful/ui/screens/shorts_blocking/shorts_blocking_screen.dart';
 import 'package:mindful/ui/screens/notifications/notifications_screen.dart';
+import 'package:mindful/ui/screens/tasks/tasks_screen.dart';
 import 'package:mindful/ui/screens/websites_blocking/websites_blocking_screen.dart';
 import 'package:mindful/ui/splash_screen.dart';
 
@@ -42,6 +43,7 @@ class AppRoutes {
 
   static const String appDashboardPath = '/appDashboard';
   static const String notificationsPath = '/notifications';
+  static const String tasksPath = '/tasks';
 
   static final Map<String, Widget Function(BuildContext)> routes = {
     /// Root
@@ -81,6 +83,12 @@ class AppRoutes {
     /// Notifications list screen
     notificationsPath: (context) => NotificationsScreen(
           initialTabIndex: context.resolveParam<int>("tab"),
+        ),
+
+    /// Tasks and todos screen
+    tasksPath: (context) => TasksScreen(
+          initialTabIndex: context.resolveParam<int>("tab"),
+          openEditor: context.resolveParam<String>("action") == "add",
         ),
 
     /// Focus mode screen

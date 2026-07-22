@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mindful/core/services/drift_db_service.dart';
 import 'package:mindful/core/services/method_channel_service.dart';
+import 'package:mindful/providers/todos/todos_provider.dart';
 
 /// Initializer to initialize necessary things.
 class Initializer {
@@ -9,6 +10,9 @@ class Initializer {
   /// This method must be called after initializing `DATABASE` and `METHOD CHANNEL`.
   static Future<void> initializeServicesAndSchedules() async {
     final startTimeStamp = DateTime.now();
+
+    /// Sync any completions tapped on the home-screen todo widget
+    await TodosNotifier().applyPendingWidgetCompletions();
 
     final dynamicDao = DriftDbService.instance.driftDb.dynamicRecordsDao;
     final uniqueDao = DriftDbService.instance.driftDb.uniqueRecordsDao;

@@ -5983,6 +5983,523 @@ class NotificationsTableCompanion extends UpdateCompanion<Notification> {
   }
 }
 
+class $TodosTableTable extends TodosTable
+    with TableInfo<$TodosTableTable, Todo> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TodosTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
+      'title', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _dueDateMeta =
+      const VerificationMeta('dueDate');
+  @override
+  late final GeneratedColumn<DateTime> dueDate = GeneratedColumn<DateTime>(
+      'due_date', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _dueTimeMinutesMeta =
+      const VerificationMeta('dueTimeMinutes');
+  @override
+  late final GeneratedColumn<int> dueTimeMinutes = GeneratedColumn<int>(
+      'due_time_minutes', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _reminderAtMeta =
+      const VerificationMeta('reminderAt');
+  @override
+  late final GeneratedColumn<DateTime> reminderAt = GeneratedColumn<DateTime>(
+      'reminder_at', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  @override
+  late final GeneratedColumnWithTypeConverter<TodoPriority, int> priority =
+      GeneratedColumn<int>('priority', aliasedName, false,
+              type: DriftSqlType.int,
+              requiredDuringInsert: false,
+              defaultValue: const Constant(1))
+          .withConverter<TodoPriority>($TodosTableTable.$converterpriority);
+  static const VerificationMeta _isCompletedMeta =
+      const VerificationMeta('isCompleted');
+  @override
+  late final GeneratedColumn<bool> isCompleted = GeneratedColumn<bool>(
+      'is_completed', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("is_completed" IN (0, 1))'),
+      defaultValue: const Constant(false));
+  static const VerificationMeta _completedAtMeta =
+      const VerificationMeta('completedAt');
+  @override
+  late final GeneratedColumn<DateTime> completedAt = GeneratedColumn<DateTime>(
+      'completed_at', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  static const VerificationMeta _sortOrderMeta =
+      const VerificationMeta('sortOrder');
+  @override
+  late final GeneratedColumn<int> sortOrder = GeneratedColumn<int>(
+      'sort_order', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        title,
+        dueDate,
+        dueTimeMinutes,
+        reminderAt,
+        priority,
+        isCompleted,
+        completedAt,
+        createdAt,
+        sortOrder
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'todos_table';
+  @override
+  VerificationContext validateIntegrity(Insertable<Todo> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('title')) {
+      context.handle(
+          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+    } else if (isInserting) {
+      context.missing(_titleMeta);
+    }
+    if (data.containsKey('due_date')) {
+      context.handle(_dueDateMeta,
+          dueDate.isAcceptableOrUnknown(data['due_date']!, _dueDateMeta));
+    }
+    if (data.containsKey('due_time_minutes')) {
+      context.handle(
+          _dueTimeMinutesMeta,
+          dueTimeMinutes.isAcceptableOrUnknown(
+              data['due_time_minutes']!, _dueTimeMinutesMeta));
+    }
+    if (data.containsKey('reminder_at')) {
+      context.handle(
+          _reminderAtMeta,
+          reminderAt.isAcceptableOrUnknown(
+              data['reminder_at']!, _reminderAtMeta));
+    }
+    if (data.containsKey('is_completed')) {
+      context.handle(
+          _isCompletedMeta,
+          isCompleted.isAcceptableOrUnknown(
+              data['is_completed']!, _isCompletedMeta));
+    }
+    if (data.containsKey('completed_at')) {
+      context.handle(
+          _completedAtMeta,
+          completedAt.isAcceptableOrUnknown(
+              data['completed_at']!, _completedAtMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    if (data.containsKey('sort_order')) {
+      context.handle(_sortOrderMeta,
+          sortOrder.isAcceptableOrUnknown(data['sort_order']!, _sortOrderMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Todo map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Todo(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      title: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
+      dueDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}due_date']),
+      dueTimeMinutes: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}due_time_minutes']),
+      reminderAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}reminder_at']),
+      priority: $TodosTableTable.$converterpriority.fromSql(attachedDatabase
+          .typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}priority'])!),
+      isCompleted: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_completed'])!,
+      completedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}completed_at']),
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      sortOrder: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}sort_order'])!,
+    );
+  }
+
+  @override
+  $TodosTableTable createAlias(String alias) {
+    return $TodosTableTable(attachedDatabase, alias);
+  }
+
+  static JsonTypeConverter2<TodoPriority, int, int> $converterpriority =
+      const EnumIndexConverter<TodoPriority>(TodoPriority.values);
+}
+
+class Todo extends DataClass implements Insertable<Todo> {
+  final int id;
+  final String title;
+  final DateTime? dueDate;
+
+  /// Minutes from midnight for optional due time.
+  final int? dueTimeMinutes;
+  final DateTime? reminderAt;
+  final TodoPriority priority;
+  final bool isCompleted;
+  final DateTime? completedAt;
+  final DateTime createdAt;
+  final int sortOrder;
+  const Todo(
+      {required this.id,
+      required this.title,
+      this.dueDate,
+      this.dueTimeMinutes,
+      this.reminderAt,
+      required this.priority,
+      required this.isCompleted,
+      this.completedAt,
+      required this.createdAt,
+      required this.sortOrder});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['title'] = Variable<String>(title);
+    if (!nullToAbsent || dueDate != null) {
+      map['due_date'] = Variable<DateTime>(dueDate);
+    }
+    if (!nullToAbsent || dueTimeMinutes != null) {
+      map['due_time_minutes'] = Variable<int>(dueTimeMinutes);
+    }
+    if (!nullToAbsent || reminderAt != null) {
+      map['reminder_at'] = Variable<DateTime>(reminderAt);
+    }
+    {
+      map['priority'] =
+          Variable<int>($TodosTableTable.$converterpriority.toSql(priority));
+    }
+    map['is_completed'] = Variable<bool>(isCompleted);
+    if (!nullToAbsent || completedAt != null) {
+      map['completed_at'] = Variable<DateTime>(completedAt);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['sort_order'] = Variable<int>(sortOrder);
+    return map;
+  }
+
+  TodosTableCompanion toCompanion(bool nullToAbsent) {
+    return TodosTableCompanion(
+      id: Value(id),
+      title: Value(title),
+      dueDate: dueDate == null && nullToAbsent
+          ? const Value.absent()
+          : Value(dueDate),
+      dueTimeMinutes: dueTimeMinutes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(dueTimeMinutes),
+      reminderAt: reminderAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(reminderAt),
+      priority: Value(priority),
+      isCompleted: Value(isCompleted),
+      completedAt: completedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(completedAt),
+      createdAt: Value(createdAt),
+      sortOrder: Value(sortOrder),
+    );
+  }
+
+  factory Todo.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Todo(
+      id: serializer.fromJson<int>(json['id']),
+      title: serializer.fromJson<String>(json['title']),
+      dueDate: serializer.fromJson<DateTime?>(json['dueDate']),
+      dueTimeMinutes: serializer.fromJson<int?>(json['dueTimeMinutes']),
+      reminderAt: serializer.fromJson<DateTime?>(json['reminderAt']),
+      priority: $TodosTableTable.$converterpriority
+          .fromJson(serializer.fromJson<int>(json['priority'])),
+      isCompleted: serializer.fromJson<bool>(json['isCompleted']),
+      completedAt: serializer.fromJson<DateTime?>(json['completedAt']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      sortOrder: serializer.fromJson<int>(json['sortOrder']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'title': serializer.toJson<String>(title),
+      'dueDate': serializer.toJson<DateTime?>(dueDate),
+      'dueTimeMinutes': serializer.toJson<int?>(dueTimeMinutes),
+      'reminderAt': serializer.toJson<DateTime?>(reminderAt),
+      'priority': serializer
+          .toJson<int>($TodosTableTable.$converterpriority.toJson(priority)),
+      'isCompleted': serializer.toJson<bool>(isCompleted),
+      'completedAt': serializer.toJson<DateTime?>(completedAt),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'sortOrder': serializer.toJson<int>(sortOrder),
+    };
+  }
+
+  Todo copyWith(
+          {int? id,
+          String? title,
+          Value<DateTime?> dueDate = const Value.absent(),
+          Value<int?> dueTimeMinutes = const Value.absent(),
+          Value<DateTime?> reminderAt = const Value.absent(),
+          TodoPriority? priority,
+          bool? isCompleted,
+          Value<DateTime?> completedAt = const Value.absent(),
+          DateTime? createdAt,
+          int? sortOrder}) =>
+      Todo(
+        id: id ?? this.id,
+        title: title ?? this.title,
+        dueDate: dueDate.present ? dueDate.value : this.dueDate,
+        dueTimeMinutes:
+            dueTimeMinutes.present ? dueTimeMinutes.value : this.dueTimeMinutes,
+        reminderAt: reminderAt.present ? reminderAt.value : this.reminderAt,
+        priority: priority ?? this.priority,
+        isCompleted: isCompleted ?? this.isCompleted,
+        completedAt: completedAt.present ? completedAt.value : this.completedAt,
+        createdAt: createdAt ?? this.createdAt,
+        sortOrder: sortOrder ?? this.sortOrder,
+      );
+  Todo copyWithCompanion(TodosTableCompanion data) {
+    return Todo(
+      id: data.id.present ? data.id.value : this.id,
+      title: data.title.present ? data.title.value : this.title,
+      dueDate: data.dueDate.present ? data.dueDate.value : this.dueDate,
+      dueTimeMinutes: data.dueTimeMinutes.present
+          ? data.dueTimeMinutes.value
+          : this.dueTimeMinutes,
+      reminderAt:
+          data.reminderAt.present ? data.reminderAt.value : this.reminderAt,
+      priority: data.priority.present ? data.priority.value : this.priority,
+      isCompleted:
+          data.isCompleted.present ? data.isCompleted.value : this.isCompleted,
+      completedAt:
+          data.completedAt.present ? data.completedAt.value : this.completedAt,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      sortOrder: data.sortOrder.present ? data.sortOrder.value : this.sortOrder,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Todo(')
+          ..write('id: $id, ')
+          ..write('title: $title, ')
+          ..write('dueDate: $dueDate, ')
+          ..write('dueTimeMinutes: $dueTimeMinutes, ')
+          ..write('reminderAt: $reminderAt, ')
+          ..write('priority: $priority, ')
+          ..write('isCompleted: $isCompleted, ')
+          ..write('completedAt: $completedAt, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('sortOrder: $sortOrder')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, title, dueDate, dueTimeMinutes,
+      reminderAt, priority, isCompleted, completedAt, createdAt, sortOrder);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Todo &&
+          other.id == this.id &&
+          other.title == this.title &&
+          other.dueDate == this.dueDate &&
+          other.dueTimeMinutes == this.dueTimeMinutes &&
+          other.reminderAt == this.reminderAt &&
+          other.priority == this.priority &&
+          other.isCompleted == this.isCompleted &&
+          other.completedAt == this.completedAt &&
+          other.createdAt == this.createdAt &&
+          other.sortOrder == this.sortOrder);
+}
+
+class TodosTableCompanion extends UpdateCompanion<Todo> {
+  final Value<int> id;
+  final Value<String> title;
+  final Value<DateTime?> dueDate;
+  final Value<int?> dueTimeMinutes;
+  final Value<DateTime?> reminderAt;
+  final Value<TodoPriority> priority;
+  final Value<bool> isCompleted;
+  final Value<DateTime?> completedAt;
+  final Value<DateTime> createdAt;
+  final Value<int> sortOrder;
+  const TodosTableCompanion({
+    this.id = const Value.absent(),
+    this.title = const Value.absent(),
+    this.dueDate = const Value.absent(),
+    this.dueTimeMinutes = const Value.absent(),
+    this.reminderAt = const Value.absent(),
+    this.priority = const Value.absent(),
+    this.isCompleted = const Value.absent(),
+    this.completedAt = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.sortOrder = const Value.absent(),
+  });
+  TodosTableCompanion.insert({
+    this.id = const Value.absent(),
+    required String title,
+    this.dueDate = const Value.absent(),
+    this.dueTimeMinutes = const Value.absent(),
+    this.reminderAt = const Value.absent(),
+    this.priority = const Value.absent(),
+    this.isCompleted = const Value.absent(),
+    this.completedAt = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.sortOrder = const Value.absent(),
+  }) : title = Value(title);
+  static Insertable<Todo> custom({
+    Expression<int>? id,
+    Expression<String>? title,
+    Expression<DateTime>? dueDate,
+    Expression<int>? dueTimeMinutes,
+    Expression<DateTime>? reminderAt,
+    Expression<int>? priority,
+    Expression<bool>? isCompleted,
+    Expression<DateTime>? completedAt,
+    Expression<DateTime>? createdAt,
+    Expression<int>? sortOrder,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (title != null) 'title': title,
+      if (dueDate != null) 'due_date': dueDate,
+      if (dueTimeMinutes != null) 'due_time_minutes': dueTimeMinutes,
+      if (reminderAt != null) 'reminder_at': reminderAt,
+      if (priority != null) 'priority': priority,
+      if (isCompleted != null) 'is_completed': isCompleted,
+      if (completedAt != null) 'completed_at': completedAt,
+      if (createdAt != null) 'created_at': createdAt,
+      if (sortOrder != null) 'sort_order': sortOrder,
+    });
+  }
+
+  TodosTableCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? title,
+      Value<DateTime?>? dueDate,
+      Value<int?>? dueTimeMinutes,
+      Value<DateTime?>? reminderAt,
+      Value<TodoPriority>? priority,
+      Value<bool>? isCompleted,
+      Value<DateTime?>? completedAt,
+      Value<DateTime>? createdAt,
+      Value<int>? sortOrder}) {
+    return TodosTableCompanion(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      dueDate: dueDate ?? this.dueDate,
+      dueTimeMinutes: dueTimeMinutes ?? this.dueTimeMinutes,
+      reminderAt: reminderAt ?? this.reminderAt,
+      priority: priority ?? this.priority,
+      isCompleted: isCompleted ?? this.isCompleted,
+      completedAt: completedAt ?? this.completedAt,
+      createdAt: createdAt ?? this.createdAt,
+      sortOrder: sortOrder ?? this.sortOrder,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (dueDate.present) {
+      map['due_date'] = Variable<DateTime>(dueDate.value);
+    }
+    if (dueTimeMinutes.present) {
+      map['due_time_minutes'] = Variable<int>(dueTimeMinutes.value);
+    }
+    if (reminderAt.present) {
+      map['reminder_at'] = Variable<DateTime>(reminderAt.value);
+    }
+    if (priority.present) {
+      map['priority'] = Variable<int>(
+          $TodosTableTable.$converterpriority.toSql(priority.value));
+    }
+    if (isCompleted.present) {
+      map['is_completed'] = Variable<bool>(isCompleted.value);
+    }
+    if (completedAt.present) {
+      map['completed_at'] = Variable<DateTime>(completedAt.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (sortOrder.present) {
+      map['sort_order'] = Variable<int>(sortOrder.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TodosTableCompanion(')
+          ..write('id: $id, ')
+          ..write('title: $title, ')
+          ..write('dueDate: $dueDate, ')
+          ..write('dueTimeMinutes: $dueTimeMinutes, ')
+          ..write('reminderAt: $reminderAt, ')
+          ..write('priority: $priority, ')
+          ..write('isCompleted: $isCompleted, ')
+          ..write('completedAt: $completedAt, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('sortOrder: $sortOrder')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -6010,10 +6527,12 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $NotificationSettingsTableTable(this);
   late final $NotificationsTableTable notificationsTable =
       $NotificationsTableTable(this);
+  late final $TodosTableTable todosTable = $TodosTableTable(this);
   late final UniqueRecordsDao uniqueRecordsDao =
       UniqueRecordsDao(this as AppDatabase);
   late final DynamicRecordsDao dynamicRecordsDao =
       DynamicRecordsDao(this as AppDatabase);
+  late final TodosDao todosDao = TodosDao(this as AppDatabase);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -6032,7 +6551,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         sharedUniqueDataTable,
         appUsageTable,
         notificationSettingsTable,
-        notificationsTable
+        notificationsTable,
+        todosTable
       ];
 }
 
@@ -8975,6 +9495,244 @@ typedef $$NotificationsTableTableProcessedTableManager = ProcessedTableManager<
     ),
     Notification,
     PrefetchHooks Function()>;
+typedef $$TodosTableTableCreateCompanionBuilder = TodosTableCompanion Function({
+  Value<int> id,
+  required String title,
+  Value<DateTime?> dueDate,
+  Value<int?> dueTimeMinutes,
+  Value<DateTime?> reminderAt,
+  Value<TodoPriority> priority,
+  Value<bool> isCompleted,
+  Value<DateTime?> completedAt,
+  Value<DateTime> createdAt,
+  Value<int> sortOrder,
+});
+typedef $$TodosTableTableUpdateCompanionBuilder = TodosTableCompanion Function({
+  Value<int> id,
+  Value<String> title,
+  Value<DateTime?> dueDate,
+  Value<int?> dueTimeMinutes,
+  Value<DateTime?> reminderAt,
+  Value<TodoPriority> priority,
+  Value<bool> isCompleted,
+  Value<DateTime?> completedAt,
+  Value<DateTime> createdAt,
+  Value<int> sortOrder,
+});
+
+class $$TodosTableTableFilterComposer
+    extends Composer<_$AppDatabase, $TodosTableTable> {
+  $$TodosTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get title => $composableBuilder(
+      column: $table.title, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get dueDate => $composableBuilder(
+      column: $table.dueDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get dueTimeMinutes => $composableBuilder(
+      column: $table.dueTimeMinutes,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get reminderAt => $composableBuilder(
+      column: $table.reminderAt, builder: (column) => ColumnFilters(column));
+
+  ColumnWithTypeConverterFilters<TodoPriority, TodoPriority, int>
+      get priority => $composableBuilder(
+          column: $table.priority,
+          builder: (column) => ColumnWithTypeConverterFilters(column));
+
+  ColumnFilters<bool> get isCompleted => $composableBuilder(
+      column: $table.isCompleted, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get completedAt => $composableBuilder(
+      column: $table.completedAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get sortOrder => $composableBuilder(
+      column: $table.sortOrder, builder: (column) => ColumnFilters(column));
+}
+
+class $$TodosTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $TodosTableTable> {
+  $$TodosTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get title => $composableBuilder(
+      column: $table.title, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get dueDate => $composableBuilder(
+      column: $table.dueDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get dueTimeMinutes => $composableBuilder(
+      column: $table.dueTimeMinutes,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get reminderAt => $composableBuilder(
+      column: $table.reminderAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get priority => $composableBuilder(
+      column: $table.priority, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isCompleted => $composableBuilder(
+      column: $table.isCompleted, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get completedAt => $composableBuilder(
+      column: $table.completedAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get sortOrder => $composableBuilder(
+      column: $table.sortOrder, builder: (column) => ColumnOrderings(column));
+}
+
+class $$TodosTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $TodosTableTable> {
+  $$TodosTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get dueDate =>
+      $composableBuilder(column: $table.dueDate, builder: (column) => column);
+
+  GeneratedColumn<int> get dueTimeMinutes => $composableBuilder(
+      column: $table.dueTimeMinutes, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get reminderAt => $composableBuilder(
+      column: $table.reminderAt, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<TodoPriority, int> get priority =>
+      $composableBuilder(column: $table.priority, builder: (column) => column);
+
+  GeneratedColumn<bool> get isCompleted => $composableBuilder(
+      column: $table.isCompleted, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get completedAt => $composableBuilder(
+      column: $table.completedAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<int> get sortOrder =>
+      $composableBuilder(column: $table.sortOrder, builder: (column) => column);
+}
+
+class $$TodosTableTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $TodosTableTable,
+    Todo,
+    $$TodosTableTableFilterComposer,
+    $$TodosTableTableOrderingComposer,
+    $$TodosTableTableAnnotationComposer,
+    $$TodosTableTableCreateCompanionBuilder,
+    $$TodosTableTableUpdateCompanionBuilder,
+    (Todo, BaseReferences<_$AppDatabase, $TodosTableTable, Todo>),
+    Todo,
+    PrefetchHooks Function()> {
+  $$TodosTableTableTableManager(_$AppDatabase db, $TodosTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$TodosTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TodosTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TodosTableTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> title = const Value.absent(),
+            Value<DateTime?> dueDate = const Value.absent(),
+            Value<int?> dueTimeMinutes = const Value.absent(),
+            Value<DateTime?> reminderAt = const Value.absent(),
+            Value<TodoPriority> priority = const Value.absent(),
+            Value<bool> isCompleted = const Value.absent(),
+            Value<DateTime?> completedAt = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<int> sortOrder = const Value.absent(),
+          }) =>
+              TodosTableCompanion(
+            id: id,
+            title: title,
+            dueDate: dueDate,
+            dueTimeMinutes: dueTimeMinutes,
+            reminderAt: reminderAt,
+            priority: priority,
+            isCompleted: isCompleted,
+            completedAt: completedAt,
+            createdAt: createdAt,
+            sortOrder: sortOrder,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String title,
+            Value<DateTime?> dueDate = const Value.absent(),
+            Value<int?> dueTimeMinutes = const Value.absent(),
+            Value<DateTime?> reminderAt = const Value.absent(),
+            Value<TodoPriority> priority = const Value.absent(),
+            Value<bool> isCompleted = const Value.absent(),
+            Value<DateTime?> completedAt = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<int> sortOrder = const Value.absent(),
+          }) =>
+              TodosTableCompanion.insert(
+            id: id,
+            title: title,
+            dueDate: dueDate,
+            dueTimeMinutes: dueTimeMinutes,
+            reminderAt: reminderAt,
+            priority: priority,
+            isCompleted: isCompleted,
+            completedAt: completedAt,
+            createdAt: createdAt,
+            sortOrder: sortOrder,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$TodosTableTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $TodosTableTable,
+    Todo,
+    $$TodosTableTableFilterComposer,
+    $$TodosTableTableOrderingComposer,
+    $$TodosTableTableAnnotationComposer,
+    $$TodosTableTableCreateCompanionBuilder,
+    $$TodosTableTableUpdateCompanionBuilder,
+    (Todo, BaseReferences<_$AppDatabase, $TodosTableTable, Todo>),
+    Todo,
+    PrefetchHooks Function()>;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -9009,4 +9767,6 @@ class $AppDatabaseManager {
           _db, _db.notificationSettingsTable);
   $$NotificationsTableTableTableManager get notificationsTable =>
       $$NotificationsTableTableTableManager(_db, _db.notificationsTable);
+  $$TodosTableTableTableManager get todosTable =>
+      $$TodosTableTableTableManager(_db, _db.todosTable);
 }

@@ -1,30 +1,37 @@
 package com.mindful.android.services.accessibility
 
+import android.accessibilityservice.AccessibilityService
 import android.content.Context
 import android.content.Intent
-import android.os.Handler
-import android.os.Looper
 import android.provider.Browser
 import android.util.Log
 import android.view.accessibility.AccessibilityNodeInfo
-import android.widget.Toast
 import androidx.core.net.toUri
-import com.mindful.android.R
 import com.mindful.android.models.Wellbeing
 import com.mindful.android.utils.NsfwDomains
 import com.mindful.android.utils.NsfwKeywords
 import com.mindful.android.utils.ThreadUtils
 import com.mindful.android.utils.Utils
-import com.mindful.android.utils.executors.Throttler
 
+/**
+ * Blocks distracting websites and NSFW content via Accessibility URL-bar inspection.
+ *
+ * NSFW enforcement uses hard HOME (not SafeSearch-with-same-query) so porn SERPs are not left
+ * on the back stack. Keyword matching is best-effort and gameable; the host blocklist is primary
+ * for known tube sites. Fullscreen (hidden URL bar) remains an inherent Accessibility ceiling.
+ */
 class BrowserManager(
     private val context: Context,
     private val shortsPlatformManager: ShortsPlatformManager,
-    private val blockedContentGoBack: () -> Unit,
+    private val exitBlockedContent: (action: Int, immediate: Boolean) -> Unit,
 ) {
-    private var mLastRedirectedUrl = ""
-    private val throttler: Throttler = Throttler(1000L)
+    /** Last browser package that hit an NSFW block (sticky while that browser stays foreground). */
+    private var stickyBrowserPackage: String = ""
+    private var stickyBlockedHost: String = ""
+    private var stickyBlockedQuery: String = ""
+    private var stickyActivatedAtMs: Long = 0L
 
+    private var mLastCleanRedirectUrl = ""
 
     /**
      * Blocks access to websites and short-form content based on current settings.
@@ -37,122 +44,168 @@ class BrowserManager(
         node: AccessibilityNodeInfo,
         wellbeing: Wellbeing,
     ) {
-        var url = extractBrowserUrl(node, packageName)
+        clearStickyIfBrowserLeft(packageName)
 
-        // Return if url is empty or does not contain dot or have space this basically means its not url
+        val raw = extractBrowserUrl(node, packageName)
+
+        // URL bar empty: sticky re-HOME only when a blocked *host* was seen (fullscreen gap).
+        // Do not re-HOME on empty URL for query-only sticky — that fights clean-home redirect.
+        if (raw.isBlank()) {
+            if (wellbeing.blockNsfwSites
+                && isStickyActive(packageName)
+                && stickyBlockedHost.isNotEmpty()
+            ) {
+                Log.d(TAG, "blockDistraction: Sticky NSFW re-exit (empty URL) in $packageName")
+                hardExitNsfw(packageName)
+            }
+            return
+        }
+
+        val url = raw.replace("google.com/amp/s/amp.", "")
+
+        // Omnibox search text (spaces, no host) — check NSFW keywords before requiring a domain
+        if (wellbeing.blockNsfwSites && looksLikeSearchQuery(url)) {
+            if (containsNsfwKeyword(url)) {
+                Log.d(TAG, "blockDistraction: NSFW search query in omnibox for $packageName")
+                activateSticky(packageName, host = "", query = url.lowercase())
+                hardExitNsfw(packageName)
+                return
+            }
+        }
+
+        // Not a navigable URL yet
         if (url.contains(" ") || !url.contains(".")) return
 
-        // Clean google AMP from the url if found (some site can appear in the AMP container with google's amp domain)
-        url = url.replace("google.com/amp/s/amp.", "")
-
-        // Block websites
         val host = Utils.parseHostNameFromUrl(url) ?: return
 
-        when {
-            wellbeing.blockedWebsites.contains(host)
-                    || wellbeing.nsfwWebsites.contains(host)
-                    || nsfwDomains[host] ?: false
-                -> {
-                Log.d(TAG, "blockDistraction: Blocked website $host opened in $packageName")
-                blockedContentGoBack.invoke()
-            }
+        // User blocked sites / NSFW sites / built-in NSFW domains (label-safe)
+        val hostBlocked = Utils.isHostBlockedBySet(host, wellbeing.blockedWebsites)
+                || Utils.isHostBlockedBySet(host, wellbeing.nsfwWebsites)
+                || (wellbeing.blockNsfwSites && Utils.isHostBlockedByMap(host, nsfwDomains))
 
-            // Block short form content
-            shortsPlatformManager.checkAndBlockShortsOnBrowser(wellbeing, url) -> return
-
-            // Activate safe search if NSFW is blocked
-            wellbeing.blockNsfwSites -> applySafeSearch(packageName, url, host)
-        }
-    }
-
-    /**
-     * Redirects the user to safe search results by using different techniques on different search engines.
-     * Supported search engines are GOOGLE, BRAVE, BING, DUCKDUCKGO
-     *
-     * @param browserPackage The package name of the browser app.
-     * @param url            The url from the browser's search bar.
-     * @param hostDomain     The resolved host name for the provided url.
-     */
-    private fun applySafeSearch(browserPackage: String, url: String, hostDomain: String) {
-        val query = runCatching {
-            url.toUri().getQueryParameter("q")?.lowercase()
-        }.getOrNull() ?: url
-
-        // Apply safe search if searching maybe nsfw
-        if (NsfwKeywords.keywords.none { query.contains(it) }) return
-
-        val safeUrl = when {
-            /// Google search
-            !url.contains("safe=active")
-                    && (url.contains("google.com/search?") || url.contains("bing.com/search?"))
-                -> url.replace("/search?", "/search?safe=active&")
-
-            /// Brave search
-            !hostDomain.contains("safe.") && hostDomain.contains("search.brave.com")
-                -> url.replace("search.brave.com", "safe.search.brave.com")
-
-            /// DuckDuckGo search
-            !hostDomain.contains("safe.") && hostDomain.contains("duckduckgo.com")
-                -> url.replace("duckduckgo.com", "safe.duckduckgo.com")
-
-            else -> return
-        }
-
-        // Redirect user
-        throttler.submit {
-            redirectUserToUrl(safeUrl, browserPackage)
-        }
-    }
-
-    /**
-     * Redirects the user to the new url in the specified browser.
-     *
-     * @param url            The url to which user will be redirected.
-     * @param browserPackage The package name of the browser app.
-     */
-    private fun redirectUserToUrl(url: String, browserPackage: String) {
-        // Return if received request for the same URL as previous
-        if (mLastRedirectedUrl == url) return
-        mLastRedirectedUrl = url
-
-        // Post to the main thread
-        ThreadUtils.runOnMainThread {
-            val intent = Intent(Intent.ACTION_VIEW, Utils.validateHttpsProtocol(url).toUri())
-                .apply {
-                    putExtra(Browser.EXTRA_APPLICATION_ID, browserPackage)
-                    setPackage(browserPackage)
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                }
-
-            if (intent.resolveActivity(context.packageManager) != null) {
-
-                /// Toast
-                Toast.makeText(
-                    context,
-                    context.getString(R.string.toast_redirecting),
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                /// Redirect
-                context.startActivity(intent)
-                Log.d(
-                    TAG,
-                    "Redirecting user to safe search results in $browserPackage for url: $url"
-                )
-
-                // Clean redirection url after approximate loading time
-                Handler(
-                    Looper.myLooper() ?: Looper.getMainLooper()
-                ).postDelayed({ mLastRedirectedUrl = "" }, 500L)
+        if (hostBlocked) {
+            Log.d(TAG, "blockDistraction: Blocked website $host opened in $packageName")
+            if (wellbeing.blockNsfwSites && (
+                        Utils.isHostBlockedBySet(host, wellbeing.nsfwWebsites)
+                                || Utils.isHostBlockedByMap(host, nsfwDomains)
+                        )
+            ) {
+                activateSticky(packageName, host = host, query = "")
+                hardExitNsfw(packageName)
             } else {
-                Log.e(TAG, "No application found to handle the Intent for URL: $url")
+                // Manual website block — keep BACK behavior for non-NSFW list
+                exitBlockedContent(
+                    AccessibilityService.GLOBAL_ACTION_BACK,
+                    false
+                )
+            }
+            return
+        }
+
+        // Sticky: same blocked host reappeared
+        if (wellbeing.blockNsfwSites && isStickyActive(packageName)) {
+            if (stickyBlockedHost.isNotEmpty() && Utils.hostMatchesBlockedDomain(host, stickyBlockedHost)) {
+                Log.d(TAG, "blockDistraction: Sticky NSFW host re-hit $host")
+                hardExitNsfw(packageName)
+                return
+            }
+        }
+
+        // Block short form content
+        if (shortsPlatformManager.checkAndBlockShortsOnBrowser(wellbeing, url)) return
+
+        // NSFW search URLs (q=) — hard exit, do not SafeSearch-with-same-query
+        if (wellbeing.blockNsfwSites) {
+            val query = extractSearchQuery(url)?.lowercase()
+            if (!query.isNullOrBlank() && containsNsfwKeyword(query)) {
+                Log.d(TAG, "blockDistraction: NSFW search URL query blocked in $packageName")
+                activateSticky(packageName, host = host, query = query)
+                hardExitNsfw(packageName, openCleanHome = true)
+                return
+            }
+            if (stickyBlockedQuery.isNotEmpty()
+                && isStickyActive(packageName)
+                && query != null
+                && query.contains(stickyBlockedQuery)
+            ) {
+                hardExitNsfw(packageName, openCleanHome = true)
             }
         }
     }
 
+    /**
+     * Called when the foreground package changes so sticky can clear when leaving the browser.
+     */
+    fun onForegroundPackageChanged(packageName: String) {
+        clearStickyIfBrowserLeft(packageName)
+    }
+
+    private fun hardExitNsfw(packageName: String, openCleanHome: Boolean = false) {
+        exitBlockedContent(AccessibilityService.GLOBAL_ACTION_HOME, true)
+        if (openCleanHome) {
+            redirectToCleanHome(packageName)
+        }
+    }
+
+    private fun redirectToCleanHome(browserPackage: String) {
+        val cleanUrl = "https://www.google.com/"
+        if (mLastCleanRedirectUrl == cleanUrl) return
+        mLastCleanRedirectUrl = cleanUrl
+
+        ThreadUtils.runOnMainThread {
+            val intent = Intent(Intent.ACTION_VIEW, cleanUrl.toUri()).apply {
+                putExtra(Browser.EXTRA_APPLICATION_ID, browserPackage)
+                setPackage(browserPackage)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            runCatching {
+                if (intent.resolveActivity(context.packageManager) != null) {
+                    context.startActivity(intent)
+                }
+            }
+            // Allow a later clean redirect after the browser settles
+            android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+                mLastCleanRedirectUrl = ""
+            }, 1500L)
+        }
+    }
+
+    private fun activateSticky(packageName: String, host: String, query: String) {
+        stickyBrowserPackage = packageName
+        if (host.isNotEmpty()) stickyBlockedHost = Utils.normalizeHost(host)
+        if (query.isNotEmpty()) stickyBlockedQuery = query.take(120)
+        stickyActivatedAtMs = System.currentTimeMillis()
+    }
+
+    private fun isStickyActive(packageName: String): Boolean {
+        if (stickyBrowserPackage.isEmpty() || stickyBrowserPackage != packageName) return false
+        val age = System.currentTimeMillis() - stickyActivatedAtMs
+        if (age > STICKY_MAX_AGE_MS) {
+            clearSticky()
+            return false
+        }
+        return stickyBlockedHost.isNotEmpty() || stickyBlockedQuery.isNotEmpty()
+    }
+
+    private fun clearStickyIfBrowserLeft(packageName: String) {
+        if (stickyBrowserPackage.isNotEmpty() && packageName != stickyBrowserPackage) {
+            clearSticky()
+        }
+    }
+
+    private fun clearSticky() {
+        stickyBrowserPackage = ""
+        stickyBlockedHost = ""
+        stickyBlockedQuery = ""
+        stickyActivatedAtMs = 0L
+    }
 
     companion object {
         private const val TAG = "Mindful.BrowserEventsManager"
+
+        /** Safety bound only — primary sticky lifetime is "same browser still foreground". */
+        private const val STICKY_MAX_AGE_MS = 5 * 60 * 1000L
+
         private var nsfwDomains: Map<String, Boolean> = mapOf()
 
         fun initializeNsfwDomains() {
@@ -163,9 +216,38 @@ class BrowserManager(
             nsfwDomains = mapOf()
         }
 
+        private fun looksLikeSearchQuery(text: String): Boolean {
+            val t = text.trim()
+            if (t.isEmpty()) return false
+            // Typed query in omnibox (spaces) or no scheme/host shape
+            if (t.contains(" ") && !t.contains("://")) return true
+            if (!t.contains('.') && !t.contains('/')) return true
+            return false
+        }
+
+        private fun containsNsfwKeyword(text: String): Boolean {
+            val lower = text.lowercase()
+            return NsfwKeywords.keywords.any { keyword ->
+                // Prefer whole-token style checks for short keywords to reduce false positives
+                if (keyword.length <= 3) {
+                    Regex("\\b${Regex.escape(keyword)}\\b").containsMatchIn(lower)
+                } else {
+                    lower.contains(keyword)
+                }
+            }
+        }
+
+        private fun extractSearchQuery(url: String): String? {
+            return runCatching {
+                val uri = url.toUri()
+                uri.getQueryParameter("q")
+                    ?: uri.getQueryParameter("query")
+                    ?: uri.getQueryParameter("p") // Yahoo
+            }.getOrNull()
+        }
+
         /**
          * List of Ids of URL Bars used by different browsers.
-         * These are used to retrieve/extract url from the browsers.
          */
         private val urlBarNodeIds = setOf(
             ":id/url_bar",  // Chrome
@@ -174,31 +256,21 @@ class BrowserManager(
             ":id/search",
             ":id/omnibarTextInput", // Duck duck go
             ":id/url_field", // Opera
-            ":id/location_bar_edit_text",
+            ":id/location_bar_edit_text", // often Samsung / Chromium
+            ":id/location_bar_edit",
             ":id/addressbarEdit",
             ":id/bro_omnibar_address_title_text",
-            ":id/cbn_tv_title" // Quetta Browser
+            ":id/cbn_tv_title", // Quetta Browser
+            ":id/url_bar_title", // Samsung Internet variants
+            ":id/location_bar",
         )
 
-
         /**
-         * Extracts the URL from the given AccessibilityNodeInfo based on the app package name.
-         *
-         * @param node        The AccessibilityNodeInfo of the current view.
-         * @param packageName The package name of the app.
-         * @return The extracted URL as a string.
+         * Extracts the URL or omnibox text from the given AccessibilityNodeInfo.
          */
         private fun extractBrowserUrl(node: AccessibilityNodeInfo, packageName: String): String {
             try {
-                // Return if suggestion box is open for chromium based browsers
-                if (node.findAccessibilityNodeInfosByViewId("$packageName:id/omnibox_suggestions_dropdown")
-                        .isNotEmpty()
-                ) {
-                    return ""
-                }
-
-
-                // Find by input field class
+                // Find by input field class (works while typing / suggestions open)
                 if (node.className == "android.widget.EditText") {
                     val txtSequence = node.text
                     if (!txtSequence.isNullOrBlank()) {
@@ -206,7 +278,8 @@ class BrowserManager(
                     }
                 }
 
-                // Find by recursive checking
+                // Find by known URL bar ids — still read when suggestions dropdown is open
+                // so NSFW queries in the omnibox are not skipped.
                 for (id in urlBarNodeIds) {
                     val urlBarNodes = node.findAccessibilityNodeInfosByViewId(packageName + id)
                     if (urlBarNodes.isNotEmpty()) {
