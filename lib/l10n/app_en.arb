@@ -477,6 +477,8 @@
     "app_timer_picker_dialog_info": "Set a daily time limit for this app. Once your limit is reached, the app will be paused until midnight.",
     "usage_reminders_tile_title": "Usage reminders",
     "usage_reminders_tile_subtitle": "Gentle nudges when using timed apps.",
+    "breath_pause_tile_title": "Breathing pause",
+    "breath_pause_tile_subtitle": "Take a deep breath before opening this app.",
     "app_launch_limit_tile_title": "Launch limit",
     "app_launch_limit_tile_subtitle": "Launched {count} times today.",
     "@app_launch_limit_tile_subtitle": {

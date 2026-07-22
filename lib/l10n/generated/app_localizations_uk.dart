@@ -1293,6 +1293,13 @@ class AppLocalizationsUk extends AppLocalizations {
       'Ввічливі нагадування під час використання програм з таймером.';
 
   @override
+  String get breath_pause_tile_title => 'Breathing pause';
+
+  @override
+  String get breath_pause_tile_subtitle =>
+      'Take a deep breath before opening this app.';
+
+  @override
   String get app_launch_limit_tile_title => 'Ліміт запуску';
 
   @override

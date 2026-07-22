@@ -71,6 +71,19 @@ class MethodChannelService {
         jsonEncode(excludedApps),
       );
 
+  /// Packages that show a breathing pause overlay on launch
+  Future<List<String>> getBreathPauseApps() async {
+    final result =
+        await _methodChannel.invokeMethod<List<dynamic>>('getBreathPauseApps');
+    return result?.cast<String>() ?? const [];
+  }
+
+  Future<bool> updateBreathPauseApps(List<String> packages) async =>
+      await _methodChannel.invokeMethod(
+        'updateBreathPauseApps',
+        jsonEncode(packages),
+      );
+
   /// Gets the map of device info and create and returns [DeviceInfoModel] .
   Future<DeviceInfoModel> getDeviceInfo() async => DeviceInfoModel.fromMap(
       await _methodChannel.invokeMapMethod('getDeviceInfo') ?? {});

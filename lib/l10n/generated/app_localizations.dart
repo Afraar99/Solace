@@ -2256,6 +2256,18 @@ abstract class AppLocalizations {
   /// **'Gentle nudges when using timed apps.'**
   String get usage_reminders_tile_subtitle;
 
+  /// No description provided for @breath_pause_tile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Breathing pause'**
+  String get breath_pause_tile_title;
+
+  /// No description provided for @breath_pause_tile_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a deep breath before opening this app.'**
+  String get breath_pause_tile_subtitle;
+
   /// No description provided for @app_launch_limit_tile_title.
   ///
   /// In en, this message translates to:

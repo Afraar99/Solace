@@ -79,4 +79,10 @@
 
     <string name="notification_schedule_batch_title">Unread notifications</string>
     <string name="notification_schedule_batch_summery" comment="Number of notifications as placeholder" formatted="true">You have %d unread notifications while you were away. They’ll be marked as read after 24 hours.</string>
+
+    <string name="breath_pause_prompt">It\'s time to take a deep breath…</string>
+    <string name="breath_pause_inhale">Breathe in</string>
+    <string name="breath_pause_exhale">Breathe out</string>
+    <string name="breath_pause_continue" comment="App name as placeholder" formatted="true">Continue to %s</string>
+    <string name="breath_pause_quit">No thanks, take me home</string>
 </resources>

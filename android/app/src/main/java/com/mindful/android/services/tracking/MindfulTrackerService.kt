@@ -10,10 +10,12 @@ import com.mindful.android.R
 import com.mindful.android.generics.ServiceBinder
 import com.mindful.android.helpers.device.NotificationHelper
 import com.mindful.android.helpers.storage.SharedPrefsHelper
+import java.util.concurrent.ConcurrentHashMap
 
 class MindfulTrackerService : Service() {
     companion object {
         private const val TAG = "Mindful.MindfulTrackerService"
+        private const val BREATH_COOLDOWN_MS = 45_000L
     }
 
     private val mBinder = ServiceBinder(this@MindfulTrackerService)
@@ -26,6 +28,9 @@ class MindfulTrackerService : Service() {
 
     private lateinit var launchTrackingManager: LaunchTrackingManager
     val getLaunchTrackingManager get() = launchTrackingManager
+
+    /** packageName -> cooldown expiry epoch ms (after user taps Continue) */
+    private val breathCooldowns = ConcurrentHashMap<String, Long>()
 
     override fun onCreate() {
         overlayManager = OverlayManager(this)
@@ -86,26 +91,57 @@ class MindfulTrackerService : Service() {
             val currentOrFutureState = restrictionManager.isAppRestricted(packageName)
             Log.d(TAG, "onNewAppLaunch: $packageName's evaluated state => $currentOrFutureState")
 
+            /// Hard-blocked apps skip the breath pause
+            if (currentOrFutureState != null && currentOrFutureState.timeLeftMillis <= 0L) {
+                overlayManager.showSheetOverlay(
+                    packageName = packageName,
+                    restrictionState = currentOrFutureState,
+                )
+                return
+            }
+
+            /// Breathing pause before opening selected apps
+            if (restrictionManager.needsBreathPause(packageName) && !isInBreathCooldown(packageName)) {
+                Log.d(TAG, "onNewAppLaunch: Showing breath pause for $packageName")
+                overlayManager.showBreathPauseOverlay(
+                    packageName = packageName,
+                    onContinue = {
+                        markBreathCooldown(packageName)
+                        currentOrFutureState?.let {
+                            reminderManager.scheduleReminders(
+                                packageName = packageName,
+                                state = it,
+                            )
+                        }
+                    },
+                )
+                return
+            }
+
+            /// Under limit but will be exhausted in some time
             currentOrFutureState?.let {
-                /// Already restricted
-                if (it.timeLeftMillis <= 0L) {
-                    overlayManager.showSheetOverlay(
-                        packageName = packageName,
-                        restrictionState = it,
-                    )
-                }
-                /// Under limit but will be exhausted in some time
-                else {
-                    reminderManager.scheduleReminders(
-                        packageName = packageName,
-                        state = it,
-                    )
-                }
+                reminderManager.scheduleReminders(
+                    packageName = packageName,
+                    state = it,
+                )
             }
         } catch (e: Exception) {
             SharedPrefsHelper.insertCrashLogToPrefs(this, e)
             Log.e(TAG, "onNewAppLaunch: Failed to process new app launch event", e)
         }
+    }
+
+    private fun isInBreathCooldown(packageName: String): Boolean {
+        val expiresAt = breathCooldowns[packageName] ?: return false
+        if (System.currentTimeMillis() >= expiresAt) {
+            breathCooldowns.remove(packageName)
+            return false
+        }
+        return true
+    }
+
+    private fun markBreathCooldown(packageName: String) {
+        breathCooldowns[packageName] = System.currentTimeMillis() + BREATH_COOLDOWN_MS
     }
 
     private fun stopIfNoUsage() {

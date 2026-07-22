@@ -1190,6 +1190,13 @@ class AppLocalizationsZh extends AppLocalizations {
   String get usage_reminders_tile_subtitle => '使用定时应用程序时获得提醒。';
 
   @override
+  String get breath_pause_tile_title => 'Breathing pause';
+
+  @override
+  String get breath_pause_tile_subtitle =>
+      'Take a deep breath before opening this app.';
+
+  @override
   String get app_launch_limit_tile_title => '启动限制';
 
   @override

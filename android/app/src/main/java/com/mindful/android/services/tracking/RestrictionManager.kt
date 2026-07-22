@@ -5,6 +5,7 @@ import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.util.Log
 import com.mindful.android.enums.RestrictionType
+import com.mindful.android.helpers.storage.SharedPrefsHelper
 import com.mindful.android.helpers.usages.ScreenUsageHelper
 import com.mindful.android.models.AppRestriction
 import com.mindful.android.models.RestrictionGroup
@@ -23,6 +24,7 @@ class RestrictionManager(
                 && bedtimeApps.isEmpty()
                 && appsRestrictions.isEmpty()
                 && restrictionGroups.isEmpty()
+                && breathPauseApps.isEmpty()
 
     // Restrictions
     private var appsRestrictions = HashMap<String, AppRestriction>()
@@ -31,6 +33,18 @@ class RestrictionManager(
     // Focus
     private var focusedApps = setOf<String>()
     private var bedtimeApps = setOf<String>()
+
+    // One Sec–style breathing pause before selected apps
+    private var breathPauseApps: Set<String> =
+        SharedPrefsHelper.getSetBreathPauseApps(context, null)
+
+    fun needsBreathPause(packageName: String): Boolean = breathPauseApps.contains(packageName)
+
+    fun updateBreathPauseApps(apps: Set<String>?) {
+        breathPauseApps = apps ?: emptySet()
+        Log.d(TAG, "updateBreathPauseApps: Breath pause apps updated: $breathPauseApps")
+        if (breathPauseApps.isEmpty()) stopIfNoUsage.invoke()
+    }
 
     //  Cache
     private val appsLaunchCount = HashMap<String, Int>(0)

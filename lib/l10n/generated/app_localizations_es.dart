@@ -1293,6 +1293,13 @@ class AppLocalizationsEs extends AppLocalizations {
       'Recordatorios suaves al usar aplicaciones con temporizador.';
 
   @override
+  String get breath_pause_tile_title => 'Breathing pause';
+
+  @override
+  String get breath_pause_tile_subtitle =>
+      'Take a deep breath before opening this app.';
+
+  @override
   String get app_launch_limit_tile_title => 'Límite de lanzamiento';
 
   @override

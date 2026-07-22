@@ -33,6 +33,7 @@ object SharedPrefsHelper {
     private const val PREF_KEY_SHORTS_SCREEN_TIME = "shortsScreenTime"
     private const val PREF_KEY_DND_WAKE_LOCK = "dndWakeLock"
     private const val PREF_KEY_EXCLUDED_APPS = "excludedApps"
+    private const val PREF_KEY_BREATH_PAUSE_APPS = "breathPauseApps"
     private const val PREF_KEY_TODO_WIDGET_SNAPSHOT = "todoWidgetSnapshot"
     private const val PREF_KEY_PENDING_TODO_COMPLETIONS = "pendingTodoCompletions"
 
@@ -168,6 +169,21 @@ object SharedPrefsHelper {
         } else {
             mUniquePrefs!!.edit().putString(PREF_KEY_EXCLUDED_APPS, jsonExcludedApps).apply()
             return JsonUtils.parseStringSet(jsonExcludedApps)
+        }
+    }
+
+    /**
+     * Fetches packages with breathing pause enabled, or stores [jsonBreathPauseApps] when non-null.
+     */
+    fun getSetBreathPauseApps(context: Context, jsonBreathPauseApps: String?): Set<String> {
+        checkAndInitializeUniquePrefs(context)
+        if (jsonBreathPauseApps == null) {
+            return JsonUtils.parseStringSet(
+                mUniquePrefs!!.getString(PREF_KEY_BREATH_PAUSE_APPS, "")
+            )
+        } else {
+            mUniquePrefs!!.edit().putString(PREF_KEY_BREATH_PAUSE_APPS, jsonBreathPauseApps).apply()
+            return JsonUtils.parseStringSet(jsonBreathPauseApps)
         }
     }
 

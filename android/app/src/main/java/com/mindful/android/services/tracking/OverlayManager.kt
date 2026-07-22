@@ -44,6 +44,20 @@ class OverlayManager(
     fun dismissSheetOverlay() {
         overlays.pollFirst()?.let { sheetOverlay ->
             ThreadUtils.runOnMainThread {
+                // Breath pause overlay has a different layout
+                if (sheetOverlay.findViewById<View>(R.id.breath_overlay_root) != null) {
+                    (sheetOverlay.getTag(R.id.breath_overlay_root) as? android.animation.ValueAnimator)
+                        ?.cancel()
+                    sheetOverlay.animate()
+                        .alpha(0f)
+                        .setDuration(300)
+                        .withEndAction {
+                            runCatching { windowManager.removeView(sheetOverlay) }
+                        }
+                        .start()
+                    return@runOnMainThread
+                }
+
                 // Get views
                 val bg = sheetOverlay.findViewById<View>(R.id.overlay_background)
                 val quote = sheetOverlay.findViewById<View>(R.id.overlay_sheet_quote_panel)
@@ -60,6 +74,42 @@ class OverlayManager(
                         windowManager.removeView(sheetOverlay)
                     }
                     .start()
+            }
+        }
+    }
+
+    fun showBreathPauseOverlay(
+        packageName: String,
+        onContinue: () -> Unit,
+    ) {
+        if (overlays.isNotEmpty()) return
+
+        ThreadUtils.runOnMainThread {
+            runCatching {
+                if (!haveOverlayPermission(context)) {
+                    return@runOnMainThread
+                }
+
+                val breathOverlay = OverlayBuilder.buildBreathPauseOverlay(
+                    context = context,
+                    packageName = packageName,
+                    dismissOverlay = ::dismissSheetOverlay,
+                    onContinue = onContinue,
+                ).apply {
+                    systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+                            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    alpha = 0f
+                }
+
+                Log.d(TAG, "showBreathPauseOverlay: Showing breath pause for $packageName")
+                windowManager.addView(breathOverlay, sheetLayoutParams)
+                overlays.push(breathOverlay)
+                Utils.vibrateDevice(context, 40L)
+
+                breathOverlay.animate().alpha(1f).setDuration(350).start()
+            }.getOrElse {
+                SharedPrefsHelper.insertCrashLogToPrefs(context, it)
             }
         }
     }

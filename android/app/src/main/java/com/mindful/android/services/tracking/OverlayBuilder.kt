@@ -1,11 +1,15 @@
 package com.mindful.android.services.tracking
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -211,6 +215,95 @@ object OverlayBuilder {
         return sheetView
     }
 
+    @MainThread
+    fun buildBreathPauseOverlay(
+        context: Context,
+        packageName: String,
+        dismissOverlay: () -> Unit,
+        onContinue: () -> Unit,
+    ): View {
+        val inflater = LayoutInflater.from(context)
+        val root = inflater.inflate(R.layout.overlay_breath_pause_layout, null)
+
+        val (appName, _) = getAppLabelAndIcon(context, packageName)
+
+        root.findViewById<TextView>(R.id.breath_overlay_app_label).text = "← $appName"
+
+        val phaseTxt = root.findViewById<TextView>(R.id.breath_overlay_phase)
+        val breathBlock = root.findViewById<View>(R.id.breath_overlay_block)
+        val actions = root.findViewById<LinearLayout>(R.id.breath_overlay_actions)
+        val continueBtn = root.findViewById<Button>(R.id.breath_overlay_continue)
+        val quitTxt = root.findViewById<TextView>(R.id.breath_overlay_quit)
+
+        continueBtn.text = context.getString(R.string.breath_pause_continue, appName)
+
+        val density = context.resources.displayMetrics.density
+        val minHeightPx = (120 * density).toInt()
+        val maxHeightPx =
+            (context.resources.displayMetrics.heightPixels * 0.55f).toInt()
+                .coerceAtLeast(minHeightPx + 1)
+
+        breathBlock.layoutParams = breathBlock.layoutParams.apply { height = minHeightPx }
+
+        var expanding = true
+        var completedHalfCycles = 0
+        phaseTxt.text = context.getString(R.string.breath_pause_inhale)
+
+        val breathAnimator = ValueAnimator.ofInt(minHeightPx, maxHeightPx).apply {
+            duration = 4000L
+            repeatMode = ValueAnimator.REVERSE
+            repeatCount = ValueAnimator.INFINITE
+            interpolator = AccelerateDecelerateInterpolator()
+            addUpdateListener { anim ->
+                breathBlock.layoutParams = breathBlock.layoutParams.apply {
+                    height = anim.animatedValue as Int
+                }
+            }
+            addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationRepeat(animation: Animator) {
+                    expanding = !expanding
+                    completedHalfCycles++
+                    phaseTxt.text = if (expanding) {
+                        context.getString(R.string.breath_pause_inhale)
+                    } else {
+                        context.getString(R.string.breath_pause_exhale)
+                    }
+
+                    // Reveal actions after one full breath (in + out)
+                    if (completedHalfCycles == 2 && actions.visibility != View.VISIBLE) {
+                        actions.visibility = View.VISIBLE
+                        actions.alpha = 0f
+                        actions.animate().alpha(1f).setDuration(400).start()
+                    }
+                }
+            })
+        }
+
+        root.setTag(R.id.breath_overlay_root, breathAnimator)
+        root.post { breathAnimator.start() }
+
+        continueBtn.setOnClickListener {
+            stopBreathAnimators(root)
+            dismissOverlay.invoke()
+            onContinue.invoke()
+        }
+
+        quitTxt.setOnClickListener {
+            stopBreathAnimators(root)
+            val homeIntent = Intent(Intent.ACTION_MAIN).apply {
+                addCategory(Intent.CATEGORY_HOME)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            context.applicationContext.startActivity(homeIntent)
+            dismissOverlay.invoke()
+        }
+
+        return root
+    }
+
+    private fun stopBreathAnimators(root: View) {
+        (root.getTag(R.id.breath_overlay_root) as? ValueAnimator)?.cancel()
+    }
 
     fun getAppLabelAndIcon(
         context: Context,

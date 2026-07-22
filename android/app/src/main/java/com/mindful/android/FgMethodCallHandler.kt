@@ -112,6 +112,21 @@ class FgMethodCallHandler(
                 result.success(true)
             }
 
+            "updateBreathPauseApps" -> {
+                val apps = SharedPrefsHelper.getSetBreathPauseApps(
+                    context,
+                    call.arguments() ?: ""
+                )
+                updateTrackerBreathPauseApps(apps)
+                result.success(true)
+            }
+
+            "getBreathPauseApps" -> {
+                result.success(
+                    SharedPrefsHelper.getSetBreathPauseApps(context, null).toList()
+                )
+            }
+
             "updateTodoWidgetSnapshot" -> {
                 SharedPrefsHelper.getSetTodoWidgetSnapshot(context, call.arguments() ?: "{}")
                 val refreshIntent = Intent(
@@ -476,6 +491,17 @@ class FgMethodCallHandler(
                     appRestrictions,
                     restrictionGroups
                 )
+            }
+            trackerServiceConn.startAndBind()
+        }
+    }
+
+    private fun updateTrackerBreathPauseApps(apps: Set<String>) {
+        if (trackerServiceConn.isActive) {
+            trackerServiceConn.service?.getRestrictionManager?.updateBreathPauseApps(apps)
+        } else if (apps.isNotEmpty()) {
+            trackerServiceConn.setOnConnectedCallback { service ->
+                service.getRestrictionManager.updateBreathPauseApps(apps)
             }
             trackerServiceConn.startAndBind()
         }
