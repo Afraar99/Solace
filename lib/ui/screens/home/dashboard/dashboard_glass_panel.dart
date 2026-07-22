@@ -11,8 +11,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:mindful/ui/screens/home/dashboard/dashboard_palette.dart';
 
-/// Soft glass panel used on the dashboard for a calmer, less cluttered look.
+/// Soft glass panel used on the dashboard — warm, minimal, orange-tinted.
 class DashboardGlassPanel extends StatelessWidget {
   const DashboardGlassPanel({
     super.key,
@@ -21,6 +22,7 @@ class DashboardGlassPanel extends StatelessWidget {
     this.padding = EdgeInsets.zero,
     this.borderRadius,
     this.onPressed,
+    this.emphasized = false,
   });
 
   final Widget child;
@@ -28,32 +30,41 @@ class DashboardGlassPanel extends StatelessWidget {
   final EdgeInsets padding;
   final BorderRadius? borderRadius;
   final VoidCallback? onPressed;
+  final bool emphasized;
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final radius = borderRadius ?? BorderRadius.circular(22);
+    final radius = borderRadius ?? BorderRadius.circular(24);
 
     final panel = ClipRRect(
       borderRadius: radius,
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
+        filter: ImageFilter.blur(sigmaX: 22, sigmaY: 22),
         child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: radius,
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                scheme.surface.withValues(alpha: isDark ? 0.42 : 0.62),
-                scheme.surfaceContainerHighest
-                    .withValues(alpha: isDark ? 0.28 : 0.45),
-              ],
-            ),
+            gradient: emphasized
+                ? DashboardPalette.heroWash(isDark: isDark)
+                : DashboardPalette.panelFace(isDark: isDark),
             border: Border.all(
-              color: scheme.onSurface.withValues(alpha: isDark ? 0.08 : 0.06),
+              color: DashboardPalette.royal.withValues(
+                alpha: isDark
+                    ? (emphasized ? 0.28 : 0.14)
+                    : (emphasized ? 0.22 : 0.10),
+              ),
+              width: emphasized ? 1.1 : 0.8,
             ),
+            boxShadow: [
+              BoxShadow(
+                color: DashboardPalette.ember.withValues(
+                  alpha: isDark ? 0.18 : 0.08,
+                ),
+                blurRadius: emphasized ? 28 : 16,
+                offset: const Offset(0, 10),
+                spreadRadius: -8,
+              ),
+            ],
           ),
           child: Material(
             color: Colors.transparent,

@@ -19,14 +19,15 @@ import 'package:mindful/core/extensions/ext_build_context.dart';
 import 'package:mindful/core/extensions/ext_list.dart';
 import 'package:mindful/core/extensions/ext_num.dart';
 import 'package:mindful/providers/usage/todays_apps_usage_provider.dart';
-import 'package:mindful/ui/common/content_section_header.dart';
 import 'package:mindful/ui/common/default_expandable_list_tile.dart';
 import 'package:mindful/ui/common/default_list_tile.dart';
 import 'package:mindful/ui/common/sliver_active_session_alert.dart';
 import 'package:mindful/ui/common/default_refresh_indicator.dart';
 import 'package:mindful/ui/common/sliver_tabs_bottom_padding.dart';
+import 'package:mindful/ui/common/styled_text.dart';
 import 'package:mindful/ui/controllers/tab_controller_provider.dart';
 import 'package:mindful/ui/screens/home/dashboard/dashboard_glass_panel.dart';
+import 'package:mindful/ui/screens/home/dashboard/dashboard_palette.dart';
 import 'package:mindful/ui/screens/home/dashboard/glance_cards/focus_daily_glance.dart';
 import 'package:mindful/ui/screens/home/dashboard/glance_cards/screen_time_glance.dart';
 import 'package:mindful/ui/screens/home/dashboard/glance_cards_grid.dart';
@@ -41,124 +42,222 @@ class TabDashboard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isUsageLoading =
         ref.watch(todaysAppsUsageProvider.select((v) => v.isLoading));
-    final scheme = Theme.of(context).colorScheme;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final brightness = Theme.of(context).brightness;
+    final isDark = brightness == Brightness.dark;
 
-    return DefaultRefreshIndicator(
-      onRefresh: () async => ref
-          .read(todaysAppsUsageProvider.notifier)
-          .refreshTodaysUsage(resetState: true),
-      child: Stack(
-        children: [
-          /// Soft ambient wash so glass panels can catch light
-          Positioned.fill(
-            child: IgnorePointer(
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      scheme.primary.withValues(alpha: isDark ? 0.14 : 0.08),
-                      scheme.surface.withValues(alpha: 0),
-                      scheme.tertiary.withValues(alpha: isDark ? 0.08 : 0.04),
-                    ],
-                    stops: const [0.0, 0.35, 1.0],
+    /// Dashboard-only royal orange preview theme
+    final orangeScheme = ColorScheme.fromSeed(
+      seedColor: DashboardPalette.seed,
+      brightness: brightness,
+      surface: isDark ? DashboardPalette.warmInk : DashboardPalette.warmIvory,
+    );
+
+    return Theme(
+      data: Theme.of(context).copyWith(
+        colorScheme: orangeScheme,
+        dividerColor: DashboardPalette.royal.withValues(alpha: 0.12),
+      ),
+      child: Builder(
+        builder: (context) {
+          return DefaultRefreshIndicator(
+            onRefresh: () async => ref
+                .read(todaysAppsUsageProvider.notifier)
+                .refreshTodaysUsage(resetState: true),
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: IgnorePointer(
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: DashboardPalette.ambient(isDark: isDark),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-          ),
-          CustomScrollView(
-            physics: const BouncingScrollPhysics(),
-            slivers: [
-              const SliverActiveSessionAlert(),
-              MultiSliver(
-                children: [
-                  8.vBox,
 
-                  /// Today overview — glass hero
-                  DashboardGlassPanel(
-                    margin: const EdgeInsets.only(top: 4),
-                    padding: const EdgeInsets.all(10),
-                    child: Skeletonizer.zone(
-                      enabled: isUsageLoading,
-                      enableSwitchAnimation: true,
-                      child: IntrinsicHeight(
-                        child: Row(
-                          children: [
-                            const Expanded(child: ScreenTimeGlance()),
-                            8.hBox,
-                            const Expanded(child: FocusDailyGlance()),
+                /// Soft top glow
+                Positioned(
+                  top: -80,
+                  left: -40,
+                  right: -40,
+                  height: 260,
+                  child: IgnorePointer(
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: RadialGradient(
+                          center: const Alignment(0, -0.2),
+                          radius: 0.9,
+                          colors: [
+                            DashboardPalette.royal
+                                .withValues(alpha: isDark ? 0.28 : 0.22),
+                            DashboardPalette.apricot
+                                .withValues(alpha: isDark ? 0.08 : 0.10),
+                            Colors.transparent,
                           ],
                         ),
                       ),
                     ),
                   ),
+                ),
 
-                  10.vBox,
+                CustomScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  slivers: [
+                    const SliverActiveSessionAlert(),
+                    MultiSliver(
+                      children: [
+                        12.vBox,
 
-                  /// More glance metrics
-                  DashboardGlassPanel(
-                    padding: EdgeInsets.zero,
-                    borderRadius: BorderRadius.circular(20),
-                    child: DefaultExpandableListTile(
-                      position: ItemPosition.none,
-                      titleText: context.locale.glance_tile_title,
-                      subtitleText: context.locale.glance_tile_subtitle,
-                      color: Colors.transparent,
-                      content: Skeletonizer.zone(
-                        enabled: isUsageLoading,
-                        enableSwitchAnimation: true,
-                        child: const GlanceCardsGrid(),
+                        /// Today — hero glass
+                        DashboardGlassPanel(
+                          emphasized: true,
+                          margin: const EdgeInsets.only(top: 2),
+                          padding: const EdgeInsets.fromLTRB(12, 14, 12, 12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 6, bottom: 10),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      width: 4,
+                                      height: 16,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        gradient: const LinearGradient(
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                          colors: [
+                                            DashboardPalette.apricot,
+                                            DashboardPalette.ember,
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    10.hBox,
+                                    StyledText(
+                                      context.locale.dashboard_tab_title,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600,
+                                      color: DashboardPalette.royal
+                                          .withValues(alpha: isDark ? 0.9 : 1),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Skeletonizer.zone(
+                                enabled: isUsageLoading,
+                                enableSwitchAnimation: true,
+                                child: IntrinsicHeight(
+                                  child: Row(
+                                    children: [
+                                      const Expanded(child: ScreenTimeGlance()),
+                                      8.hBox,
+                                      const Expanded(child: FocusDailyGlance()),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        14.vBox,
+
+                        /// Glance metrics
+                        DashboardGlassPanel(
+                          padding: EdgeInsets.zero,
+                          borderRadius: BorderRadius.circular(22),
+                          child: DefaultExpandableListTile(
+                            position: ItemPosition.none,
+                            titleText: context.locale.glance_tile_title,
+                            subtitleText: context.locale.glance_tile_subtitle,
+                            color: Colors.transparent,
+                            content: Skeletonizer.zone(
+                              enabled: isUsageLoading,
+                              enableSwitchAnimation: true,
+                              child: const GlanceCardsGrid(),
+                            ),
+                          ),
+                        ),
+
+                        12.vBox,
+
+                        /// Parental controls
+                        DashboardGlassPanel(
+                          borderRadius: BorderRadius.circular(22),
+                          child: DefaultListTile(
+                            position: ItemPosition.none,
+                            margin: EdgeInsets.zero,
+                            leadingIcon: FluentIcons.shield_keyhole_20_regular,
+                            titleText:
+                                context.locale.parental_controls_tab_title,
+                            subtitleText:
+                                context.locale.parental_controls_tile_subtitle,
+                            color: Colors.transparent,
+                            trailing: Icon(
+                              FluentIcons.chevron_right_20_regular,
+                              color: DashboardPalette.royal
+                                  .withValues(alpha: 0.7),
+                            ),
+                            onPressed: () => Navigator.of(context)
+                                .pushNamed(AppRoutes.parentalControlsPath),
+                          ),
+                        ),
+
+                        /// Digital wellbeing / blocking
+                        ..._restrictions(context, isDark),
+                      ].animateListOnce(
+                        ref: ref,
+                        uniqueKey: "home.dashboard.orange",
+                        delay: 80.ms,
+                        effects: DefaultEffects.transitionIn,
+                        interval: 70.ms,
                       ),
                     ),
-                  ),
-
-                  10.vBox,
-
-                  /// Parental controls
-                  DashboardGlassPanel(
-                    borderRadius: BorderRadius.circular(20),
-                    child: DefaultListTile(
-                      position: ItemPosition.none,
-                      margin: EdgeInsets.zero,
-                      leadingIcon: FluentIcons.shield_keyhole_20_regular,
-                      titleText: context.locale.parental_controls_tab_title,
-                      subtitleText:
-                          context.locale.parental_controls_tile_subtitle,
-                      color: Colors.transparent,
-                      trailing:
-                          const Icon(FluentIcons.chevron_right_20_regular),
-                      onPressed: () => Navigator.of(context)
-                          .pushNamed(AppRoutes.parentalControlsPath),
-                    ),
-                  ),
-
-                  /// Digital wellbeing / blocking
-                  ..._restrictions(context),
-                ].animateListOnce(
-                  ref: ref,
-                  uniqueKey: "home.dashboard",
-                  delay: 100.ms,
-                  effects: DefaultEffects.transitionIn,
-                  interval: 80.ms,
+                    const SliverTabsBottomPadding(),
+                  ],
                 ),
-              ),
-              const SliverTabsBottomPadding(),
-            ],
-          ),
-        ],
+              ],
+            ),
+          );
+        },
       ),
     );
   }
 
-  static List<Widget> _restrictions(BuildContext context) => [
-        ContentSectionHeader(
-          title: context.locale.restrictions_heading,
+  static List<Widget> _restrictions(BuildContext context, bool isDark) => [
+        Padding(
+          padding: const EdgeInsets.only(top: 22, bottom: 10, left: 4),
+          child: Row(
+            children: [
+              StyledText(
+                context.locale.restrictions_heading,
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: DashboardPalette.royal,
+              ),
+              10.hBox,
+              Expanded(
+                child: Container(
+                  height: 1,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        DashboardPalette.royal.withValues(alpha: 0.35),
+                        DashboardPalette.royal.withValues(alpha: 0),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         DashboardGlassPanel(
-          borderRadius: BorderRadius.circular(22),
+          borderRadius: BorderRadius.circular(24),
           padding: const EdgeInsets.symmetric(vertical: 4),
           child: Column(
             children: [
@@ -174,7 +273,7 @@ class TabDashboard extends ConsumerWidget {
                   DefaultHomeTab.statistics.index,
                 ),
               ),
-              _glassDivider(context),
+              _divider(isDark),
               DefaultListTile(
                 position: ItemPosition.mid,
                 margin: EdgeInsets.zero,
@@ -183,11 +282,14 @@ class TabDashboard extends ConsumerWidget {
                 subtitleText:
                     context.locale.grouped_apps_blocking_tile_subtitle,
                 color: Colors.transparent,
-                trailing: const Icon(FluentIcons.chevron_right_20_regular),
+                trailing: Icon(
+                  FluentIcons.chevron_right_20_regular,
+                  color: DashboardPalette.royal.withValues(alpha: 0.65),
+                ),
                 onPressed: () => Navigator.of(context)
                     .pushNamed(AppRoutes.restrictionGroupsPath),
               ),
-              _glassDivider(context),
+              _divider(isDark),
               DefaultListTile(
                 position: ItemPosition.mid,
                 margin: EdgeInsets.zero,
@@ -195,11 +297,14 @@ class TabDashboard extends ConsumerWidget {
                 titleText: context.locale.shorts_blocking_tab_title,
                 subtitleText: context.locale.shorts_blocking_tile_subtitle,
                 color: Colors.transparent,
-                trailing: const Icon(FluentIcons.chevron_right_20_regular),
+                trailing: Icon(
+                  FluentIcons.chevron_right_20_regular,
+                  color: DashboardPalette.royal.withValues(alpha: 0.65),
+                ),
                 onPressed: () => Navigator.of(context)
                     .pushNamed(AppRoutes.shortsBlockingPath),
               ),
-              _glassDivider(context),
+              _divider(isDark),
               DefaultListTile(
                 position: ItemPosition.bottom,
                 margin: EdgeInsets.zero,
@@ -207,7 +312,10 @@ class TabDashboard extends ConsumerWidget {
                 titleText: context.locale.websites_blocking_tab_title,
                 subtitleText: context.locale.websites_blocking_tile_subtitle,
                 color: Colors.transparent,
-                trailing: const Icon(FluentIcons.chevron_right_20_regular),
+                trailing: Icon(
+                  FluentIcons.chevron_right_20_regular,
+                  color: DashboardPalette.royal.withValues(alpha: 0.65),
+                ),
                 onPressed: () => Navigator.of(context)
                     .pushNamed(AppRoutes.websitesBlockingPath),
               ),
@@ -216,15 +324,12 @@ class TabDashboard extends ConsumerWidget {
         ),
       ];
 
-  static Widget _glassDivider(BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+  static Widget _divider(bool isDark) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 18),
         child: Divider(
           height: 1,
-          thickness: 0.6,
-          color: Theme.of(context)
-              .colorScheme
-              .onSurface
-              .withValues(alpha: 0.08),
+          thickness: 0.7,
+          color: DashboardPalette.royal.withValues(alpha: isDark ? 0.14 : 0.10),
         ),
       );
 }

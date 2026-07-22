@@ -45,8 +45,9 @@ class GreetingsUsername extends ConsumerWidget {
       children: [
         StyledText(
           "👋 ${context.locale.welcome_greetings}",
-          fontSize: 8,
+          fontSize: 11,
           height: 1,
+          color: const Color(0xFFE46B18).withValues(alpha: 0.85),
         ),
 
         /// User name
@@ -61,8 +62,8 @@ class GreetingsUsername extends ConsumerWidget {
             splashColor: Theme.of(context).colorScheme.surfaceContainerLow,
             child: StyledText(
               username,
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
+              fontSize: 24,
+              fontWeight: FontWeight.w700,
             ),
           ),
         ),
