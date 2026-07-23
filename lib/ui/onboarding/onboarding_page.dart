@@ -18,7 +18,7 @@ class OnboardingPage extends StatelessWidget {
     required this.imgArtPath,
     required this.title,
     required this.description,
-    this.bottomPadding = 148,
+    this.bottomPadding = 24,
   });
 
   final String imgArtPath;
@@ -37,11 +37,16 @@ class OnboardingPage extends StatelessWidget {
           0.vBox,
 
           /// Illustration
-          AspectRatio(
-            aspectRatio: 1,
-            child: Image.asset(
-              imgArtPath,
-              fit: BoxFit.contain,
+          ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.sizeOf(context).height * 0.42,
+            ),
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: Image.asset(
+                imgArtPath,
+                fit: BoxFit.contain,
+              ),
             ),
           ),
 

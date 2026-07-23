@@ -237,50 +237,54 @@ object OverlayBuilder {
 
         continueBtn.text = context.getString(R.string.breath_pause_continue, appName)
 
-        val density = context.resources.displayMetrics.density
-        val minHeightPx = (120 * density).toInt()
-        val maxHeightPx =
-            (context.resources.displayMetrics.heightPixels * 0.55f).toInt()
-                .coerceAtLeast(minHeightPx + 1)
+        val screenHeight = context.resources.displayMetrics.heightPixels
+        breathBlock.layoutParams = breathBlock.layoutParams.apply { height = 0 }
 
-        breathBlock.layoutParams = breathBlock.layoutParams.apply { height = minHeightPx }
-
-        var expanding = true
-        var completedHalfCycles = 0
         phaseTxt.text = context.getString(R.string.breath_pause_inhale)
 
-        val breathAnimator = ValueAnimator.ofInt(minHeightPx, maxHeightPx).apply {
-            duration = 4000L
-            repeatMode = ValueAnimator.REVERSE
-            repeatCount = ValueAnimator.INFINITE
+        fun setBlockHeight(heightPx: Int) {
+            breathBlock.layoutParams = breathBlock.layoutParams.apply {
+                height = heightPx.coerceAtLeast(0)
+            }
+        }
+
+        fun revealActions() {
+            phaseTxt.text = ""
+            actions.visibility = View.VISIBLE
+            actions.alpha = 0f
+            actions.animate().alpha(1f).setDuration(350).start()
+        }
+
+        val inhaleAnimator = ValueAnimator.ofInt(0, screenHeight).apply {
+            duration = 15_000L
             interpolator = AccelerateDecelerateInterpolator()
             addUpdateListener { anim ->
-                breathBlock.layoutParams = breathBlock.layoutParams.apply {
-                    height = anim.animatedValue as Int
-                }
+                setBlockHeight(anim.animatedValue as Int)
+            }
+        }
+
+        val exhaleAnimator = ValueAnimator.ofInt(screenHeight, 0).apply {
+            duration = 15_000L
+            interpolator = AccelerateDecelerateInterpolator()
+            addUpdateListener { anim ->
+                setBlockHeight(anim.animatedValue as Int)
             }
             addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationRepeat(animation: Animator) {
-                    expanding = !expanding
-                    completedHalfCycles++
-                    phaseTxt.text = if (expanding) {
-                        context.getString(R.string.breath_pause_inhale)
-                    } else {
-                        context.getString(R.string.breath_pause_exhale)
-                    }
-
-                    // Reveal actions after one full breath (in + out)
-                    if (completedHalfCycles == 2 && actions.visibility != View.VISIBLE) {
-                        actions.visibility = View.VISIBLE
-                        actions.alpha = 0f
-                        actions.animate().alpha(1f).setDuration(400).start()
-                    }
+                override fun onAnimationEnd(animation: Animator) {
+                    revealActions()
                 }
             })
         }
 
-        root.setTag(R.id.breath_overlay_root, breathAnimator)
-        root.post { breathAnimator.start() }
+        inhaleAnimator.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
+                phaseTxt.text = context.getString(R.string.breath_pause_exhale)
+                exhaleAnimator.start()
+            }
+        })
+
+        root.setTag(R.id.breath_overlay_root, inhaleAnimator)
+        root.setTag(R.id.breath_overlay_block, exhaleAnimator)
 
         continueBtn.setOnClickListener {
             stopBreathAnimators(root)
@@ -298,11 +302,14 @@ object OverlayBuilder {
             dismissOverlay.invoke()
         }
 
+        root.post { inhaleAnimator.start() }
+
         return root
     }
 
     private fun stopBreathAnimators(root: View) {
         (root.getTag(R.id.breath_overlay_root) as? ValueAnimator)?.cancel()
+        (root.getTag(R.id.breath_overlay_block) as? ValueAnimator)?.cancel()
     }
 
     fun getAppLabelAndIcon(

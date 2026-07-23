@@ -1,10 +1,6 @@
 /*
  *
- *  * Copyright (c) 2024 Mindful (https://github.com/akaMrNagar/Mindful)
- *  * Author : Pawan Nagar (https://github.com/akaMrNagar)
- *  *
- *  * This source code is licensed under the GPL-2.0 license license found in the
- *  * LICENSE file in the root directory of this source tree.
+ *  * Copyright (c) 2024 Solace
  *
  */
 
@@ -18,32 +14,41 @@ import 'package:mindful/ui/common/rounded_container.dart';
 import 'package:mindful/ui/common/styled_text.dart';
 
 class SliverTabsBottomPadding extends StatelessWidget {
-  /// Padded "Made with ♥️ in 🇮🇳" text
+  /// Footer: Sri Lanka + Mohamed Afraar + socials
   const SliverTabsBottomPadding({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+
     return Padding(
       padding: const EdgeInsets.only(top: 140, bottom: 240),
       child: Center(
         child: Column(
           children: [
-            /// Made with
             const StyledText(
-              "Made with ♥️ in 🇮🇳",
+              "Made with ♥️ in 🇱🇰",
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
-
-            6.vBox,
-
-            /// Socials
+            4.vBox,
+            Text(
+              "Mohamed Afraar",
+              style: TextStyle(
+                fontFamily: 'serif',
+                fontSize: 15,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.w500,
+                color: scheme.primary.withValues(alpha: 0.9),
+                letterSpacing: 0.3,
+              ),
+            ),
+            8.vBox,
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                /// Github
                 RoundedContainer(
                   height: 30,
                   width: 30,
@@ -52,15 +57,13 @@ class SliverTabsBottomPadding extends StatelessWidget {
                   child: SvgPicture.asset(
                     "assets/vectors/github.svg",
                     colorFilter: ColorFilter.mode(
-                      Theme.of(context).colorScheme.primary,
+                      scheme.primary,
                       BlendMode.srcIn,
                     ),
                   ),
                   onPressed: () => MethodChannelService.instance
                       .launchUrl(AppConstants.githubUrl),
                 ),
-
-                /// BMC
                 4.hBox,
                 RoundedContainer(
                   height: 30,
@@ -70,15 +73,13 @@ class SliverTabsBottomPadding extends StatelessWidget {
                   child: SvgPicture.asset(
                     "assets/vectors/bmc.svg",
                     colorFilter: ColorFilter.mode(
-                      Theme.of(context).colorScheme.primary,
+                      scheme.primary,
                       BlendMode.srcIn,
                     ),
                   ),
                   onPressed: () => MethodChannelService.instance
                       .launchUrl(AppConstants.bmcUrl),
                 ),
-
-                /// Instagram
                 4.hBox,
                 RoundedContainer(
                   height: 30,
@@ -88,15 +89,13 @@ class SliverTabsBottomPadding extends StatelessWidget {
                   child: SvgPicture.asset(
                     "assets/vectors/instagram.svg",
                     colorFilter: ColorFilter.mode(
-                      Theme.of(context).colorScheme.primary,
+                      scheme.primary,
                       BlendMode.srcIn,
                     ),
                   ),
                   onPressed: () => MethodChannelService.instance
                       .launchUrl(AppConstants.instagramUrl),
                 ),
-
-                /// Telegram
                 4.hBox,
                 RoundedContainer(
                   height: 30,
@@ -106,7 +105,7 @@ class SliverTabsBottomPadding extends StatelessWidget {
                   child: SvgPicture.asset(
                     "assets/vectors/telegram.svg",
                     colorFilter: ColorFilter.mode(
-                      Theme.of(context).colorScheme.primary,
+                      scheme.primary,
                       BlendMode.srcIn,
                     ),
                   ),

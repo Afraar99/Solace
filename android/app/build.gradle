@@ -66,7 +66,7 @@ android {
             ndk {
                 debugSymbolLevel 'full'
             }
-            resValue "string", "app_name", "Mindful"
+            resValue "string", "app_name", "Solace"
             signingConfig signingConfigs.release
 
             // If you see "SigningConfig 'release' is missing required property 'storeFile'",  
@@ -83,14 +83,14 @@ android {
 
         debug {
             applicationIdSuffix ".debug"
-            resValue "string", "app_name", "Mindful Debug"
+            resValue "string", "app_name", "Solace Debug"
             signingConfig System.getenv("KEYSTORE_FILE") != null ? signingConfigs.release : signingConfigs.debug
         }
 
         profile {
             // app_links library is causing error so commenting it out
             // applicationIdSuffix ".profile"
-            resValue "string", "app_name", "Mindful Profile"
+            resValue "string", "app_name", "Solace Profile"
             signingConfig System.getenv("KEYSTORE_FILE") != null ? signingConfigs.release : signingConfigs.debug
         }
     }

@@ -10,6 +10,7 @@
 
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mindful/config/app_constants.dart';
 import 'package:mindful/core/database/app_database.dart';
 import 'package:mindful/core/enums/app_theme_mode.dart';
 import 'package:mindful/core/enums/default_home_tab.dart';
@@ -35,6 +36,19 @@ class MindfulSettingsNotifier extends StateNotifier<MindfulSettings> {
   Future<MindfulSettings> init({bool addListenerToo = false}) async {
     final dao = DriftDbService.instance.driftDb.uniqueRecordsDao;
     state = await dao.loadMindfulSettings();
+
+    /// One-time Solace look: dark mode + burgundy
+    if (state.accentColor == 'Indigo' ||
+        state.accentColor == 'Teal' ||
+        state.themeMode == AppThemeMode.system) {
+      state = state.copyWith(
+        themeMode: AppThemeMode.dark,
+        accentColor: AppConstants.defaultMaterialColor,
+        useDynamicColors: false,
+      );
+      await dao.saveMindfulSettings(state);
+    }
+
     await MethodChannelService.instance
         .updateLocale(languageCode: state.localeCode);
 

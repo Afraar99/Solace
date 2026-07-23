@@ -1,10 +1,6 @@
 /*
  *
- *  * Copyright (c) 2024 Mindful (https://github.com/akaMrNagar/Mindful)
- *  * Author : Pawan Nagar (https://github.com/akaMrNagar)
- *  *
- *  * This source code is licensed under the GPL-2.0 license license found in the
- *  * LICENSE file in the root directory of this source tree.
+ *  * Copyright (c) 2024 Solace
  *
  */
 
@@ -28,9 +24,6 @@ class MindfulApp extends ConsumerWidget {
     final themeMode =
         ref.watch(mindfulSettingsProvider.select((v) => v.themeMode));
 
-    final accentColor =
-        ref.watch(mindfulSettingsProvider.select((v) => v.accentColor));
-
     final localeCode =
         ref.watch(mindfulSettingsProvider.select((v) => v.localeCode));
 
@@ -42,7 +35,6 @@ class MindfulApp extends ConsumerWidget {
 
     return DynamicColorBuilder(
       builder: (light, dark) {
-        /// Apply transparent color to system ui background
         WidgetsBinding.instance.addPostFrameCallback(
           (timeStamp) => SystemChrome.setSystemUIOverlayStyle(
             const SystemUiOverlayStyle(
@@ -53,25 +45,19 @@ class MindfulApp extends ConsumerWidget {
           ),
         );
 
+        final burgundy = AppTheme.materialColors['Burgundy'];
+
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-
-          /// Themes
           themeAnimationCurve: Curves.ease,
           themeMode: ThemeMode.values[themeMode.index],
           darkTheme: AppTheme.darkTheme(
             isAmoled: useAmoledDark,
-            seedColor: useDynamicColors
-                ? dark?.primary
-                : AppTheme.materialColors[accentColor],
+            seedColor: useDynamicColors ? dark?.primary : burgundy,
           ),
           theme: AppTheme.lightTheme(
-            seedColor: useDynamicColors
-                ? light?.primary
-                : AppTheme.materialColors[accentColor],
+            seedColor: useDynamicColors ? light?.primary : burgundy,
           ),
-
-          /// Localization
           locale: Locale(localeCode),
           supportedLocales: AppLocalizations.supportedLocales,
           localizationsDelegates: const [
@@ -80,8 +66,6 @@ class MindfulApp extends ConsumerWidget {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-
-          /// Navigation
           initialRoute: AppRoutes.rootSplashPath,
           routes: AppRoutes.routes,
           navigatorKey: NavigationService.navigatorKey,

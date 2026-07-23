@@ -47,7 +47,7 @@ class GreetingsUsername extends ConsumerWidget {
           "👋 ${context.locale.welcome_greetings}",
           fontSize: 11,
           height: 1,
-          color: const Color(0xFFE46B18).withValues(alpha: 0.85),
+          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.75),
         ),
 
         /// User name

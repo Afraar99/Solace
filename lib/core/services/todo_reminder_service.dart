@@ -12,6 +12,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:mindful/config/navigation/app_routes.dart';
 import 'package:mindful/config/navigation/navigation_service.dart';
 import 'package:mindful/core/database/app_database.dart';
+import 'package:mindful/core/services/method_channel_service.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -31,6 +32,12 @@ class TodoReminderService {
 
   Future<void> init() async {
     if (_initialized) return;
+
+    /// Skip native notification plugin setup on desktop/web UI preview
+    if (!MethodChannelService.instance.isNativeAndroid) {
+      _initialized = true;
+      return;
+    }
 
     tz.initializeTimeZones();
 

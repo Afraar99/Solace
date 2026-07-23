@@ -27,7 +27,6 @@ import 'package:mindful/ui/common/default_list_tile.dart';
 import 'package:mindful/ui/common/default_refresh_indicator.dart';
 import 'package:mindful/ui/common/go_to_badge_icon.dart';
 import 'package:mindful/ui/common/sliver_tabs_bottom_padding.dart';
-import 'package:mindful/ui/common/status_label.dart';
 import 'package:mindful/ui/common/styled_text.dart';
 import 'package:mindful/ui/common/usage_glance_card.dart';
 import 'package:mindful/ui/dialogs/modal_bottom_sheet.dart';
@@ -66,13 +65,6 @@ class _TabNotificationsState extends ConsumerState<TabNotifications> {
       child: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
-          StatusLabel(
-            label: "Work in progress",
-            accent: Theme.of(context).colorScheme.error,
-          ).sliver,
-
-          8.vSliverBox,
-
           /// Information about notification groups
           StyledText(context.locale.notifications_tab_info).sliver,
 

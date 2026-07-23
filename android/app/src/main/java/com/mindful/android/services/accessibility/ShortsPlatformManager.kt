@@ -162,19 +162,58 @@ class ShortsPlatformManager(
         private val mInstaExploreUrls = listOf("instagram.com/explore/", "m.instagram.com/explore/")
 
         private val mYtShortUrls = listOf("youtube.com/shorts/", "m.youtube.com/shorts/")
-        private val mFbReelUrls = listOf("facebook.com/reel/", "m.facebook.com/reel/")
+        private val mFbReelUrls = listOf(
+            "facebook.com/reel/",
+            "m.facebook.com/reel/",
+            "facebook.com/reels/",
+            "m.facebook.com/reels/",
+            "fb.watch/",
+        )
         private val mSnapSpotlightUrls = listOf(
             "snapchat.com/spotlight/",
             "m.snapchat.com/spotlight/",
-            "web.snapchat.com/spotlight/"
+            "web.snapchat.com/spotlight/",
         )
         private val mSnapDiscoverUrls = listOf(
             "snapchat.com/discover/",
             "m.snapchat.com/discover/",
-            "web.snapchat.com/discover/"
+            "web.snapchat.com/discover/",
         )
 
-        private val mFbNodeTexts = listOf("Add a comment", "कमेंट जोड़ें…")
+        private val mFbNodeTexts = listOf(
+            // Prefer Reel-specific labels to avoid false positives on normal posts
+            "Reels",
+            "Reel",
+            "रील्स",
+            "Reel'ler",
+            "Рилсы",
+            "リール",
+            "릴스",
+            "رولز",
+        )
+
+        private val mFbReelViewIds = listOf(
+            "com.facebook.katana:id/video_root",
+            "com.facebook.katana:id/reels_viewer_view_pager",
+            "com.facebook.katana:id/reels_tray_container",
+            "com.facebook.katana:id/reels_viewer_root",
+            "com.facebook.katana:id/watch_feed_comment_bar",
+            "com.facebook.lite:id/video_root",
+            "com.facebook.lite:id/reels_viewer_view_pager",
+        )
+
+        private val mInstaReelViewIds = listOf(
+            "com.instagram.android:id/clips_video_container",
+            "com.instagram.android:id/clips_viewer_view_pager",
+            "com.instagram.android:id/reel_viewer_root",
+            "com.instagram.android:id/clips_viewer_video_layout",
+        )
+
+        private val mYtShortViewIds = listOf(
+            "reel_player_underlay",
+            "reel_recycler",
+            "shorts_player",
+        )
 
 
         /**
@@ -184,17 +223,19 @@ class ShortsPlatformManager(
             node: AccessibilityNodeInfo,
             blockedFeatures: Set<PlatformFeatures>,
         ): Boolean {
-            return when {
-                PlatformFeatures.INSTAGRAM_REELS in blockedFeatures &&
-                        doesNodeByIdExists(node, "com.instagram.android:id/clips_video_container")
-                -> true
-
-                PlatformFeatures.INSTAGRAM_EXPLORE in blockedFeatures &&
-                        doesNodeByIdExists(node, "com.instagram.android:id/action_bar_search_edit_text")
-                -> true
-
-                else -> false
+            if (PlatformFeatures.INSTAGRAM_REELS in blockedFeatures) {
+                for (viewId in mInstaReelViewIds) {
+                    if (doesNodeByIdExists(node, viewId)) return true
+                }
             }
+
+            if (PlatformFeatures.INSTAGRAM_EXPLORE in blockedFeatures &&
+                doesNodeByIdExists(node, "com.instagram.android:id/action_bar_search_edit_text")
+            ) {
+                return true
+            }
+
+            return false
         }
 
         /**
@@ -204,8 +245,12 @@ class ShortsPlatformManager(
             node: AccessibilityNodeInfo,
             blockedFeatures: Set<PlatformFeatures>,
         ): Boolean {
-            return PlatformFeatures.YOUTUBE_SHORTS in blockedFeatures &&
-                    doesNodeByIdExists(node, "${node.packageName}:id/reel_player_underlay")
+            if (PlatformFeatures.YOUTUBE_SHORTS !in blockedFeatures) return false
+            val pkg = node.packageName?.toString() ?: return false
+            for (id in mYtShortViewIds) {
+                if (doesNodeByIdExists(node, "$pkg:id/$id")) return true
+            }
+            return false
         }
 
         /**
@@ -239,17 +284,16 @@ class ShortsPlatformManager(
             node: AccessibilityNodeInfo,
             blockedFeatures: Set<PlatformFeatures>,
         ): Boolean {
-            // TODO: Add more string translated from different languages for the node text
-            //  as user may have set different language for facebook app
+            if (PlatformFeatures.FACEBOOK_REELS !in blockedFeatures) return false
 
-            if (PlatformFeatures.FACEBOOK_REELS in blockedFeatures) {
-                for (text in mFbNodeTexts) {
-                    if (node.findAccessibilityNodeInfosByText(text).isNotEmpty()) {
-                        return true
-                    }
+            for (viewId in mFbReelViewIds) {
+                if (doesNodeByIdExists(node, viewId)) return true
+            }
+            for (text in mFbNodeTexts) {
+                if (node.findAccessibilityNodeInfosByText(text).isNotEmpty()) {
+                    return true
                 }
             }
-
             return false
         }
 
@@ -260,7 +304,10 @@ class ShortsPlatformManager(
             node: AccessibilityNodeInfo,
             blockedFeatures: Set<PlatformFeatures>,
         ): Boolean {
-            return PlatformFeatures.REDDIT_SHORTS in blockedFeatures && node.viewIdResourceName == "feed_vertical_pager"
+            if (PlatformFeatures.REDDIT_SHORTS !in blockedFeatures) return false
+            if (node.viewIdResourceName == "feed_vertical_pager") return true
+            return doesNodeByIdExists(node, "feed_vertical_pager") ||
+                    doesNodeByIdExists(node, "${node.packageName}:id/feed_vertical_pager")
         }
 
         /**

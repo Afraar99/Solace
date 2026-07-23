@@ -37,7 +37,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get permission_sheet_privacy_info =>
-      'Mindful es 100% seguro y funciona sin conexión. No recopilamos ni almacenamos datos personales.';
+      'Solace es 100% seguro y funciona sin conexión. No recopilamos ni almacenamos datos personales.';
 
   @override
   String permission_grant_step_one(String button_label) {
@@ -46,7 +46,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get permission_grant_step_two =>
-      '2. Seleccione Mindful en la siguiente pantalla.';
+      '2. Seleccione Solace en la siguiente pantalla.';
 
   @override
   String get permission_grant_step_three =>
@@ -60,7 +60,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get permission_alarms_info =>
-      'Por favor, concede permisos para configurar alarmas y recordatorios. Esto permitirá que Mindful inicie tu horario de sueño a tiempo, reinicie los temporizadores de la aplicación diariamente a medianoche y te ayude a mantener el control.';
+      'Por favor, concede permisos para configurar alarmas y recordatorios. Esto permitirá que Solace inicie tu horario de sueño a tiempo, reinicie los temporizadores de la aplicación diariamente a medianoche y te ayude a mantener el control.';
 
   @override
   String get permission_alarms_device_tile_label =>
@@ -71,7 +71,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get permission_usage_info =>
-      'Por favor, concede permiso de acceso de uso. Esto permitirá a Mindful monitorizar el uso de aplicaciones y gestionar el acceso a ciertas apps, asegurando un entorno digital más enfocado y controlado.';
+      'Por favor, concede permiso de acceso de uso. Esto permitirá a Solace monitorizar el uso de aplicaciones y gestionar el acceso a ciertas apps, asegurando un entorno digital más enfocado y controlado.';
 
   @override
   String get permission_usage_device_tile_label => 'Permitir acceso al uso';
@@ -81,7 +81,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get permission_overlay_info =>
-      'Por favor, concede el permiso de superposición de pantalla. Esto permitirá a Mindful mostrar una superposición cuando se abra una aplicación en pausa, ayudándote a mantenerte centrado y así mantener su horario.';
+      'Por favor, concede el permiso de superposición de pantalla. Esto permitirá a Solace mostrar una superposición cuando se abra una aplicación en pausa, ayudándote a mantenerte centrado y así mantener su horario.';
 
   @override
   String get permission_overlay_device_tile_label =>
@@ -92,21 +92,21 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get permission_accessibility_info =>
-      'Por favor, concede el permiso de accesibilidad. Esto permitirá a Mindful restringir el acceso al contenido de \"vídeo corto\" (P. ej., Reels, Shorts) dentro de las apps de redes sociales y los navegadores, y filtrar sitios web inapropiados.';
+      'Por favor, concede el permiso de accesibilidad. Esto permitirá a Solace restringir el acceso al contenido de \"vídeo corto\" (P. ej., Reels, Shorts) dentro de las apps de redes sociales y los navegadores, y filtrar sitios web inapropiados.';
 
   @override
   String get permission_accessibility_required =>
-      'Mindful requiere permiso de accesibilidad para bloquear de forma efectiva el contenido corto y los sitios web.';
+      'Solace requiere permiso de accesibilidad para bloquear de forma efectiva el contenido corto y los sitios web.';
 
   @override
-  String get permission_accessibility_device_tile_label => 'Usar Mindful';
+  String get permission_accessibility_device_tile_label => 'Usar Solace';
 
   @override
   String get permission_dnd_title => 'No molestar';
 
   @override
   String get permission_dnd_info =>
-      'Por favor, concede acceso a No molestar. Esto permitirá a Mindful iniciar y detener el modo No molestar durante el horario de sueño.';
+      'Por favor, concede acceso a No molestar. Esto permitirá a Solace iniciar y detener el modo No molestar durante el horario de sueño.';
 
   @override
   String get permission_dnd_tile_title => 'Iniciar DND';
@@ -136,7 +136,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get permission_vpn_info =>
-      'Por favor, concede el permiso para crear una conexión de Red Privada Virtual (VPN). Esto permitirá a Mindful restringir el acceso a internet para las aplicaciones designadas creando una VPN local en el dispositivo.';
+      'Por favor, concede el permiso para crear una conexión de Red Privada Virtual (VPN). Esto permitirá a Solace restringir el acceso a internet para las aplicaciones designadas creando una VPN local en el dispositivo.';
 
   @override
   String get permission_admin_title => 'Admin';
@@ -154,11 +154,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get permission_notification_access_info =>
-      'Por favor, concede el permiso de acceso a notificaciones. Esto permitirá a Mindful organizar tus notificaciones y entregarlas según tu horario.';
+      'Por favor, concede el permiso de acceso a notificaciones. Esto permitirá a Solace organizar tus notificaciones y entregarlas según tu horario.';
 
   @override
   String get permission_notification_access_required =>
-      'Mindful requiere acceso a notificaciones para agrupar y programar las mismas.';
+      'Solace requiere acceso a notificaciones para agrupar y programar las mismas.';
 
   @override
   String get permission_notification_access_device_tile_label =>
@@ -280,7 +280,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get development_dialog_info =>
-      'Mindful se encuentra actualmente en desarrollo y puede contener errores funciones incompletas. Si encuentras algún problema, por favor, infórmanos para ayudarnos a mejorar.\n\n¡Gracias por tus comentarios!';
+      'Solace se encuentra actualmente en desarrollo y puede contener errores funciones incompletas. Si encuentras algún problema, por favor, infórmanos para ayudarnos a mejorar.\n\n¡Gracias por tus comentarios!';
 
   @override
   String get development_dialog_button_report_issue => 'Reportar problema';
@@ -333,7 +333,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get donation_card_info =>
-      'Mindful es gratuito y de código abierto, desarrollado con meses de dedicación. Si te ha sido útil, tu donación significaría muchísimo para nosotros. Cada contribución nos ayuda a seguir mejorando y manteniéndolo para todos.';
+      'Solace es gratuito y de código abierto, desarrollado con meses de dedicación. Si te ha sido útil, tu donación significaría muchísimo para nosotros. Cada contribución nos ayuda a seguir mejorando y manteniéndolo para todos.';
 
   @override
   String get operation_failed_snack_alert =>
@@ -347,15 +347,15 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get app_restart_dialog_info =>
-      'Mindful se reiniciará automáticamente una vez que termine la cuenta regresiva. Por favor, ten paciencia mientras se aplican los cambios.';
+      'Solace se reiniciará automáticamente una vez que termine la cuenta regresiva. Por favor, ten paciencia mientras se aplican los cambios.';
 
   @override
   String get accessibility_tip =>
-      '¿Quieres un bloqueo más inteligente y que gaste menos batería? Habilita el permiso de Accesibilidad para Mindful.';
+      '¿Quieres un bloqueo más inteligente y que gaste menos batería? Habilita el permiso de Accesibilidad para Solace.';
 
   @override
   String get battery_optimization_tip =>
-      '¿Mindful no funciona? Permite \'Ignorar la optimización de la batería\' en los Ajustes para que siga funcionando sin problemas.';
+      '¿Solace no funciona? Permite \'Ignorar la optimización de la batería\' en los Ajustes para que siga funcionando sin problemas.';
 
   @override
   String get invincible_mode_tip =>
@@ -367,7 +367,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get tamper_protection_tip =>
-      '¿Estas desinstalando Mindful? Habilita la Ventana de Desinstalación para desactivar la protección contra manipulaciones de forma segura primero.';
+      '¿Estas desinstalando Solace? Habilita la Ventana de Desinstalación para desactivar la protección contra manipulaciones de forma segura primero.';
 
   @override
   String get notification_blocking_tip =>
@@ -464,7 +464,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get onboarding_page_one_info =>
-      'Pausa las apps que te distraen, bloquea el contenido corto y mantente centrado con sesiones de enfoque personalizables. Ya sea que estés trabajando, estudiando o relajándote, Mindful te ayuda a mantener el control.';
+      'Pausa las apps que te distraen, bloquea el contenido corto y mantente centrado con sesiones de enfoque personalizables. Ya sea que estés trabajando, estudiando o relajándote, Solace te ayuda a mantener el control.';
 
   @override
   String get onboarding_page_two_title => 'Bloquea las Distracciones';
@@ -478,14 +478,14 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get onboarding_page_three_info =>
-      'Mindful es 100% de código abierto y funciona completamente sin conexión. No recopilamos ni compartimos tus datos personales; tu privacidad está garantizada de todas las maneras.';
+      'Solace es 100% de código abierto y funciona completamente sin conexión. No recopilamos ni compartimos tus datos personales; tu privacidad está garantizada de todas las maneras.';
 
   @override
   String get onboarding_page_permissions_title => 'Permisos Esenciales';
 
   @override
   String get onboarding_page_permissions_info =>
-      'Mindful requiere los siguientes permisos esenciales para monitorizar y gestionar tu tiempo de pantalla, ayudando a reducir las distracciones y mejorando el enfoque.';
+      'Solace requiere los siguientes permisos esenciales para monitorizar y gestionar tu tiempo de pantalla, ayudando a reducir las distracciones y mejorando el enfoque.';
 
   @override
   String get dashboard_tab_title => 'Panel de Control';
@@ -762,7 +762,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get protected_access_tile_subtitle =>
-      'Protege Mindful con el desbloqueo de tu dispositivo.';
+      'Protege Solace con el desbloqueo de tu dispositivo.';
 
   @override
   String get protected_access_no_lock_snack_alert =>
@@ -785,7 +785,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get tamper_protection_confirmation_dialog_info =>
-      'Una vez habilitado, no podrás desinstalar, forzar detención o borrar los datos de Mindful, excepto durante la ventana de desinstalación seleccionada. No hay soluciones alternativas.\n\nProcede bajo tu propio riesgo.';
+      'Una vez habilitado, no podrás desinstalar, forzar detención o borrar los datos de Solace, excepto durante la ventana de desinstalación seleccionada. No hay soluciones alternativas.\n\nProcede bajo tu propio riesgo.';
 
   @override
   String get uninstall_window_tile_title => 'Ventana de desinstalación';
@@ -1435,14 +1435,14 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get service_stopping_warning =>
-      'Si Mindful deja de funcionar inesperadamente, por favor, concede el permiso \"Ignorar Optimización de Batería\" para mantenerlo funcionando en segundo plano. Si el problema persiste, intenta añadir Mindful a la lista blanca para un rendimiento ininterrumpido.';
+      'Si Solace deja de funcionar inesperadamente, por favor, concede el permiso \"Ignorar Optimización de Batería\" para mantenerlo funcionando en segundo plano. Si el problema persiste, intenta añadir Solace a la lista blanca para un rendimiento ininterrumpido.';
 
   @override
-  String get whitelist_app_tile_title => 'Añadir Mindful a la lista blanca';
+  String get whitelist_app_tile_title => 'Añadir Solace a la lista blanca';
 
   @override
   String get whitelist_app_tile_subtitle =>
-      'Permitir que Mindful inicie automáticamente.';
+      'Permitir que Solace inicie automáticamente.';
 
   @override
   String get whitelist_app_unsupported_snack_alert =>
@@ -1547,7 +1547,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get privacy_policy_info =>
-      'Mindful se compromete a proteger tu privacidad. No recopilamos, almacenamos ni transferimos ningún tipo de datos de usuario. La aplicación funciona completamente sin conexión y no requiere conexión a internet, lo que garantiza que tu información personal permanezca privada y segura en tu dispositivo. Como aplicación de Software Libre y de Código Abierto (FOSS), Mindful garantiza total transparencia y control del usuario sobre sus datos.';
+      'Solace se compromete a proteger tu privacidad. No recopilamos, almacenamos ni transferimos ningún tipo de datos de usuario. La aplicación funciona completamente sin conexión y no requiere conexión a internet, lo que garantiza que tu información personal permanezca privada y segura en tu dispositivo. Como aplicación de Software Libre y de Código Abierto (FOSS), Solace garantiza total transparencia y control del usuario sobre sus datos.';
 
   @override
   String get more_details_button => 'Más información';

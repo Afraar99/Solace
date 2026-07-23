@@ -37,7 +37,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get permission_sheet_privacy_info =>
-      'Mindful 安全且不使用互联网。我们不收集或存储任何个人数据。';
+      'Solace 安全且不使用互联网。我们不收集或存储任何个人数据。';
 
   @override
   String permission_grant_step_one(String button_label) {
@@ -45,7 +45,7 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get permission_grant_step_two => '2. 请在下一个屏幕中选择 Mindful。';
+  String get permission_grant_step_two => '2. 请在下一个屏幕中选择 Solace。';
 
   @override
   String get permission_grant_step_three => '3. 点击并开启如下开关。';
@@ -68,7 +68,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get permission_usage_info =>
-      '请授予使用访问权限。这将允许Mindful监控应用使用情况并管理对某些应用的访问，确保更专注和受控的数字环境。';
+      '请授予使用访问权限。这将允许Solace监控应用使用情况并管理对某些应用的访问，确保更专注和受控的数字环境。';
 
   @override
   String get permission_usage_device_tile_label => '允许使用访问';
@@ -78,7 +78,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get permission_overlay_info =>
-      '请授予显示叠加层权限。这将允许Mindful在暂停的应用打开时显示叠加层，帮助您保持专注并维持您的日程安排。';
+      '请授予显示叠加层权限。这将允许Solace在暂停的应用打开时显示叠加层，帮助您保持专注并维持您的日程安排。';
 
   @override
   String get permission_overlay_device_tile_label => '允许在其他应用上显示';
@@ -88,20 +88,20 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get permission_accessibility_info =>
-      '请授予无障碍权限。这将允许Mindful限制社交媒体应用和浏览器中的短视频内容（例如Reels、Shorts）访问，并过滤不当网站。';
+      '请授予无障碍权限。这将允许Solace限制社交媒体应用和浏览器中的短视频内容（例如Reels、Shorts）访问，并过滤不当网站。';
 
   @override
-  String get permission_accessibility_required => 'Mindful需要无障碍权限才能有效阻止短内容和网站。';
+  String get permission_accessibility_required => 'Solace需要无障碍权限才能有效阻止短内容和网站。';
 
   @override
-  String get permission_accessibility_device_tile_label => '使用Mindful';
+  String get permission_accessibility_device_tile_label => '使用Solace';
 
   @override
   String get permission_dnd_title => '请勿打扰';
 
   @override
   String get permission_dnd_info =>
-      '请授予请勿打扰访问权限。这将允许Mindful在睡眠时间表期间开始和停止请勿打扰模式。';
+      '请授予请勿打扰访问权限。这将允许Solace在睡眠时间表期间开始和停止请勿打扰模式。';
 
   @override
   String get permission_dnd_tile_title => '开始DND';
@@ -127,7 +127,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get permission_vpn_info =>
-      '请授予创建虚拟专用网络（VPN）连接的权限。这将使Mindful能够通过在设备上创建本地VPN来限制指定应用程序的互联网访问。';
+      '请授予创建虚拟专用网络（VPN）连接的权限。这将使Solace能够通过在设备上创建本地VPN来限制指定应用程序的互联网访问。';
 
   @override
   String get permission_admin_title => '管理员';
@@ -143,11 +143,11 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get permission_notification_access_info =>
-      '请授予通知访问权限。这将允许Mindful组织您的通知并按照您的日程安排进行交付。';
+      '请授予通知访问权限。这将允许Solace组织您的通知并按照您的日程安排进行交付。';
 
   @override
   String get permission_notification_access_required =>
-      'Mindful需要通知访问权限来批量和安排通知。';
+      'Solace需要通知访问权限来批量和安排通知。';
 
   @override
   String get permission_notification_access_device_tile_label => '允许通知访问';
@@ -267,7 +267,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get development_dialog_info =>
-      'Mindful 目前处于开发阶段，可能存在漏洞或不完整的功能。如果您遇到任何问题，请报告以帮助我们改进。\n\n感谢您的反馈！';
+      'Solace 目前处于开发阶段，可能存在漏洞或不完整的功能。如果您遇到任何问题，请报告以帮助我们改进。\n\n感谢您的反馈！';
 
   @override
   String get development_dialog_button_report_issue => '报告问题';
@@ -314,7 +314,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get donation_card_info =>
-      'Mindful 是免费且开源的，经过数月的奉献开发。如果它对您有帮助，您的捐款将对我们意义重大。每一份贡献都帮助我们继续改进和维护它，以造福所有人。';
+      'Solace 是免费且开源的，经过数月的奉献开发。如果它对您有帮助，您的捐款将对我们意义重大。每一份贡献都帮助我们继续改进和维护它，以造福所有人。';
 
   @override
   String get operation_failed_snack_alert => '操作失败，出了问题！';
@@ -326,14 +326,13 @@ class AppLocalizationsZh extends AppLocalizations {
   String get app_restart_dialog_title => '需要重启';
 
   @override
-  String get app_restart_dialog_info => 'Mindful 将在倒计时结束后自动重启。请耐心等待，应用正在应用更改。';
+  String get app_restart_dialog_info => 'Solace 将在倒计时结束后自动重启。请耐心等待，应用正在应用更改。';
 
   @override
-  String get accessibility_tip => '需要更智能，更省电的拦截吗？为Mindful启动无障碍权限。';
+  String get accessibility_tip => '需要更智能，更省电的拦截吗？为Solace启动无障碍权限。';
 
   @override
-  String get battery_optimization_tip =>
-      'Mindful无法运行？在设置中启用“忽略电池优化”以便可以更流畅的运行。';
+  String get battery_optimization_tip => 'Solace无法运行？在设置中启用“忽略电池优化”以便可以更流畅的运行。';
 
   @override
   String get invincible_mode_tip => '不小心移除了限制？使用隐藏模式锁定它们，直到第二天或调整窗口。';
@@ -342,7 +341,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get glance_usage_tip => '想要深入了解？查看 Glance 功能，了解你的使用模式和屏幕使用时间。';
 
   @override
-  String get tamper_protection_tip => '正在卸载 Mindful？请先启用卸载窗口以安全地禁用防篡改保护。';
+  String get tamper_protection_tip => '正在卸载 Solace？请先启用卸载窗口以安全地禁用防篡改保护。';
 
   @override
   String get notification_blocking_tip => '需要减少打扰？使用通知拦截以静音所选择的应用。';
@@ -420,7 +419,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get onboarding_page_one_info =>
-      '暂停分散注意力的应用，屏蔽短内容，并通过可定制的专注会话保持在正轨上。不论你是在工作、学习或放松，Mindful都能帮助你保持控制。';
+      '暂停分散注意力的应用，屏蔽短内容，并通过可定制的专注会话保持在正轨上。不论你是在工作、学习或放松，Solace都能帮助你保持控制。';
 
   @override
   String get onboarding_page_two_title => '屏蔽干扰。';
@@ -434,14 +433,14 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get onboarding_page_three_info =>
-      'Mindful 是 100% 开源的，并且完全离线运行。我们不收集或分享您的个人数据——您的隐私在每个方面都得到保证。';
+      'Solace 是 100% 开源的，并且完全离线运行。我们不收集或分享您的个人数据——您的隐私在每个方面都得到保证。';
 
   @override
   String get onboarding_page_permissions_title => '必要权限。';
 
   @override
   String get onboarding_page_permissions_info =>
-      'Mindful 需要以下必要权限来跟踪和管理您的屏幕时间，帮助减少干扰并提高专注度。';
+      'Solace 需要以下必要权限来跟踪和管理您的屏幕时间，帮助减少干扰并提高专注度。';
 
   @override
   String get dashboard_tab_title => '仪表盘';
@@ -693,7 +692,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get protected_access_tile_title => '受保护访问';
 
   @override
-  String get protected_access_tile_subtitle => '使用设备锁保护Mindful。';
+  String get protected_access_tile_subtitle => '使用设备锁保护Solace。';
 
   @override
   String get protected_access_no_lock_snack_alert => '请先在设备上设置生物识别锁以启用此功能。';
@@ -713,7 +712,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get tamper_protection_confirmation_dialog_info =>
-      '一旦启用，您将无法卸载、强制停止或清除 Mindful 的数据，除非在指定的卸载时间段内。没有其他例外。\n\n请自行承担风险。';
+      '一旦启用，您将无法卸载、强制停止或清除 Solace 的数据，除非在指定的卸载时间段内。没有其他例外。\n\n请自行承担风险。';
 
   @override
   String get uninstall_window_tile_title => '卸载窗口';
@@ -1327,13 +1326,13 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get service_stopping_warning =>
-      '如果 Mindful 意外停止工作，请授予“忽略电池优化”权限以保持后台运行。如果问题持续，请将 Mindful 加入白名单以获得无间断性能。';
+      '如果 Solace 意外停止工作，请授予“忽略电池优化”权限以保持后台运行。如果问题持续，请将 Solace 加入白名单以获得无间断性能。';
 
   @override
-  String get whitelist_app_tile_title => '将 Mindful 加入白名单';
+  String get whitelist_app_tile_title => '将 Solace 加入白名单';
 
   @override
-  String get whitelist_app_tile_subtitle => '允许 Mindful 自动启动。';
+  String get whitelist_app_tile_subtitle => '允许 Solace 自动启动。';
 
   @override
   String get whitelist_app_unsupported_snack_alert => '该设备不支持自动启动管理。';
@@ -1428,7 +1427,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get privacy_policy_info =>
-      'Mindful 致力于保护您的隐私。我们不收集、存储或传输任何类型的用户数据。该应用完全离线运行，不需要互联网连接，确保您的个人信息在您的设备上保持私密和安全。作为免费开源软件 (FOSS) 应用，Mindful 保证对用户数据的完全透明度和用户控制。';
+      'Solace 致力于保护您的隐私。我们不收集、存储或传输任何类型的用户数据。该应用完全离线运行，不需要互联网连接，确保您的个人信息在您的设备上保持私密和安全。作为免费开源软件 (FOSS) 应用，Solace 保证对用户数据的完全透明度和用户控制。';
 
   @override
   String get more_details_button => '更多详情';

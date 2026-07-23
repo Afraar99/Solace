@@ -10,7 +10,7 @@
     "permission_button_agree_and_continue": "同意して続ける",
     "permission_button_not_now": "後で",
     "permission_button_help": "ヘルプ",
-    "permission_sheet_privacy_info": "Mindful は100%安全で、オフラインでも動作します。個人情報の収集または保存をすることはありません。",
+    "permission_sheet_privacy_info": "Solace は100%安全で、オフラインでも動作します。個人情報の収集または保存をすることはありません。",
     "permission_grant_step_one": "1. {button_label} を選択してください。",
     "@permission_grant_step_one": {
         "placeholders": {
@@ -19,24 +19,24 @@
             }
         }
     },
-    "permission_grant_step_two": "2. 次の画面で Mindful を選択してください。",
+    "permission_grant_step_two": "2. 次の画面で Solace を選択してください。",
     "permission_grant_step_three": "3. 下記を参考に、切り替えを選択して有効にしてください。",
     "permission_notification_title": "通知を受け取る",
     "permission_alarms_title": "アラームとリマインダー",
-    "permission_alarms_info": "Mindful が就寝スケジュールとアプリタイマーを管理できるように、アラームとリマインダーへのアクセスを許可してください。",
+    "permission_alarms_info": "Solace が就寝スケジュールとアプリタイマーを管理できるように、アラームとリマインダーへのアクセスを許可してください。",
     "permission_alarms_device_tile_label": "アラームとリマインダーの設定を許可する",
     "permission_usage_title": "使用状況",
-    "permission_usage_info": "Mindful がアプリの使用状況を把握し、アプリの利用時間を管理できるように、使用状況へのアクセスを許可してください。",
+    "permission_usage_info": "Solace がアプリの使用状況を把握し、アプリの利用時間を管理できるように、使用状況へのアクセスを許可してください。",
     "permission_usage_device_tile_label": "使用状況へのアクセス許可",
     "permission_overlay_title": "他のアプリの上に重ねて表示",
-    "permission_overlay_info": "Mindful が利用時間を超えたアプリを制限できるように、他のアプリの上に重ねて表示を許可してください。",
+    "permission_overlay_info": "Solace が利用時間を超えたアプリを制限できるように、他のアプリの上に重ねて表示を許可してください。",
     "permission_overlay_device_tile_label": "他のアプリの上に重ねて表示できるようにする",
     "permission_accessibility_title": "ユーザー補助",
     "permission_accessibility_info": "リール・ショート動画へのアクセス制限や不適切なSNS・ウェブサイトのブロックをするために、ユーザー補助を有効にしてください。",
-    "permission_accessibility_required": "Mindful がショートコンテンツやウェブサイトを効果的にブロックするには、ユーザー補助の権限が必要です。",
-    "permission_accessibility_device_tile_label": "Mindful の使用",
+    "permission_accessibility_required": "Solace がショートコンテンツやウェブサイトを効果的にブロックするには、ユーザー補助の権限が必要です。",
+    "permission_accessibility_device_tile_label": "Solace の使用",
     "permission_dnd_title": "サイレントモード",
-    "permission_dnd_info": "サイレントモードを利用すると、Mindful が就寝時間中の通知を自動的に管理し、快適な睡眠をサポートします。",
+    "permission_dnd_info": "サイレントモードを利用すると、Solace が就寝時間中の通知を自動的に管理し、快適な睡眠をサポートします。",
     "permission_dnd_tile_title": "サイレントモードを開始",
     "permission_dnd_tile_subtitle": "サイレントモードを有効にする必要があります。",
     "permission_battery_optimization_tile_title": "バッテリー最適化を無視する",
@@ -44,13 +44,13 @@
     "permission_battery_optimization_status_disabled": "バックグラウンドで動作していません",
     "permission_battery_optimization_allow_info": "「バッテリー最適化を無視する」を許可すると、一部のデバイスでは「アラームとリマインダー」の権限が自動的に付与されます。",
     "permission_vpn_title": "VPNを作成",
-    "permission_vpn_info": "Mindful がアプリのインターネットアクセスを制限するために、仮想プライベートネットワーク（VPN）接続の作成を許可してください。",
+    "permission_vpn_info": "Solace がアプリのインターネットアクセスを制限するために、仮想プライベートネットワーク（VPN）接続の作成を許可してください。",
     "permission_admin_title": "デバイス管理アプリの有効化",
     "permission_admin_info": "デバイス管理アプリの有効化は、アプリが正常に動作し、改ざん防止を維持するために必要な操作のみに使用されます。",
     "permission_admin_snack_alert": "デバイス管理アプリの有効化は、選択した時間帯以外では無効にすることができません。",
     "permission_notification_access_title": "通知へのアクセス",
-    "permission_notification_access_info": "通知へのアクセス権限を許可してください。これにより、Mindful が通知を整理し、あなたのスケジュールに合わせて通知を配信できるようになります。",
-    "permission_notification_access_required": "Mindful が通知をまとめてスケジュール配信するには、通知へのアクセス権限が必要です。",
+    "permission_notification_access_info": "通知へのアクセス権限を許可してください。これにより、Solace が通知を整理し、あなたのスケジュールに合わせて通知を配信できるようになります。",
+    "permission_notification_access_required": "Solace が通知をまとめてスケジュール配信するには、通知へのアクセス権限が必要です。",
     "permission_notification_access_device_tile_label": "通知へのアクセスを許可",
     "@----------------------------- DATE AND TIME -----------------------------": {},
     "day_today": "今日",
@@ -107,7 +107,7 @@
     "dialog_button_infinite": "無制限",
     "schedule_start_label": "開始",
     "schedule_end_label": "終了",
-    "development_dialog_info": "Mindfulは現在開発中のため、不具合や未完成の機能がある可能性があります。 問題が発生した場合は、改善のためご報告ください。\n\nご意見ありがとうございます！",
+    "development_dialog_info": "Solaceは現在開発中のため、不具合や未完成の機能がある可能性があります。 問題が発生した場合は、改善のためご報告ください。\n\nご意見ありがとうございます！",
     "development_dialog_button_report_issue": "問題を報告",
     "development_dialog_button_close": "閉じる",
     "dnd_settings_tile_title": "サイレントモード設定",
@@ -122,24 +122,24 @@
     "active_period_info": "アクセスを許可する時間帯を設定してください。この時間帯以外では、アクセスが制限されます。",
     "minimum_distracting_apps_snack_alert": "使用制限するアプリを少なくとも1つは選択してください。",
     "donation_card_title": "開発を支援する",
-    "donation_card_info": "Mindful は、数ヶ月の開発期間を経て、無料で公開しています。このアプリをより多くの人々に届け、改善し続けるために、皆様からの温かいご支援をお待ちしています。",
+    "donation_card_info": "Solace は、数ヶ月の開発期間を経て、無料で公開しています。このアプリをより多くの人々に届け、改善し続けるために、皆様からの温かいご支援をお待ちしています。",
     "operation_failed_snack_alert": "エラーが発生し、操作を完了できませんでした。",
     "donation_card_button_donate": "寄付する",
     "app_restart_dialog_title": "再起動してください",
-    "app_restart_dialog_info": "カウントダウン終了後、Mindful は自動的に再起動します。変更の適用には少し時間がかかりますので、お待ちください。",
+    "app_restart_dialog_info": "カウントダウン終了後、Solace は自動的に再起動します。変更の適用には少し時間がかかりますので、お待ちください。",
     "@----------------------------- TIPS -----------------------------": {},
-    "battery_optimization_tip": "Mindful が予期せず停止する場合は、「設定>詳細設定」から「バッテリー最適化を無視する」権限を付与して、バックグラウンドでの動作を継続させることを検討してください。",
+    "battery_optimization_tip": "Solace が予期せず停止する場合は、「設定>詳細設定」から「バッテリー最適化を無視する」権限を付与して、バックグラウンドでの動作を継続させることを検討してください。",
     "@----------------------------- ONBOARDING SCREEN -----------------------------": {},
     "onboarding_skip_btn_label": "スキップ",
     "onboarding_finish_setup_btn_label": "設定終了",
     "onboarding_page_one_title": "集中力を持続させる",
-    "onboarding_page_one_info": "Mindful で集中力をマスターしましょう。気が散るアプリやショートコンテンツをブロックし、あなただけの集中時間を作り出します。",
+    "onboarding_page_one_info": "Solace で集中力をマスターしましょう。気が散るアプリやショートコンテンツをブロックし、あなただけの集中時間を作り出します。",
     "onboarding_page_two_title": "邪魔をブロック",
     "onboarding_page_two_info": "アプリの使用制限を設定し、自動的にアプリを一時停止し、より健全なデジタル習慣を身につけましょう。サイレントモードを使用して、リラックスして邪魔のない夜を楽しみましょう。",
     "onboarding_page_three_title": "プライバシー重視",
-    "onboarding_page_three_info": "Mindful は、あなたのプライバシーを最優先に考えています。アプリは100%オープンソースで、オフラインで動作するため、個人情報は一切収集されません。",
+    "onboarding_page_three_info": "Solace は、あなたのプライバシーを最優先に考えています。アプリは100%オープンソースで、オフラインで動作するため、個人情報は一切収集されません。",
     "onboarding_page_permissions_title": "必要な権限",
-    "onboarding_page_permissions_info": "Mindful が画面の使用時間を追跡・管理し、集中力を高めるために必要な権限は以下のとおりです。",
+    "onboarding_page_permissions_info": "Solace が画面の使用時間を追跡・管理し、集中力を高めるために必要な権限は以下のとおりです。",
     "@----------------------------- HOME SCREEN - DASHBOARD TAB -----------------------------": {},
     "dashboard_tab_title": "ダッシュボード",
     "focus_now_fab_button": "今すぐ集中",
@@ -217,7 +217,7 @@
     "invincible_mode_include_bedtime_tile_title": "就寝時間を含める",
     "invincible_mode_include_bedtime_tile_subtitle": "就寝時間中は制限設定を変更できなくなります。",
     "protected_access_tile_title": "アクセス保護",
-    "protected_access_tile_subtitle": "デバイスロックで Mindful を保護する",
+    "protected_access_tile_subtitle": "デバイスロックで Solace を保護する",
     "protected_access_no_lock_snack_alert": "この機能を有効にするには、まずデバイスに生体認証ロックを設定してください。",
     "protected_access_removed_lock_snack_alert": "デバイスロックが解除されました。続行するには、新しいロックを設定してください。",
     "protected_access_failed_lock_snack_alert": "認証に失敗しました。続行するにはデバイスロックの確認が必要です。",
@@ -448,7 +448,7 @@
         "placeholders": {
             "appName": {
                 "type": "String",
-                "example": "Mindful"
+                "example": "Solace"
             }
         }
     },
@@ -457,7 +457,7 @@
         "placeholders": {
             "appName": {
                 "type": "String",
-                "example": "Mindful"
+                "example": "Solace"
             }
         }
     },
@@ -467,7 +467,7 @@
         "placeholders": {
             "appName": {
                 "type": "String",
-                "example": "Mindful"
+                "example": "Solace"
             }
         }
     },
@@ -480,7 +480,7 @@
         "placeholders": {
             "appName": {
                 "type": "String",
-                "example": "Mindful"
+                "example": "Solace"
             }
         }
     },
@@ -489,7 +489,7 @@
         "placeholders": {
             "appName": {
                 "type": "String",
-                "example": "Mindful"
+                "example": "Solace"
             }
         }
     },
@@ -515,9 +515,9 @@
     "usage_history_6_month": "6ヶ月間",
     "usage_history_1_year": "1年間",
     "service_heading": "サービス",
-    "service_stopping_warning": "Mindfulが予期せず動作を停止した場合は、バッテリーの最適化を無視することを許可し、バックグラウンドで実行できるようにしてください。それでも問題が続く場合は、Mindfulを許可リストに登録して、動作を中断されないようにしてください。",
-    "whitelist_app_tile_title": "Mindful を許可リストに追加",
-    "whitelist_app_tile_subtitle": "Mindfulの自動起動を有効にする",
+    "service_stopping_warning": "Solaceが予期せず動作を停止した場合は、バッテリーの最適化を無視することを許可し、バックグラウンドで実行できるようにしてください。それでも問題が続く場合は、Solaceを許可リストに登録して、動作を中断されないようにしてください。",
+    "whitelist_app_tile_title": "Solace を許可リストに追加",
+    "whitelist_app_tile_subtitle": "Solaceの自動起動を有効にする",
     "whitelist_app_unsupported_snack_alert": "このデバイスは自動起動の設定に対応していません。",
     "@----------------------------- SETTINGS SCREEN - DATABASE TAB -----------------------------": {},
     "database_tab_title": "データベース",
@@ -550,6 +550,6 @@
     "write_email_tile_title": "メールでご連絡",
     "write_email_tile_subtitle": "メールアプリを開く",
     "privacy_policy_heading": "プライバシーポリシー",
-    "privacy_policy_info": "Mindfulはプライバシー保護に最優先で取り組んでいます。ユーザーデータの収集、保存、または第三者に提供することはありません。アプリは完全にオフラインで動作し、インターネット接続を必要としないため、ユーザーの個人情報はデバイス上で安全に保護されます。無料でオープンソースのソフトウェア（FOSS）であり、完全な透明性とユーザーによるデータの制御を保証します。",
+    "privacy_policy_info": "Solaceはプライバシー保護に最優先で取り組んでいます。ユーザーデータの収集、保存、または第三者に提供することはありません。アプリは完全にオフラインで動作し、インターネット接続を必要としないため、ユーザーの個人情報はデバイス上で安全に保護されます。無料でオープンソースのソフトウェア（FOSS）であり、完全な透明性とユーザーによるデータの制御を保証します。",
     "more_details_button": "詳細情報"
 }

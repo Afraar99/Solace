@@ -371,17 +371,29 @@
                         android:textAllCaps="false"
                         android:textColor="@color/secondaryContainer" />
 
-                    <!-- Made in India -->
+                    <!-- Made in Sri Lanka -->
                     <TextView
                         android:id="@+id/overlay_sheet_made"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:layout_marginBottom="32dp"
                         android:gravity="center"
-                        android:text="Made with ♥️ in 🇮🇳"
+                        android:text="Made with ♥️ in 🇱🇰"
                         android:textColor="@color/textSecondary"
                         android:textSize="12sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/overlay_sheet_author"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="32dp"
+                        android:gravity="center"
+                        android:text="Mohamed Afraar"
+                        android:textColor="@color/accent"
+                        android:textSize="13sp"
+                        android:textStyle="italic"
                         tools:ignore="HardcodedText" />
                 </LinearLayout>
             </ScrollView>

@@ -207,7 +207,7 @@ abstract class AppLocalizations {
   /// No description provided for @permission_sheet_privacy_info.
   ///
   /// In en, this message translates to:
-  /// **'Mindful is 100% secure and works offline. We do not collect or store any personal data.'**
+  /// **'Solace is 100% secure and works offline. We do not collect or store any personal data.'**
   String get permission_sheet_privacy_info;
 
   /// No description provided for @permission_grant_step_one.
@@ -219,7 +219,7 @@ abstract class AppLocalizations {
   /// No description provided for @permission_grant_step_two.
   ///
   /// In en, this message translates to:
-  /// **'2. Select Mindful in the next screen.'**
+  /// **'2. Select Solace in the next screen.'**
   String get permission_grant_step_two;
 
   /// No description provided for @permission_grant_step_three.
@@ -243,7 +243,7 @@ abstract class AppLocalizations {
   /// No description provided for @permission_alarms_info.
   ///
   /// In en, this message translates to:
-  /// **'Please grant permission for setting alarms and reminders. This will allow Mindful to start your bedtime schedule on time and reset app timers daily at midnight and help you stay on track.'**
+  /// **'Please grant permission for setting alarms and reminders. This will allow Solace to start your bedtime schedule on time and reset app timers daily at midnight and help you stay on track.'**
   String get permission_alarms_info;
 
   /// No description provided for @permission_alarms_device_tile_label.
@@ -261,7 +261,7 @@ abstract class AppLocalizations {
   /// No description provided for @permission_usage_info.
   ///
   /// In en, this message translates to:
-  /// **'Please grant usage access permission. This will allow Mindful to monitor app usage and manage access to certain apps, ensuring a more focused and controlled digital environment.'**
+  /// **'Please grant usage access permission. This will allow Solace to monitor app usage and manage access to certain apps, ensuring a more focused and controlled digital environment.'**
   String get permission_usage_info;
 
   /// No description provided for @permission_usage_device_tile_label.
@@ -279,7 +279,7 @@ abstract class AppLocalizations {
   /// No description provided for @permission_overlay_info.
   ///
   /// In en, this message translates to:
-  /// **'Please grant display overlay permission. This will allow Mindful to show an overlay when a paused app is opened, helping you stay focused and maintain your schedule.'**
+  /// **'Please grant display overlay permission. This will allow Solace to show an overlay when a paused app is opened, helping you stay focused and maintain your schedule.'**
   String get permission_overlay_info;
 
   /// No description provided for @permission_overlay_device_tile_label.
@@ -297,19 +297,19 @@ abstract class AppLocalizations {
   /// No description provided for @permission_accessibility_info.
   ///
   /// In en, this message translates to:
-  /// **'Please grant accessibility permission. This will allow Mindful to restrict access to short-form video content (e.g., Reels, Shorts) within social media apps and browsers, and filter inappropriate websites.'**
+  /// **'Please grant accessibility permission. This will allow Solace to restrict access to short-form video content (e.g., Reels, Shorts) within social media apps and browsers, and filter inappropriate websites.'**
   String get permission_accessibility_info;
 
   /// No description provided for @permission_accessibility_required.
   ///
   /// In en, this message translates to:
-  /// **'Mindful requires accessibility permission to block short content and websites effectively.'**
+  /// **'Solace requires accessibility permission to block short content and websites effectively.'**
   String get permission_accessibility_required;
 
   /// No description provided for @permission_accessibility_device_tile_label.
   ///
   /// In en, this message translates to:
-  /// **'Use Mindful'**
+  /// **'Use Solace'**
   String get permission_accessibility_device_tile_label;
 
   /// No description provided for @permission_dnd_title.
@@ -321,7 +321,7 @@ abstract class AppLocalizations {
   /// No description provided for @permission_dnd_info.
   ///
   /// In en, this message translates to:
-  /// **'Please grant Do Not Disturb access. This will allow Mindful to start and stop Do Not Disturb mode during the bedtime schedule.'**
+  /// **'Please grant Do Not Disturb access. This will allow Solace to start and stop Do Not Disturb mode during the bedtime schedule.'**
   String get permission_dnd_info;
 
   /// No description provided for @permission_dnd_tile_title.
@@ -369,7 +369,7 @@ abstract class AppLocalizations {
   /// No description provided for @permission_vpn_info.
   ///
   /// In en, this message translates to:
-  /// **'Please grant permission to create virtual private network (VPN) connection. This will enable Mindful to restrict internet access for designated applications by creating local on device VPN.'**
+  /// **'Please grant permission to create virtual private network (VPN) connection. This will enable Solace to restrict internet access for designated applications by creating local on device VPN.'**
   String get permission_vpn_info;
 
   /// No description provided for @permission_admin_title.
@@ -399,13 +399,13 @@ abstract class AppLocalizations {
   /// No description provided for @permission_notification_access_info.
   ///
   /// In en, this message translates to:
-  /// **'Please grant notification access permission. This will allow Mindful to organize your notifications and deliver them on your schedule.'**
+  /// **'Please grant notification access permission. This will allow Solace to organize your notifications and deliver them on your schedule.'**
   String get permission_notification_access_info;
 
   /// No description provided for @permission_notification_access_required.
   ///
   /// In en, this message translates to:
-  /// **'Mindful requires notification access to batch and schedule notifications.'**
+  /// **'Solace requires notification access to batch and schedule notifications.'**
   String get permission_notification_access_required;
 
   /// No description provided for @permission_notification_access_device_tile_label.
@@ -531,7 +531,7 @@ abstract class AppLocalizations {
   /// No description provided for @development_dialog_info.
   ///
   /// In en, this message translates to:
-  /// **'Mindful is currently under development and may have bugs or incomplete features. If you encounter any issues, please report them to help us improve.\n\nThank you for your feedback!'**
+  /// **'Solace is currently under development and may have bugs or incomplete features. If you encounter any issues, please report them to help us improve.\n\nThank you for your feedback!'**
   String get development_dialog_info;
 
   /// No description provided for @development_dialog_button_report_issue.
@@ -621,7 +621,7 @@ abstract class AppLocalizations {
   /// No description provided for @donation_card_info.
   ///
   /// In en, this message translates to:
-  /// **'Mindful is free and open-source, developed with months of dedication. If it has helped you, your donation would mean the world to us. Every contribution helps us continue improving and maintaining it for everyone.'**
+  /// **'Solace is free and open-source, developed with months of dedication. If it has helped you, your donation would mean the world to us. Every contribution helps us continue improving and maintaining it for everyone.'**
   String get donation_card_info;
 
   /// No description provided for @operation_failed_snack_alert.
@@ -645,19 +645,19 @@ abstract class AppLocalizations {
   /// No description provided for @app_restart_dialog_info.
   ///
   /// In en, this message translates to:
-  /// **'Mindful will automatically restart once the countdown finishes. Please be patient as changes are applied.'**
+  /// **'Solace will automatically restart once the countdown finishes. Please be patient as changes are applied.'**
   String get app_restart_dialog_info;
 
   /// No description provided for @accessibility_tip.
   ///
   /// In en, this message translates to:
-  /// **'Want smarter, more battery-friendly blocking? Enable Accessibility permission for Mindful.'**
+  /// **'Want smarter, more battery-friendly blocking? Enable Accessibility permission for Solace.'**
   String get accessibility_tip;
 
   /// No description provided for @battery_optimization_tip.
   ///
   /// In en, this message translates to:
-  /// **'Mindful not working? Allow \'Ignore Battery Optimization\' in Settings to keep it running smoothly.'**
+  /// **'Solace not working? Allow \'Ignore Battery Optimization\' in Settings to keep it running smoothly.'**
   String get battery_optimization_tip;
 
   /// No description provided for @invincible_mode_tip.
@@ -675,7 +675,7 @@ abstract class AppLocalizations {
   /// No description provided for @tamper_protection_tip.
   ///
   /// In en, this message translates to:
-  /// **'Uninstalling Mindful? Enable the Uninstall Window to safely disable tamper protection first.'**
+  /// **'Uninstalling Solace? Enable the Uninstall Window to safely disable tamper protection first.'**
   String get tamper_protection_tip;
 
   /// No description provided for @notification_blocking_tip.
@@ -825,7 +825,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboarding_page_one_info.
   ///
   /// In en, this message translates to:
-  /// **'Pause distracting apps, block short content, and stay on track with customizable focus sessions. Whether you\'re working, studying, or relaxing, Mindful helps you stay in control.'**
+  /// **'Pause distracting apps, block short content, and stay on track with customizable focus sessions. Whether you\'re working, studying, or relaxing, Solace helps you stay in control.'**
   String get onboarding_page_one_info;
 
   /// No description provided for @onboarding_page_two_title.
@@ -849,7 +849,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboarding_page_three_info.
   ///
   /// In en, this message translates to:
-  /// **'Mindful is 100% open-source and operates entirely offline. We don\'t collect or share your personal data — your privacy is guaranteed in every way.'**
+  /// **'Solace is 100% open-source and operates entirely offline. We don\'t collect or share your personal data — your privacy is guaranteed in every way.'**
   String get onboarding_page_three_info;
 
   /// No description provided for @onboarding_page_permissions_title.
@@ -861,7 +861,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboarding_page_permissions_info.
   ///
   /// In en, this message translates to:
-  /// **'Mindful requires following essential permissions to track and manage your screen time, helping reduce distractions and improve focus.'**
+  /// **'Solace requires following essential permissions to track and manage your screen time, helping reduce distractions and improve focus.'**
   String get onboarding_page_permissions_info;
 
   /// No description provided for @dashboard_tab_title.
@@ -1347,7 +1347,7 @@ abstract class AppLocalizations {
   /// No description provided for @protected_access_tile_subtitle.
   ///
   /// In en, this message translates to:
-  /// **'Protect Mindful with your device lock.'**
+  /// **'Protect Solace with your device lock.'**
   String get protected_access_tile_subtitle;
 
   /// No description provided for @protected_access_no_lock_snack_alert.
@@ -1383,7 +1383,7 @@ abstract class AppLocalizations {
   /// No description provided for @tamper_protection_confirmation_dialog_info.
   ///
   /// In en, this message translates to:
-  /// **'Once enabled, you won\'t be able to uninstall, force stop, or clear Mindful\'s data, except during the selected uninstall window. There are no workarounds.\n\nProceed at your own risk.'**
+  /// **'Once enabled, you won\'t be able to uninstall, force stop, or clear Solace\'s data, except during the selected uninstall window. There are no workarounds.\n\nProceed at your own risk.'**
   String get tamper_protection_confirmation_dialog_info;
 
   /// No description provided for @uninstall_window_tile_title.
@@ -2499,19 +2499,19 @@ abstract class AppLocalizations {
   /// No description provided for @service_stopping_warning.
   ///
   /// In en, this message translates to:
-  /// **'If Mindful stops working unexpectedly, please grant the \'Ignore Battery Optimization\' permission to keep it running in the background. If the issue continues, try whitelisting Mindful for uninterrupted performance.'**
+  /// **'If Solace stops working unexpectedly, please grant the \'Ignore Battery Optimization\' permission to keep it running in the background. If the issue continues, try whitelisting Solace for uninterrupted performance.'**
   String get service_stopping_warning;
 
   /// No description provided for @whitelist_app_tile_title.
   ///
   /// In en, this message translates to:
-  /// **'Whitelist Mindful'**
+  /// **'Whitelist Solace'**
   String get whitelist_app_tile_title;
 
   /// No description provided for @whitelist_app_tile_subtitle.
   ///
   /// In en, this message translates to:
-  /// **'Allow Mindful to auto start.'**
+  /// **'Allow Solace to auto start.'**
   String get whitelist_app_tile_subtitle;
 
   /// No description provided for @whitelist_app_unsupported_snack_alert.
@@ -2697,7 +2697,7 @@ abstract class AppLocalizations {
   /// No description provided for @privacy_policy_info.
   ///
   /// In en, this message translates to:
-  /// **'Mindful is committed to protecting your privacy. We do not collect, store, or transfer any type of user data. The app operates entirely offline and does not require an internet connection, ensuring that your personal information remains private and secure on your device. As a Free and Open Source Software (FOSS) application, Mindful guarantees complete transparency and user control over their data.'**
+  /// **'Solace is committed to protecting your privacy. We do not collect, store, or transfer any type of user data. The app operates entirely offline and does not require an internet connection, ensuring that your personal information remains private and secure on your device. As a Free and Open Source Software (FOSS) application, Solace guarantees complete transparency and user control over their data.'**
   String get privacy_policy_info;
 
   /// No description provided for @more_details_button.

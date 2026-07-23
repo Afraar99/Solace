@@ -53,7 +53,7 @@ class TabAbout extends ConsumerWidget {
 
         /// Title
         const StyledText(
-          "Mindful",
+          "Solace",
           fontSize: 32,
           fontWeight: FontWeight.bold,
         ).centered.sliver,

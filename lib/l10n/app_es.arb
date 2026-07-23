@@ -10,7 +10,7 @@
     "permission_button_agree_and_continue": "Aceptar y continuar",
     "permission_button_not_now": "Ahora no",
     "permission_button_help": "¿Ayuda?",
-    "permission_sheet_privacy_info": "Mindful es 100% seguro y funciona sin conexión. No recopilamos ni almacenamos datos personales.",
+    "permission_sheet_privacy_info": "Solace es 100% seguro y funciona sin conexión. No recopilamos ni almacenamos datos personales.",
     "permission_grant_step_one": "1. Haz clic en el botón {button_label}.",
     "@permission_grant_step_one": {
         "placeholders": {
@@ -19,24 +19,24 @@
             }
         }
     },
-    "permission_grant_step_two": "2. Seleccione Mindful en la siguiente pantalla.",
+    "permission_grant_step_two": "2. Seleccione Solace en la siguiente pantalla.",
     "permission_grant_step_three": "3. Haga clic y encienda el interruptor como abajo.",
     "permission_notification_title": "Enviar notificaciones",
     "permission_alarms_title": "Alarmas y Recordatorios",
-    "permission_alarms_info": "Por favor, concede permisos para configurar alarmas y recordatorios. Esto permitirá que Mindful inicie tu horario de sueño a tiempo, reinicie los temporizadores de la aplicación diariamente a medianoche y te ayude a mantener el control.",
+    "permission_alarms_info": "Por favor, concede permisos para configurar alarmas y recordatorios. Esto permitirá que Solace inicie tu horario de sueño a tiempo, reinicie los temporizadores de la aplicación diariamente a medianoche y te ayude a mantener el control.",
     "permission_alarms_device_tile_label": "Permitir establecer alarmas y recordatorios",
     "permission_usage_title": "Acceso al uso",
-    "permission_usage_info": "Por favor, concede permiso de acceso de uso. Esto permitirá a Mindful monitorizar el uso de aplicaciones y gestionar el acceso a ciertas apps, asegurando un entorno digital más enfocado y controlado.",
+    "permission_usage_info": "Por favor, concede permiso de acceso de uso. Esto permitirá a Solace monitorizar el uso de aplicaciones y gestionar el acceso a ciertas apps, asegurando un entorno digital más enfocado y controlado.",
     "permission_usage_device_tile_label": "Permitir acceso al uso",
     "permission_overlay_title": "Mostrar superposición",
-    "permission_overlay_info": "Por favor, concede el permiso de superposición de pantalla. Esto permitirá a Mindful mostrar una superposición cuando se abra una aplicación en pausa, ayudándote a mantenerte centrado y así mantener su horario.",
+    "permission_overlay_info": "Por favor, concede el permiso de superposición de pantalla. Esto permitirá a Solace mostrar una superposición cuando se abra una aplicación en pausa, ayudándote a mantenerte centrado y así mantener su horario.",
     "permission_overlay_device_tile_label": "Permitir mostrar sobre otras aplicaciones",
     "permission_accessibility_title": "Accesibilidad",
-    "permission_accessibility_info": "Por favor, concede el permiso de accesibilidad. Esto permitirá a Mindful restringir el acceso al contenido de \"vídeo corto\" (P. ej., Reels, Shorts) dentro de las apps de redes sociales y los navegadores, y filtrar sitios web inapropiados.",
-    "permission_accessibility_required": "Mindful requiere permiso de accesibilidad para bloquear de forma efectiva el contenido corto y los sitios web.",
-    "permission_accessibility_device_tile_label": "Usar Mindful",
+    "permission_accessibility_info": "Por favor, concede el permiso de accesibilidad. Esto permitirá a Solace restringir el acceso al contenido de \"vídeo corto\" (P. ej., Reels, Shorts) dentro de las apps de redes sociales y los navegadores, y filtrar sitios web inapropiados.",
+    "permission_accessibility_required": "Solace requiere permiso de accesibilidad para bloquear de forma efectiva el contenido corto y los sitios web.",
+    "permission_accessibility_device_tile_label": "Usar Solace",
     "permission_dnd_title": "No molestar",
-    "permission_dnd_info": "Por favor, concede acceso a No molestar. Esto permitirá a Mindful iniciar y detener el modo No molestar durante el horario de sueño.",
+    "permission_dnd_info": "Por favor, concede acceso a No molestar. Esto permitirá a Solace iniciar y detener el modo No molestar durante el horario de sueño.",
     "permission_dnd_tile_title": "Iniciar DND",
     "permission_dnd_tile_subtitle": "Activa también el modo No molestar.",
     "permission_battery_optimization_tile_title": "Ignorar la Optimización de la Batería",
@@ -44,13 +44,13 @@
     "permission_battery_optimization_status_disabled": "Desactivar las restricciones en segundo plano",
     "permission_battery_optimization_allow_info": "Permitir 'Ignorar la optimización de la batería' automáticamente concederá el permiso 'Alarmas y Recordatorios' en algunos dispositivos.",
     "permission_vpn_title": "Crear una VPN",
-    "permission_vpn_info": "Por favor, concede el permiso para crear una conexión de Red Privada Virtual (VPN). Esto permitirá a Mindful restringir el acceso a internet para las aplicaciones designadas creando una VPN local en el dispositivo.",
+    "permission_vpn_info": "Por favor, concede el permiso para crear una conexión de Red Privada Virtual (VPN). Esto permitirá a Solace restringir el acceso a internet para las aplicaciones designadas creando una VPN local en el dispositivo.",
     "permission_admin_title": "Admin",
     "permission_admin_info": "Los privilegios administrativos son necesarios sólo para operaciones esenciales para asegurar que la aplicación funciona correctamente y permanece a prueba de manipulación.",
     "permission_admin_snack_alert": "La protección contra manipulaciones solo se puede desactivar durante el período de tiempo seleccionado.",
     "permission_notification_access_title": "Acceso a Notificaciones",
-    "permission_notification_access_info": "Por favor, concede el permiso de acceso a notificaciones. Esto permitirá a Mindful organizar tus notificaciones y entregarlas según tu horario.",
-    "permission_notification_access_required": "Mindful requiere acceso a notificaciones para agrupar y programar las mismas.",
+    "permission_notification_access_info": "Por favor, concede el permiso de acceso a notificaciones. Esto permitirá a Solace organizar tus notificaciones y entregarlas según tu horario.",
+    "permission_notification_access_required": "Solace requiere acceso a notificaciones para agrupar y programar las mismas.",
     "permission_notification_access_device_tile_label": "Permitir el acceso a las notificaciones",
     "@----------------------------- DATE AND TIME -----------------------------": {},
     "day_today": "Hoy",
@@ -108,7 +108,7 @@
     "schedule_start_label": "Comienza",
     "schedule_end_label": "Termina",
     "exit_without_saving_dialog_info": "¿Estás seguro de que quieres salir sin guardar?",
-    "development_dialog_info": "Mindful se encuentra actualmente en desarrollo y puede contener errores funciones incompletas. Si encuentras algún problema, por favor, infórmanos para ayudarnos a mejorar.\n\n¡Gracias por tus comentarios!",
+    "development_dialog_info": "Solace se encuentra actualmente en desarrollo y puede contener errores funciones incompletas. Si encuentras algún problema, por favor, infórmanos para ayudarnos a mejorar.\n\n¡Gracias por tus comentarios!",
     "development_dialog_button_report_issue": "Reportar problema",
     "development_dialog_button_close": "Cerrar",
     "dnd_settings_tile_title": "Ajustes del modo no molestar",
@@ -123,17 +123,17 @@
     "active_period_info": "Establece un período de tiempo durante el cual se permitirá el acceso. Fuera de este marco de tiempo, el acceso estará restringido.",
     "minimum_distracting_apps_snack_alert": "Selecciona al menos una aplicación que te distraiga.",
     "donation_card_title": "Ayúdanos",
-    "donation_card_info": "Mindful es gratuito y de código abierto, desarrollado con meses de dedicación. Si te ha sido útil, tu donación significaría muchísimo para nosotros. Cada contribución nos ayuda a seguir mejorando y manteniéndolo para todos.",
+    "donation_card_info": "Solace es gratuito y de código abierto, desarrollado con meses de dedicación. Si te ha sido útil, tu donación significaría muchísimo para nosotros. Cada contribución nos ayuda a seguir mejorando y manteniéndolo para todos.",
     "operation_failed_snack_alert": "Operación fallida, ¡algo salió mal!",
     "donation_card_button_donate": "Donar",
     "app_restart_dialog_title": "Es necesario reiniciar",
-    "app_restart_dialog_info": "Mindful se reiniciará automáticamente una vez que termine la cuenta regresiva. Por favor, ten paciencia mientras se aplican los cambios.",
+    "app_restart_dialog_info": "Solace se reiniciará automáticamente una vez que termine la cuenta regresiva. Por favor, ten paciencia mientras se aplican los cambios.",
     "@----------------------------- TIPS -----------------------------": {},
-    "accessibility_tip": "¿Quieres un bloqueo más inteligente y que gaste menos batería? Habilita el permiso de Accesibilidad para Mindful.",
-    "battery_optimization_tip": "¿Mindful no funciona? Permite 'Ignorar la optimización de la batería' en los Ajustes para que siga funcionando sin problemas.",
+    "accessibility_tip": "¿Quieres un bloqueo más inteligente y que gaste menos batería? Habilita el permiso de Accesibilidad para Solace.",
+    "battery_optimization_tip": "¿Solace no funciona? Permite 'Ignorar la optimización de la batería' en los Ajustes para que siga funcionando sin problemas.",
     "invincible_mode_tip": "¿Quitaste las restricciones por accidente? Usa el Modo Invencible para bloquearlas hasta el día siguiente o la ventana de ajuste.",
     "glance_usage_tip": "¿Quieres estadísticas? Revisa la sección 'De un vistazo' o 'Vistazo rápido' para ver tus patrones de uso y tiempo de pantalla.",
-    "tamper_protection_tip": "¿Estas desinstalando Mindful? Habilita la Ventana de Desinstalación para desactivar la protección contra manipulaciones de forma segura primero.",
+    "tamper_protection_tip": "¿Estas desinstalando Solace? Habilita la Ventana de Desinstalación para desactivar la protección contra manipulaciones de forma segura primero.",
     "notification_blocking_tip": "¿Quieres reducir las distracciones? Usa el Bloqueo de Notificaciones para silenciar las aplicaciones seleccionadas.",
     "usage_history_tip": "¿Quieres reflexionar sobre tus hábitos? Revisa el Historial de Uso para ver patrones pasados.",
     "focus_mode_tip": "¿Necesitas concentración profunda? Activa el Modo Enfoque para bloquear aplicaciones y notificaciones durante las tareas.",
@@ -159,13 +159,13 @@
     "onboarding_skip_btn_label": "Saltar",
     "onboarding_finish_setup_btn_label": "Finalizar",
     "onboarding_page_one_title": "Domina el Enfoque",
-    "onboarding_page_one_info": "Pausa las apps que te distraen, bloquea el contenido corto y mantente centrado con sesiones de enfoque personalizables. Ya sea que estés trabajando, estudiando o relajándote, Mindful te ayuda a mantener el control.",
+    "onboarding_page_one_info": "Pausa las apps que te distraen, bloquea el contenido corto y mantente centrado con sesiones de enfoque personalizables. Ya sea que estés trabajando, estudiando o relajándote, Solace te ayuda a mantener el control.",
     "onboarding_page_two_title": "Bloquea las Distracciones",
     "onboarding_page_two_info": "Establece límites de uso, pausa aplicaciones automáticamente y crea hábitos digitales más saludables. Usa el Modo Descanso para desconectar y disfrutar de una noche sin distracciones.",
     "onboarding_page_three_title": "Privacidad Ante Todo",
-    "onboarding_page_three_info": "Mindful es 100% de código abierto y funciona completamente sin conexión. No recopilamos ni compartimos tus datos personales; tu privacidad está garantizada de todas las maneras.",
+    "onboarding_page_three_info": "Solace es 100% de código abierto y funciona completamente sin conexión. No recopilamos ni compartimos tus datos personales; tu privacidad está garantizada de todas las maneras.",
     "onboarding_page_permissions_title": "Permisos Esenciales",
-    "onboarding_page_permissions_info": "Mindful requiere los siguientes permisos esenciales para monitorizar y gestionar tu tiempo de pantalla, ayudando a reducir las distracciones y mejorando el enfoque.",
+    "onboarding_page_permissions_info": "Solace requiere los siguientes permisos esenciales para monitorizar y gestionar tu tiempo de pantalla, ayudando a reducir las distracciones y mejorando el enfoque.",
     "@----------------------------- HOME SCREEN - DASHBOARD TAB -----------------------------": {},
     "dashboard_tab_title": "Panel de Control",
     "focus_now_fab_button": "Centrarse ahora",
@@ -251,13 +251,13 @@
     "invincible_mode_include_bedtime_tile_title": "Incluir hora de descanso",
     "invincible_mode_include_bedtime_tile_subtitle": "Evita cambios durante el horario de descanso activo.",
     "protected_access_tile_title": "Acceso protegido",
-    "protected_access_tile_subtitle": "Protege Mindful con el desbloqueo de tu dispositivo.",
+    "protected_access_tile_subtitle": "Protege Solace con el desbloqueo de tu dispositivo.",
     "protected_access_no_lock_snack_alert": "Por favor, configura primero un bloqueo biométrico en tu dispositivo para habilitar esta función.",
     "protected_access_removed_lock_snack_alert": "El bloqueo del dispositivo ha sido eliminado. Para continuar, configure un nuevo bloqueo.",
     "protected_access_failed_lock_snack_alert": "Error de autenticación. Necesitas verificar el bloqueo de tu dispositivo para continuar.",
     "tamper_protection_tile_title": "Protección Antimanipulación",
     "tamper_protection_tile_subtitle": "Evita la desinstalación y el cierre forzado de la aplicación.",
-    "tamper_protection_confirmation_dialog_info": "Una vez habilitado, no podrás desinstalar, forzar detención o borrar los datos de Mindful, excepto durante la ventana de desinstalación seleccionada. No hay soluciones alternativas.\n\nProcede bajo tu propio riesgo.",
+    "tamper_protection_confirmation_dialog_info": "Una vez habilitado, no podrás desinstalar, forzar detención o borrar los datos de Solace, excepto durante la ventana de desinstalación seleccionada. No hay soluciones alternativas.\n\nProcede bajo tu propio riesgo.",
     "uninstall_window_tile_title": "Ventana de desinstalación",
     "uninstall_window_tile_subtitle": "La protección antimanipulación puede desactivarse dentro de los 10 minutos desde la hora seleccionada.",
     "invincible_window_tile_title": "Modo invencible",
@@ -508,7 +508,7 @@
         "placeholders": {
             "appName": {
                 "type": "String",
-                "example": "Mindful"
+                "example": "Solace"
             }
         }
     },
@@ -517,7 +517,7 @@
         "placeholders": {
             "appName": {
                 "type": "String",
-                "example": "Mindful"
+                "example": "Solace"
             }
         }
     },
@@ -527,7 +527,7 @@
         "placeholders": {
             "appName": {
                 "type": "String",
-                "example": "Mindful"
+                "example": "Solace"
             }
         }
     },
@@ -540,7 +540,7 @@
         "placeholders": {
             "appName": {
                 "type": "String",
-                "example": "Mindful"
+                "example": "Solace"
             }
         }
     },
@@ -549,7 +549,7 @@
         "placeholders": {
             "appName": {
                 "type": "String",
-                "example": "Mindful"
+                "example": "Solace"
             }
         }
     },
@@ -575,9 +575,9 @@
     "usage_history_6_month": "6 meses",
     "usage_history_1_year": "1 año",
     "service_heading": "Servicio",
-    "service_stopping_warning": "Si Mindful deja de funcionar inesperadamente, por favor, concede el permiso \"Ignorar Optimización de Batería\" para mantenerlo funcionando en segundo plano. Si el problema persiste, intenta añadir Mindful a la lista blanca para un rendimiento ininterrumpido.",
-    "whitelist_app_tile_title": "Añadir Mindful a la lista blanca",
-    "whitelist_app_tile_subtitle": "Permitir que Mindful inicie automáticamente.",
+    "service_stopping_warning": "Si Solace deja de funcionar inesperadamente, por favor, concede el permiso \"Ignorar Optimización de Batería\" para mantenerlo funcionando en segundo plano. Si el problema persiste, intenta añadir Solace a la lista blanca para un rendimiento ininterrumpido.",
+    "whitelist_app_tile_title": "Añadir Solace a la lista blanca",
+    "whitelist_app_tile_subtitle": "Permitir que Solace inicie automáticamente.",
     "whitelist_app_unsupported_snack_alert": "Este dispositivo no es compatible con la gestión automática de inicio.",
     "@----------------------------- SETTINGS SCREEN - DATABASE TAB -----------------------------": {},
     "database_tab_title": "Base de datos",
@@ -610,6 +610,6 @@
     "write_email_tile_title": "Escríbenos por email",
     "write_email_tile_subtitle": "Serás redirigido a la aplicación del correo.",
     "privacy_policy_heading": "Política de Privacidad",
-    "privacy_policy_info": "Mindful se compromete a proteger tu privacidad. No recopilamos, almacenamos ni transferimos ningún tipo de datos de usuario. La aplicación funciona completamente sin conexión y no requiere conexión a internet, lo que garantiza que tu información personal permanezca privada y segura en tu dispositivo. Como aplicación de Software Libre y de Código Abierto (FOSS), Mindful garantiza total transparencia y control del usuario sobre sus datos.",
+    "privacy_policy_info": "Solace se compromete a proteger tu privacidad. No recopilamos, almacenamos ni transferimos ningún tipo de datos de usuario. La aplicación funciona completamente sin conexión y no requiere conexión a internet, lo que garantiza que tu información personal permanezca privada y segura en tu dispositivo. Como aplicación de Software Libre y de Código Abierto (FOSS), Solace garantiza total transparencia y control del usuario sobre sus datos.",
     "more_details_button": "Más información"
 }

@@ -52,7 +52,7 @@ class PermissionsPage extends StatelessWidget {
           const UsageAccessPermissionTile(),
           const DisplayOverlayPermissionTile(),
 
-          108.vBox,
+          24.vBox,
         ],
       ),
     );

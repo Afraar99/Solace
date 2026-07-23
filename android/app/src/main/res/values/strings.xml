@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
   ~ /*
   ~  *
-  ~  *  * Copyright (c) 2024 Mindful (https://github.com/akaMrNagar/Mindful)
+  ~  *  * Copyright (c) 2024 Solace (https://github.com/akaMrNagar/Solace)
   ~  *  * Author : Pawan Nagar (https://github.com/akaMrNagar)
   ~  *  *
   ~  *  * This source code is licensed under the GPL-2.0 license license found in the
@@ -10,13 +10,13 @@
   ~  */
   -->
 <resources>
-    <string name="accessibility_description">The Mindful app uses accessibility services to block websites and short-form content on apps. It checks URLs and content against your blocklist and prevents access to help you stay focused.\n\n⚠️Note: Your privacy is our priority.Mindful is 100% secure and works offline. We do not collect or store any personal data.</string>
-    <string name="admin_description">Mindful does not collect, store, or transmit any user data. As Free and Open Source Software (FOSS), you can review and modify the source code. Administrative privileges are required solely for essential system operations, ensuring the app functions correctly without compromising your privacy.</string>
+    <string name="accessibility_description">The Solace app uses accessibility services to block websites and short-form content on apps. It checks URLs and content against your blocklist and prevents access to help you stay focused.\n\n⚠️Note: Your privacy is our priority.Solace is 100% secure and works offline. We do not collect or store any personal data.</string>
+    <string name="admin_description">Solace does not collect, store, or transmit any user data. As Free and Open Source Software (FOSS), you can review and modify the source code. Administrative privileges are required solely for essential system operations, ensuring the app functions correctly without compromising your privacy.</string>
     <string name="toast_enable_notification">Please enable notification</string>
     <string name="toast_blocked_content">Blocked. Returning home.</string>
     <string name="toast_redirecting">Filtering search results</string>
     <string name="toast_dnd_utilized_by_feature" comment="Placeholder is the name of feature like Focus mode, Bedtime or more" formatted="true">%s is currently using DND mode.</string>
-    <string name="service_running_notification_title">Mindful is running</string>
+    <string name="service_running_notification_title">Solace is running</string>
     <string name="shortcut_focus_mode_label">Focus mode</string>
     <string name="shortcut_focus_mode_description">Quickly start a focus session with custom profiles.</string>
     <string name="shortcut_upcoming_notifications_label">Batched notifications</string>
@@ -31,10 +31,10 @@
     <string name="widget_mobile_data_label">Mobile</string>
     <string name="widget_wifi_data_label">Wifi</string>
     <string name="widget_aggregated_usage_label">Aggregated usage</string>
-    <string name="internet_blocker_running_notification_info">Mindful is now managing internet access to help you stay focused.</string>
-    <string name="app_blocker_running_notification_info">Mindful is now tracking app usage to help you stay focused and manage your digital habits.</string>
+    <string name="internet_blocker_running_notification_info">Solace is now managing internet access to help you stay focused.</string>
+    <string name="app_blocker_running_notification_info">Solace is now tracking app usage to help you stay focused and manage your digital habits.</string>
     <string name="overlay_permission_denied_notification_title">Permission denied</string>
-    <string name="overlay_permission_denied_notification_info">Please grant display overlay permission to Mindful by clicking on the notification. On the next screen, find Mindful in the list of apps and click on allow.</string>
+    <string name="overlay_permission_denied_notification_info">Please grant display overlay permission to Solace by clicking on the notification. On the next screen, find Solace in the list of apps and click on allow.</string>
     <string name="app_paused_reason_focus_session">It\'s focus time! This app is paused to help you stay on track and make the most of your session.</string>
     <string name="app_paused_reason_bedtime">It\'s bedtime! This app is paused for the night to help you unwind and prepare for a peaceful sleep.</string>
     <string name="app_paused_reason_launch_count_out">You\'ve reached the maximum number of launches for this app today. It\'s time to step away and refocus on your priorities.</string>
@@ -80,9 +80,9 @@
     <string name="notification_schedule_batch_title">Unread notifications</string>
     <string name="notification_schedule_batch_summery" comment="Number of notifications as placeholder" formatted="true">You have %d unread notifications while you were away. They’ll be marked as read after 24 hours.</string>
 
-    <string name="breath_pause_prompt">It\'s time to take a deep breath…</string>
-    <string name="breath_pause_inhale">Breathe in</string>
-    <string name="breath_pause_exhale">Breathe out</string>
+    <string name="breath_pause_prompt">Take a moment before you scroll…</string>
+    <string name="breath_pause_inhale">Breathe in…</string>
+    <string name="breath_pause_exhale">Slowly release…</string>
     <string name="breath_pause_continue" comment="App name as placeholder" formatted="true">Continue to %s</string>
     <string name="breath_pause_quit">No thanks, take me home</string>
 </resources>

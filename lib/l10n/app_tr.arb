@@ -10,7 +10,7 @@
     "permission_button_agree_and_continue": "Kabul edin ve devam edin",
     "permission_button_not_now": "Şimdi değil",
     "permission_button_help": "Yardım?",
-    "permission_sheet_privacy_info": "Mindful 100% güvenli ve çevrimdışı çalışır. Sizin kişisel verileriniz toplamıyor ve depolamıyoruz.",
+    "permission_sheet_privacy_info": "Solace 100% güvenli ve çevrimdışı çalışır. Sizin kişisel verileriniz toplamıyor ve depolamıyoruz.",
     "permission_grant_step_one": "1. {button_label}'a tıklayın.",
     "@permission_grant_step_one": {
         "placeholders": {
@@ -19,24 +19,24 @@
             }
         }
     },
-    "permission_grant_step_two": "2. Sonraki ekranda Mindful'u seçin.",
+    "permission_grant_step_two": "2. Sonraki ekranda Solace'u seçin.",
     "permission_grant_step_three": "3. Tıklayın ve alttaki gibi dönüştürmeyi açın.",
     "permission_notification_title": "Bildirimleri gönder",
     "permission_alarms_title": "Alarm & hatırlatıcılar",
-    "permission_alarms_info": "Lütfen alarm ve hatırlatıcı için izin verin. Bu sayede Mindful ",
+    "permission_alarms_info": "Lütfen alarm ve hatırlatıcı için izin verin. Bu sayede Solace ",
     "permission_alarms_device_tile_label": "Alarm ve hatırlatıcılara izin verin",
     "permission_usage_title": "Kullanım erişimi",
-    "permission_usage_info": "Lütfen kullanım erişim izni verin. Bu, Mindful'un uygulama kullanımını izlemesine ve belirli uygulamalara erişimi yönetmesine olanak tanıyarak daha odaklı ve kontrollü bir dijital ortam sağlayacaktır.",
+    "permission_usage_info": "Lütfen kullanım erişim izni verin. Bu, Solace'un uygulama kullanımını izlemesine ve belirli uygulamalara erişimi yönetmesine olanak tanıyarak daha odaklı ve kontrollü bir dijital ortam sağlayacaktır.",
     "permission_usage_device_tile_label": "Kullanım erişimi verin",
     "permission_overlay_title": "Kaplamayı Görüntüle",
-    "permission_overlay_info": "Lütfen diğer uygulamaların üzerinde gösterme izni verin. Bu, Mindful'un duraklatılmış bir uygulama açıldığında bir kaplama göstermesine izin vererek odaklanmanıza ve programınızı sürdürmenize yardımcı olacaktır.",
+    "permission_overlay_info": "Lütfen diğer uygulamaların üzerinde gösterme izni verin. Bu, Solace'un duraklatılmış bir uygulama açıldığında bir kaplama göstermesine izin vererek odaklanmanıza ve programınızı sürdürmenize yardımcı olacaktır.",
     "permission_overlay_device_tile_label": "Diğer uygulamaların üzerinde gösterime izin ver",
     "permission_accessibility_title": "Erişilebilirlik",
-    "permission_accessibility_info": "Lütfen erişilebilirlik izni verin. Bu, Mindful'un sosyal medya uygulamaları ve tarayıcılarda kısa biçimli video içeriğine (ör. Reels, Shorts) erişimi kısıtlamasına ve uygunsuz web sitelerini filtrelemesine olanak tanıyacaktır.",
-    "permission_accessibility_required": "Mindful, kısa içerikleri ve internet sitelerini etkili bir şekilde engellemek için erişilebilirlik izni gerektirir.",
+    "permission_accessibility_info": "Lütfen erişilebilirlik izni verin. Bu, Solace'un sosyal medya uygulamaları ve tarayıcılarda kısa biçimli video içeriğine (ör. Reels, Shorts) erişimi kısıtlamasına ve uygunsuz web sitelerini filtrelemesine olanak tanıyacaktır.",
+    "permission_accessibility_required": "Solace, kısa içerikleri ve internet sitelerini etkili bir şekilde engellemek için erişilebilirlik izni gerektirir.",
     "permission_accessibility_device_tile_label": "Dikkatliyi kullanın",
     "permission_dnd_title": "Rahatsız etme",
-    "permission_dnd_info": "Lütfen Rahatsız Etmeyin erişimine izin verin. Bu, Mindful'un yatma zamanı programı sırasında Rahatsız Etmeyin modunu başlatmasına ve durdurmasına izin verecektir.",
+    "permission_dnd_info": "Lütfen Rahatsız Etmeyin erişimine izin verin. Bu, Solace'un yatma zamanı programı sırasında Rahatsız Etmeyin modunu başlatmasına ve durdurmasına izin verecektir.",
     "permission_dnd_tile_title": "Rahatsız etmeyin",
     "permission_dnd_tile_subtitle": "Rahatsız etmeyin moduna izin verin.",
     "permission_battery_optimization_tile_title": "Batarya optimizasyonu devre dışı bırakın",
@@ -44,13 +44,13 @@
     "permission_battery_optimization_status_disabled": "Arka plan kısıtlamalarını devre dışı bırak",
     "permission_battery_optimization_allow_info": "'Pil Optimizasyonunu Yoksay'a izin vermek, bazı cihazlarda otomatik olarak 'Alarmlar ve Hatırlatıcılar' iznini verecektir.",
     "permission_vpn_title": "Sanal özel ağ oluştur",
-    "permission_vpn_info": "Lütfen sanal özel ağ(VPN) oluşturmaya izin veriniz. Bu sayede Mindful internetizi lokal bir şekilde kısıtlayacaktır.",
+    "permission_vpn_info": "Lütfen sanal özel ağ(VPN) oluşturmaya izin veriniz. Bu sayede Solace internetizi lokal bir şekilde kısıtlayacaktır.",
     "permission_admin_title": "Yönetici",
     "permission_admin_info": "Yönetici ayrıcalıkları, uygulamanın düzgün çalışmasını ve kurcalanmaya karşı korumalı kalmasını sağlamak için yalnızca temel işlemler için gereklidir.",
     "permission_admin_snack_alert": "Kurcalama koruması yalnızca seçilen zaman aralığında devre dışı bırakılabilir.",
     "permission_notification_access_title": "Bildirim izni",
-    "permission_notification_access_info": "Lütfen bildirim erişim izni verin. Bu, Mindful'un bildirimlerinizi düzenlemesine ve bunları programınıza göre göndermesine izin verecektir.",
-    "permission_notification_access_required": "Mindful, bildirimleri toplu hale getirmek ve zamanlamak için bildirim erişimi gerektirir.",
+    "permission_notification_access_info": "Lütfen bildirim erişim izni verin. Bu, Solace'un bildirimlerinizi düzenlemesine ve bunları programınıza göre göndermesine izin verecektir.",
+    "permission_notification_access_required": "Solace, bildirimleri toplu hale getirmek ve zamanlamak için bildirim erişimi gerektirir.",
     "permission_notification_access_device_tile_label": "Bildirimlere izin ver",
     "@----------------------------- DATE AND TIME -----------------------------": {},
     "day_today": "Bugün",
@@ -108,7 +108,7 @@
     "schedule_start_label": "Başlat",
     "schedule_end_label": "Bitir",
     "exit_without_saving_dialog_info": "Kaydetmeden çıkmak istediğinizden emin misiniz?",
-    "development_dialog_info": "Mindful şu anda geliştirme aşamasındadır ve hatalar veya eksik özellikler içerebilir. Herhangi bir sorunla karşılaşırsanız, lütfen geliştirmemize yardımcı olmak için bunları bildirin.\n\nGeri bildiriminiz için teşekkür ederiz!",
+    "development_dialog_info": "Solace şu anda geliştirme aşamasındadır ve hatalar veya eksik özellikler içerebilir. Herhangi bir sorunla karşılaşırsanız, lütfen geliştirmemize yardımcı olmak için bunları bildirin.\n\nGeri bildiriminiz için teşekkür ederiz!",
     "development_dialog_button_report_issue": "Sorun Bildir",
     "development_dialog_button_close": "Kapat",
     "dnd_settings_tile_title": "Rahatsız etmeyin ayarları",
@@ -123,17 +123,17 @@
     "active_period_info": "Erişime izin verilecek bir zaman aralığı belirleyin. Bu zaman diliminin dışında erişim kısıtlanacaktır.",
     "minimum_distracting_apps_snack_alert": "En az bir dikkat dağıtıcı uygulama seçin.",
     "donation_card_title": "Bizi destekleyin",
-    "donation_card_info": "Mindful ücretsiz ve açık kaynak kodludur, aylar süren özverili çalışmalarla geliştirilmiştir. Eğer size yardımcı olduysa, bağışınız bizim için dünyalara bedeldir. Her katkı, onu herkes için geliştirmeye ve sürdürmeye devam etmemize yardımcı olur.",
+    "donation_card_info": "Solace ücretsiz ve açık kaynak kodludur, aylar süren özverili çalışmalarla geliştirilmiştir. Eğer size yardımcı olduysa, bağışınız bizim için dünyalara bedeldir. Her katkı, onu herkes için geliştirmeye ve sürdürmeye devam etmemize yardımcı olur.",
     "operation_failed_snack_alert": "Operasyon başarısız oldu, bir şeyler ters gitti!",
     "donation_card_button_donate": "Bağış",
     "app_restart_dialog_title": "Yeniden Başlatma Gerekli",
-    "app_restart_dialog_info": "Geri sayım bittiğinde Mindful otomatik olarak yeniden başlayacaktır. Değişiklikler uygulanırken lütfen sabırlı olun.",
+    "app_restart_dialog_info": "Geri sayım bittiğinde Solace otomatik olarak yeniden başlayacaktır. Değişiklikler uygulanırken lütfen sabırlı olun.",
     "@----------------------------- TIPS -----------------------------": {},
-    "accessibility_tip": "Daha akıllı, daha pil dostu engelleme mi istiyorsunuz? Mindful için Erişilebilirlik iznini etkinleştirin.",
-    "battery_optimization_tip": "Mindful çalışmıyor mu? Sorunsuz çalışmasını sağlamak için Ayarlar'da 'Pil Optimizasyonunu Yoksay'a izin verin.",
+    "accessibility_tip": "Daha akıllı, daha pil dostu engelleme mi istiyorsunuz? Solace için Erişilebilirlik iznini etkinleştirin.",
+    "battery_optimization_tip": "Solace çalışmıyor mu? Sorunsuz çalışmasını sağlamak için Ayarlar'da 'Pil Optimizasyonunu Yoksay'a izin verin.",
     "invincible_mode_tip": "Yanlışlıkla kısıtlamaları mı kaldırdınız? Bir sonraki güne veya ayar penceresine kadar kilitlemek için Yenilmez Modu kullanın.",
     "glance_usage_tip": "İçgörü mü istiyorsunuz? Kullanım kalıplarınızı ve ekran sürenizi görüntülemek için Glance bölümünü kontrol edin.",
-    "tamper_protection_tip": "Mindful'u kaldırıyor musunuz? Önce kurcalama korumasını güvenli bir şekilde devre dışı bırakmak için Kaldırma Penceresini etkinleştirin.",
+    "tamper_protection_tip": "Solace'u kaldırıyor musunuz? Önce kurcalama korumasını güvenli bir şekilde devre dışı bırakmak için Kaldırma Penceresini etkinleştirin.",
     "notification_blocking_tip": "Dikkat dağıtıcı unsurları azaltmak mı istiyorsunuz? Seçili uygulamaları susturmak için Bildirim Engelleme özelliğini kullanın.",
     "usage_history_tip": "Alışkanlıklarınız üzerinde düşünmek ister misiniz? Geçmiş kalıpları görmek için Kullanım Geçmişi'ni kontrol edin.",
     "focus_mode_tip": "Derin odaklanmaya mı ihtiyacınız var? Görevler sırasında uygulamaları ve bildirimleri engellemek için Odak Modunu açın.",
@@ -145,13 +145,13 @@
     "onboarding_skip_btn_label": "Atla",
     "onboarding_finish_setup_btn_label": "Kurulumu bitirin",
     "onboarding_page_one_title": "En iyi odak.",
-    "onboarding_page_one_info": "Dikkatinizi dağıtan uygulamaları duraklatın, kısa içerikleri engelleyin ve özelleştirilebilir odaklanma oturumlarıyla yolunuzdan sapmayın. İster çalışıyor, ister ders çalışıyor veya dinleniyor olun, Mindful kontrolü elinizde tutmanıza yardımcı olur.",
+    "onboarding_page_one_info": "Dikkatinizi dağıtan uygulamaları duraklatın, kısa içerikleri engelleyin ve özelleştirilebilir odaklanma oturumlarıyla yolunuzdan sapmayın. İster çalışıyor, ister ders çalışıyor veya dinleniyor olun, Solace kontrolü elinizde tutmanıza yardımcı olur.",
     "onboarding_page_two_title": "Dikkat Dağıtıcıları Engelleyin.",
     "onboarding_page_two_info": "Kullanım sınırları belirleyin, uygulamaları otomatik olarak duraklatın ve daha sağlıklı dijital alışkanlıklar oluşturun. Gevşemek ve dikkatinizin dağılmadığı bir gecenin tadını çıkarmak için Yatma Zamanı Modu'nu kullanın.",
     "onboarding_page_three_title": "Öncelik gizlilik.",
-    "onboarding_page_three_info": "Mindful 100% açık kaynaklıdır ve tamamen çevrimdışı çalışır. Kişisel verilerinizi toplamıyor veya paylaşmıyoruz — gizliliğiniz her şekilde garanti altındadır.",
+    "onboarding_page_three_info": "Solace 100% açık kaynaklıdır ve tamamen çevrimdışı çalışır. Kişisel verilerinizi toplamıyor veya paylaşmıyoruz — gizliliğiniz her şekilde garanti altındadır.",
     "onboarding_page_permissions_title": "Temel İzinler.",
-    "onboarding_page_permissions_info": "Mindful, ekran sürenizi takip etmek ve yönetmek için temel izinleri takip etmeyi gerektirir, dikkat dağıtıcı unsurları azaltmaya ve odaklanmayı geliştirmeye yardımcı olur.",
+    "onboarding_page_permissions_info": "Solace, ekran sürenizi takip etmek ve yönetmek için temel izinleri takip etmeyi gerektirir, dikkat dağıtıcı unsurları azaltmaya ve odaklanmayı geliştirmeye yardımcı olur.",
     "@----------------------------- HOME SCREEN - DASHBOARD TAB -----------------------------": {},
     "dashboard_tab_title": "Kontrol Paneli",
     "focus_now_fab_button": "Şimdi odaklan",
@@ -231,7 +231,7 @@
     "invincible_mode_include_bedtime_tile_title": "Uyku vaktini dahil edin",
     "invincible_mode_include_bedtime_tile_subtitle": "Aktif uyku vakti programı sırasında değişiklikleri önler.",
     "protected_access_tile_title": "Korumalı erişim",
-    "protected_access_tile_subtitle": "Mindful'u cihaz kilidinizle koruyun.",
+    "protected_access_tile_subtitle": "Solace'u cihaz kilidinizle koruyun.",
     "protected_access_no_lock_snack_alert": "Bu özelliği etkinleştirmek için lütfen önce cihazınızda bir biyometrik kilit ayarlayın.",
     "protected_access_removed_lock_snack_alert": "Cihaz kilidiniz kaldırıldı. Devam etmek için lütfen yeni bir kilit ayarlayın.",
     "protected_access_failed_lock_snack_alert": "Kimlik doğrulama başarısız oldu. Devam etmek için cihaz kilidinizi doğrulamanız gerekiyor.",
@@ -471,7 +471,7 @@
         "placeholders": {
             "appName": {
                 "type": "String",
-                "example": "Mindful"
+                "example": "Solace"
             }
         }
     },
@@ -480,7 +480,7 @@
         "placeholders": {
             "appName": {
                 "type": "String",
-                "example": "Mindful"
+                "example": "Solace"
             }
         }
     },
@@ -490,7 +490,7 @@
         "placeholders": {
             "appName": {
                 "type": "String",
-                "example": "Mindful"
+                "example": "Solace"
             }
         }
     },
@@ -503,7 +503,7 @@
         "placeholders": {
             "appName": {
                 "type": "String",
-                "example": "Mindful"
+                "example": "Solace"
             }
         }
     },
@@ -512,7 +512,7 @@
         "placeholders": {
             "appName": {
                 "type": "String",
-                "example": "Mindful"
+                "example": "Solace"
             }
         }
     },
@@ -538,9 +538,9 @@
     "usage_history_6_month": "6 ay",
     "usage_history_1_year": "1 yıl",
     "service_heading": "Servis",
-    "service_stopping_warning": "Mindful beklenmedik bir şekilde çalışmayı durdurursa, lütfen arka planda çalışmaya devam etmesi için 'Pil Optimizasyonunu Yoksay' iznini verin. Sorun devam ederse, kesintisiz performans için Mindful'u beyaz listeye almayı deneyin.",
-    "whitelist_app_tile_title": "Beyaz Liste Mindful",
-    "whitelist_app_tile_subtitle": "Mindfulun otomatik başlatılmasına izin ver.",
+    "service_stopping_warning": "Solace beklenmedik bir şekilde çalışmayı durdurursa, lütfen arka planda çalışmaya devam etmesi için 'Pil Optimizasyonunu Yoksay' iznini verin. Sorun devam ederse, kesintisiz performans için Solace'u beyaz listeye almayı deneyin.",
+    "whitelist_app_tile_title": "Beyaz Liste Solace",
+    "whitelist_app_tile_subtitle": "Solaceun otomatik başlatılmasına izin ver.",
     "whitelist_app_unsupported_snack_alert": "Bu cihaz, otomatik başlatma yönetimini desteklemiyor.",
     "@----------------------------- SETTINGS SCREEN - DATABASE TAB -----------------------------": {},
     "database_tab_title": "Veritabanı",
@@ -573,6 +573,6 @@
     "write_email_tile_title": "Bize e-posta ile yazın",
     "write_email_tile_subtitle": "E-posta uygulamasına yönlendirileceksiniz.",
     "privacy_policy_heading": "Gizlilik politikası",
-    "privacy_policy_info": "Mindful, gizliliğinizi korumaya kararlıdır. Herhangi bir kullanıcı verisini toplamaz, depolamaz veya aktarmaz. Uygulama tamamen çevrimdışıdır ve internet bağlantısı gerektirmez, böylece kişisel bilgileriniz cihazınızda özel ve güvenli kalır. Ücretsiz ve Açık Kaynak Yazılım (FOSS) uygulaması olarak, Mindful, verileriniz üzerinde tam şeffaflık ve kullanıcı kontrolü sağlar.",
+    "privacy_policy_info": "Solace, gizliliğinizi korumaya kararlıdır. Herhangi bir kullanıcı verisini toplamaz, depolamaz veya aktarmaz. Uygulama tamamen çevrimdışıdır ve internet bağlantısı gerektirmez, böylece kişisel bilgileriniz cihazınızda özel ve güvenli kalır. Ücretsiz ve Açık Kaynak Yazılım (FOSS) uygulaması olarak, Solace, verileriniz üzerinde tam şeffaflık ve kullanıcı kontrolü sağlar.",
     "more_details_button": "Daha fazla bilgi"
 }

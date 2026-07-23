@@ -37,7 +37,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get permission_sheet_privacy_info =>
-      'Mindful 100% güvenli ve çevrimdışı çalışır. Sizin kişisel verileriniz toplamıyor ve depolamıyoruz.';
+      'Solace 100% güvenli ve çevrimdışı çalışır. Sizin kişisel verileriniz toplamıyor ve depolamıyoruz.';
 
   @override
   String permission_grant_step_one(String button_label) {
@@ -45,8 +45,7 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get permission_grant_step_two =>
-      '2. Sonraki ekranda Mindful\'u seçin.';
+  String get permission_grant_step_two => '2. Sonraki ekranda Solace\'u seçin.';
 
   @override
   String get permission_grant_step_three =>
@@ -60,7 +59,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get permission_alarms_info =>
-      'Lütfen alarm ve hatırlatıcı için izin verin. Bu sayede Mindful ';
+      'Lütfen alarm ve hatırlatıcı için izin verin. Bu sayede Solace ';
 
   @override
   String get permission_alarms_device_tile_label =>
@@ -71,7 +70,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get permission_usage_info =>
-      'Lütfen kullanım erişim izni verin. Bu, Mindful\'un uygulama kullanımını izlemesine ve belirli uygulamalara erişimi yönetmesine olanak tanıyarak daha odaklı ve kontrollü bir dijital ortam sağlayacaktır.';
+      'Lütfen kullanım erişim izni verin. Bu, Solace\'un uygulama kullanımını izlemesine ve belirli uygulamalara erişimi yönetmesine olanak tanıyarak daha odaklı ve kontrollü bir dijital ortam sağlayacaktır.';
 
   @override
   String get permission_usage_device_tile_label => 'Kullanım erişimi verin';
@@ -81,7 +80,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get permission_overlay_info =>
-      'Lütfen diğer uygulamaların üzerinde gösterme izni verin. Bu, Mindful\'un duraklatılmış bir uygulama açıldığında bir kaplama göstermesine izin vererek odaklanmanıza ve programınızı sürdürmenize yardımcı olacaktır.';
+      'Lütfen diğer uygulamaların üzerinde gösterme izni verin. Bu, Solace\'un duraklatılmış bir uygulama açıldığında bir kaplama göstermesine izin vererek odaklanmanıza ve programınızı sürdürmenize yardımcı olacaktır.';
 
   @override
   String get permission_overlay_device_tile_label =>
@@ -92,11 +91,11 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get permission_accessibility_info =>
-      'Lütfen erişilebilirlik izni verin. Bu, Mindful\'un sosyal medya uygulamaları ve tarayıcılarda kısa biçimli video içeriğine (ör. Reels, Shorts) erişimi kısıtlamasına ve uygunsuz web sitelerini filtrelemesine olanak tanıyacaktır.';
+      'Lütfen erişilebilirlik izni verin. Bu, Solace\'un sosyal medya uygulamaları ve tarayıcılarda kısa biçimli video içeriğine (ör. Reels, Shorts) erişimi kısıtlamasına ve uygunsuz web sitelerini filtrelemesine olanak tanıyacaktır.';
 
   @override
   String get permission_accessibility_required =>
-      'Mindful, kısa içerikleri ve internet sitelerini etkili bir şekilde engellemek için erişilebilirlik izni gerektirir.';
+      'Solace, kısa içerikleri ve internet sitelerini etkili bir şekilde engellemek için erişilebilirlik izni gerektirir.';
 
   @override
   String get permission_accessibility_device_tile_label =>
@@ -107,7 +106,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get permission_dnd_info =>
-      'Lütfen Rahatsız Etmeyin erişimine izin verin. Bu, Mindful\'un yatma zamanı programı sırasında Rahatsız Etmeyin modunu başlatmasına ve durdurmasına izin verecektir.';
+      'Lütfen Rahatsız Etmeyin erişimine izin verin. Bu, Solace\'un yatma zamanı programı sırasında Rahatsız Etmeyin modunu başlatmasına ve durdurmasına izin verecektir.';
 
   @override
   String get permission_dnd_tile_title => 'Rahatsız etmeyin';
@@ -136,7 +135,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get permission_vpn_info =>
-      'Lütfen sanal özel ağ(VPN) oluşturmaya izin veriniz. Bu sayede Mindful internetizi lokal bir şekilde kısıtlayacaktır.';
+      'Lütfen sanal özel ağ(VPN) oluşturmaya izin veriniz. Bu sayede Solace internetizi lokal bir şekilde kısıtlayacaktır.';
 
   @override
   String get permission_admin_title => 'Yönetici';
@@ -154,11 +153,11 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get permission_notification_access_info =>
-      'Lütfen bildirim erişim izni verin. Bu, Mindful\'un bildirimlerinizi düzenlemesine ve bunları programınıza göre göndermesine izin verecektir.';
+      'Lütfen bildirim erişim izni verin. Bu, Solace\'un bildirimlerinizi düzenlemesine ve bunları programınıza göre göndermesine izin verecektir.';
 
   @override
   String get permission_notification_access_required =>
-      'Mindful, bildirimleri toplu hale getirmek ve zamanlamak için bildirim erişimi gerektirir.';
+      'Solace, bildirimleri toplu hale getirmek ve zamanlamak için bildirim erişimi gerektirir.';
 
   @override
   String get permission_notification_access_device_tile_label =>
@@ -280,7 +279,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get development_dialog_info =>
-      'Mindful şu anda geliştirme aşamasındadır ve hatalar veya eksik özellikler içerebilir. Herhangi bir sorunla karşılaşırsanız, lütfen geliştirmemize yardımcı olmak için bunları bildirin.\n\nGeri bildiriminiz için teşekkür ederiz!';
+      'Solace şu anda geliştirme aşamasındadır ve hatalar veya eksik özellikler içerebilir. Herhangi bir sorunla karşılaşırsanız, lütfen geliştirmemize yardımcı olmak için bunları bildirin.\n\nGeri bildiriminiz için teşekkür ederiz!';
 
   @override
   String get development_dialog_button_report_issue => 'Sorun Bildir';
@@ -333,7 +332,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get donation_card_info =>
-      'Mindful ücretsiz ve açık kaynak kodludur, aylar süren özverili çalışmalarla geliştirilmiştir. Eğer size yardımcı olduysa, bağışınız bizim için dünyalara bedeldir. Her katkı, onu herkes için geliştirmeye ve sürdürmeye devam etmemize yardımcı olur.';
+      'Solace ücretsiz ve açık kaynak kodludur, aylar süren özverili çalışmalarla geliştirilmiştir. Eğer size yardımcı olduysa, bağışınız bizim için dünyalara bedeldir. Her katkı, onu herkes için geliştirmeye ve sürdürmeye devam etmemize yardımcı olur.';
 
   @override
   String get operation_failed_snack_alert =>
@@ -347,15 +346,15 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get app_restart_dialog_info =>
-      'Geri sayım bittiğinde Mindful otomatik olarak yeniden başlayacaktır. Değişiklikler uygulanırken lütfen sabırlı olun.';
+      'Geri sayım bittiğinde Solace otomatik olarak yeniden başlayacaktır. Değişiklikler uygulanırken lütfen sabırlı olun.';
 
   @override
   String get accessibility_tip =>
-      'Daha akıllı, daha pil dostu engelleme mi istiyorsunuz? Mindful için Erişilebilirlik iznini etkinleştirin.';
+      'Daha akıllı, daha pil dostu engelleme mi istiyorsunuz? Solace için Erişilebilirlik iznini etkinleştirin.';
 
   @override
   String get battery_optimization_tip =>
-      'Mindful çalışmıyor mu? Sorunsuz çalışmasını sağlamak için Ayarlar\'da \'Pil Optimizasyonunu Yoksay\'a izin verin.';
+      'Solace çalışmıyor mu? Sorunsuz çalışmasını sağlamak için Ayarlar\'da \'Pil Optimizasyonunu Yoksay\'a izin verin.';
 
   @override
   String get invincible_mode_tip =>
@@ -367,7 +366,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get tamper_protection_tip =>
-      'Mindful\'u kaldırıyor musunuz? Önce kurcalama korumasını güvenli bir şekilde devre dışı bırakmak için Kaldırma Penceresini etkinleştirin.';
+      'Solace\'u kaldırıyor musunuz? Önce kurcalama korumasını güvenli bir şekilde devre dışı bırakmak için Kaldırma Penceresini etkinleştirin.';
 
   @override
   String get notification_blocking_tip =>
@@ -464,7 +463,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get onboarding_page_one_info =>
-      'Dikkatinizi dağıtan uygulamaları duraklatın, kısa içerikleri engelleyin ve özelleştirilebilir odaklanma oturumlarıyla yolunuzdan sapmayın. İster çalışıyor, ister ders çalışıyor veya dinleniyor olun, Mindful kontrolü elinizde tutmanıza yardımcı olur.';
+      'Dikkatinizi dağıtan uygulamaları duraklatın, kısa içerikleri engelleyin ve özelleştirilebilir odaklanma oturumlarıyla yolunuzdan sapmayın. İster çalışıyor, ister ders çalışıyor veya dinleniyor olun, Solace kontrolü elinizde tutmanıza yardımcı olur.';
 
   @override
   String get onboarding_page_two_title => 'Dikkat Dağıtıcıları Engelleyin.';
@@ -478,14 +477,14 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get onboarding_page_three_info =>
-      'Mindful 100% açık kaynaklıdır ve tamamen çevrimdışı çalışır. Kişisel verilerinizi toplamıyor veya paylaşmıyoruz — gizliliğiniz her şekilde garanti altındadır.';
+      'Solace 100% açık kaynaklıdır ve tamamen çevrimdışı çalışır. Kişisel verilerinizi toplamıyor veya paylaşmıyoruz — gizliliğiniz her şekilde garanti altındadır.';
 
   @override
   String get onboarding_page_permissions_title => 'Temel İzinler.';
 
   @override
   String get onboarding_page_permissions_info =>
-      'Mindful, ekran sürenizi takip etmek ve yönetmek için temel izinleri takip etmeyi gerektirir, dikkat dağıtıcı unsurları azaltmaya ve odaklanmayı geliştirmeye yardımcı olur.';
+      'Solace, ekran sürenizi takip etmek ve yönetmek için temel izinleri takip etmeyi gerektirir, dikkat dağıtıcı unsurları azaltmaya ve odaklanmayı geliştirmeye yardımcı olur.';
 
   @override
   String get dashboard_tab_title => 'Kontrol Paneli';
@@ -759,7 +758,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get protected_access_tile_subtitle =>
-      'Mindful\'u cihaz kilidinizle koruyun.';
+      'Solace\'u cihaz kilidinizle koruyun.';
 
   @override
   String get protected_access_no_lock_snack_alert =>
@@ -782,7 +781,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get tamper_protection_confirmation_dialog_info =>
-      'Once enabled, you won\'t be able to uninstall, force stop, or clear Mindful\'s data, except during the selected uninstall window. There are no workarounds.\n\nProceed at your own risk.';
+      'Once enabled, you won\'t be able to uninstall, force stop, or clear Solace\'s data, except during the selected uninstall window. There are no workarounds.\n\nProceed at your own risk.';
 
   @override
   String get uninstall_window_tile_title => 'Kaldırma penceresi';
@@ -1429,14 +1428,14 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get service_stopping_warning =>
-      'Mindful beklenmedik bir şekilde çalışmayı durdurursa, lütfen arka planda çalışmaya devam etmesi için \'Pil Optimizasyonunu Yoksay\' iznini verin. Sorun devam ederse, kesintisiz performans için Mindful\'u beyaz listeye almayı deneyin.';
+      'Solace beklenmedik bir şekilde çalışmayı durdurursa, lütfen arka planda çalışmaya devam etmesi için \'Pil Optimizasyonunu Yoksay\' iznini verin. Sorun devam ederse, kesintisiz performans için Solace\'u beyaz listeye almayı deneyin.';
 
   @override
-  String get whitelist_app_tile_title => 'Beyaz Liste Mindful';
+  String get whitelist_app_tile_title => 'Beyaz Liste Solace';
 
   @override
   String get whitelist_app_tile_subtitle =>
-      'Mindfulun otomatik başlatılmasına izin ver.';
+      'Solaceun otomatik başlatılmasına izin ver.';
 
   @override
   String get whitelist_app_unsupported_snack_alert =>
@@ -1539,7 +1538,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get privacy_policy_info =>
-      'Mindful, gizliliğinizi korumaya kararlıdır. Herhangi bir kullanıcı verisini toplamaz, depolamaz veya aktarmaz. Uygulama tamamen çevrimdışıdır ve internet bağlantısı gerektirmez, böylece kişisel bilgileriniz cihazınızda özel ve güvenli kalır. Ücretsiz ve Açık Kaynak Yazılım (FOSS) uygulaması olarak, Mindful, verileriniz üzerinde tam şeffaflık ve kullanıcı kontrolü sağlar.';
+      'Solace, gizliliğinizi korumaya kararlıdır. Herhangi bir kullanıcı verisini toplamaz, depolamaz veya aktarmaz. Uygulama tamamen çevrimdışıdır ve internet bağlantısı gerektirmez, böylece kişisel bilgileriniz cihazınızda özel ve güvenli kalır. Ücretsiz ve Açık Kaynak Yazılım (FOSS) uygulaması olarak, Solace, verileriniz üzerinde tam şeffaflık ve kullanıcı kontrolü sağlar.';
 
   @override
   String get more_details_button => 'Daha fazla bilgi';

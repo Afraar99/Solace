@@ -48,6 +48,8 @@ class OverlayManager(
                 if (sheetOverlay.findViewById<View>(R.id.breath_overlay_root) != null) {
                     (sheetOverlay.getTag(R.id.breath_overlay_root) as? android.animation.ValueAnimator)
                         ?.cancel()
+                    (sheetOverlay.getTag(R.id.breath_overlay_block) as? android.animation.ValueAnimator)
+                        ?.cancel()
                     sheetOverlay.animate()
                         .alpha(0f)
                         .setDuration(300)
@@ -103,7 +105,7 @@ class OverlayManager(
                 }
 
                 Log.d(TAG, "showBreathPauseOverlay: Showing breath pause for $packageName")
-                windowManager.addView(breathOverlay, sheetLayoutParams)
+                windowManager.addView(breathOverlay, breathLayoutParams)
                 overlays.push(breathOverlay)
                 Utils.vibrateDevice(context, 40L)
 
@@ -276,6 +278,23 @@ class OverlayManager(
             },
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
                     WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS or
+                    WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
+                    WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR,
+            android.graphics.PixelFormat.TRANSLUCENT
+        ).apply {
+            gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
+        }
+
+        /// Breath pause must receive touches for Continue / Home actions.
+        private val breathLayoutParams = WindowManager.LayoutParams(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.MATCH_PARENT,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+            } else {
+                WindowManager.LayoutParams.TYPE_PHONE
+            },
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS or
                     WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
                     WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR,
             android.graphics.PixelFormat.TRANSLUCENT

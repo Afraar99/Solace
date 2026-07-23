@@ -10,7 +10,7 @@
     "permission_button_agree_and_continue": "Accetta e Continua",
     "permission_button_not_now": "Non ora",
     "permission_button_help": "Aiuto?",
-    "permission_sheet_privacy_info": "Mindful è sicura al 100% e funziona offline. Nessun dato personale viene raccolto o conservato.",
+    "permission_sheet_privacy_info": "Solace è sicura al 100% e funziona offline. Nessun dato personale viene raccolto o conservato.",
     "permission_grant_step_one": "Premi il pulsante {button_label}.",
     "@permission_grant_step_one": {
         "placeholders": {
@@ -19,18 +19,18 @@
             }
         }
     },
-    "permission_grant_step_two": "Seleziona Mindful nella prossima schermata.",
-    "permission_grant_step_three": "Premi per abilitare Mindful come mostrato qui.",
+    "permission_grant_step_two": "Seleziona Solace nella prossima schermata.",
+    "permission_grant_step_three": "Premi per abilitare Solace come mostrato qui.",
     "permission_notification_title": "Invia Notifiche",
     "permission_alarms_title": "Sveglie e Promemoria",
-    "permission_alarms_info": "Per favore concedi l'autorizzazione per l'impostazione di avvisi e promemoria. Questo permetterà a Mindful di avviare la programmazione notturna e di resettare i timer delle app ogni giorno a mezzanotte.",
+    "permission_alarms_info": "Per favore concedi l'autorizzazione per l'impostazione di avvisi e promemoria. Questo permetterà a Solace di avviare la programmazione notturna e di resettare i timer delle app ogni giorno a mezzanotte.",
     "permission_alarms_device_tile_label": "Consenti l'impostazione di sveglie e promemoria",
     "permission_usage_title": "Accesso ai dati di utilizzo",
-    "permission_usage_info": "Si prega di concedere il permesso di accesso all'uso. Questo consentirà a Mindful di monitorare l'utilizzo delle app e gestire l'accesso a determinate app, garantendo un ambiente digitale più mirato e controllato.",
+    "permission_usage_info": "Si prega di concedere il permesso di accesso all'uso. Questo consentirà a Solace di monitorare l'utilizzo delle app e gestire l'accesso a determinate app, garantendo un ambiente digitale più mirato e controllato.",
     "permission_usage_device_tile_label": "Consenti accesso ai dati di utilizzo",
     "permission_overlay_title": "Overlay Schermo",
     "permission_accessibility_title": "Accessibilità",
-    "permission_accessibility_device_tile_label": "Usa Mindful",
+    "permission_accessibility_device_tile_label": "Usa Solace",
     "permission_dnd_title": "Non disturbare",
     "permission_dnd_tile_title": "Avvia DND",
     "permission_battery_optimization_tile_title": "Ignora Ottimizzazioni Batteria",
@@ -182,7 +182,7 @@
         "placeholders": {
             "appName": {
                 "type": "String",
-                "example": "Mindful"
+                "example": "Solace"
             }
         }
     },
@@ -201,7 +201,7 @@
     "usage_history_6_month": "6 mesi",
     "usage_history_1_year": "1 anno",
     "service_heading": "Servizio",
-    "whitelist_app_tile_subtitle": "Permetti a Mindful di avviarsi automaticamente.",
+    "whitelist_app_tile_subtitle": "Permetti a Solace di avviarsi automaticamente.",
     "whitelist_app_unsupported_snack_alert": "Questo dispositivo non supporta la gestione dell'avvio automatico.",
     "@----------------------------- SETTINGS SCREEN - DATABASE TAB -----------------------------": {},
     "crash_logs_heading": "Report di arresto",

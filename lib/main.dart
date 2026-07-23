@@ -70,11 +70,13 @@ Future<void> main() async {
     return !kDebugMode;
   };
 
-  /// Scale app from edge-edge behind system ui
-  SystemChrome.setEnabledSystemUIMode(
-    SystemUiMode.edgeToEdge,
-    overlays: [SystemUiOverlay.top],
-  );
+  /// Scale app from edge-edge behind system ui (mobile only)
+  if (MethodChannelService.instance.isNativeAndroid) {
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.edgeToEdge,
+      overlays: [SystemUiOverlay.top],
+    );
+  }
 
   /// run main app
   runApp(

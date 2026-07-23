@@ -39,46 +39,51 @@ class UsageGlanceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mini = icon == null;
+    final scheme = Theme.of(context).colorScheme;
 
     return RoundedContainer(
-      circularRadius: 6,
+      circularRadius: 12,
       borderRadius: getBorderRadiusFromPosition(position),
       padding: const EdgeInsets.all(16),
-      color:
-          isPrimary ? Theme.of(context).colorScheme.secondaryContainer : null,
+      color: isPrimary
+          ? scheme.primary.withValues(alpha: 0.12)
+          : scheme.surfaceContainerHighest.withValues(alpha: 0.35),
       onPressed: onTap,
       child: Stack(
         children: [
-          /// Usage
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (!mini) Icon(icon),
-              mini ? 0.vBox : 14.vBox,
+              if (!mini)
+                Icon(
+                  icon,
+                  color: isPrimary ? scheme.primary : scheme.onSurface,
+                  size: 20,
+                ),
+              mini ? 0.vBox : 12.vBox,
               StyledText(
                 title,
                 fontSize: 12,
+                color: scheme.onSurface.withValues(alpha: 0.65),
               ),
               Skeleton.leaf(
                 child: FittedBox(
                   child: StyledText(
                     info.isEmpty ? " " : info,
-                    fontSize: 24,
+                    fontSize: 22,
                     maxLines: 1,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w700,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ),
             ],
           ),
-
-          /// Badge
           Align(
             alignment: Alignment.topRight,
             child: badge ?? 0.hBox,
-          )
+          ),
         ],
       ),
     );

@@ -10,7 +10,7 @@
     "permission_button_agree_and_continue": "同意并继续",
     "permission_button_not_now": "稍后再说",
     "permission_button_help": "帮助？",
-    "permission_sheet_privacy_info": "Mindful 安全且不使用互联网。我们不收集或存储任何个人数据。",
+    "permission_sheet_privacy_info": "Solace 安全且不使用互联网。我们不收集或存储任何个人数据。",
     "permission_grant_step_one": "1. 点击 {button_label} 按钮。",
     "@permission_grant_step_one": {
         "placeholders": {
@@ -19,24 +19,24 @@
             }
         }
     },
-    "permission_grant_step_two": "2. 请在下一个屏幕中选择 Mindful。",
+    "permission_grant_step_two": "2. 请在下一个屏幕中选择 Solace。",
     "permission_grant_step_three": "3. 点击并开启如下开关。",
     "permission_notification_title": "发送通知",
     "permission_alarms_title": "闹钟和提醒",
     "permission_alarms_info": "请授予设置提醒和提醒的权限。 这将使您能够及时启动您的床上时间表，并且每天午夜重置应用程序计时器，并帮助您保持正常状态。",
     "permission_alarms_device_tile_label": "允许设置闹钟和提醒",
     "permission_usage_title": "使用访问",
-    "permission_usage_info": "请授予使用访问权限。这将允许Mindful监控应用使用情况并管理对某些应用的访问，确保更专注和受控的数字环境。",
+    "permission_usage_info": "请授予使用访问权限。这将允许Solace监控应用使用情况并管理对某些应用的访问，确保更专注和受控的数字环境。",
     "permission_usage_device_tile_label": "允许使用访问",
     "permission_overlay_title": "显示叠加层",
-    "permission_overlay_info": "请授予显示叠加层权限。这将允许Mindful在暂停的应用打开时显示叠加层，帮助您保持专注并维持您的日程安排。",
+    "permission_overlay_info": "请授予显示叠加层权限。这将允许Solace在暂停的应用打开时显示叠加层，帮助您保持专注并维持您的日程安排。",
     "permission_overlay_device_tile_label": "允许在其他应用上显示",
     "permission_accessibility_title": "无障碍",
-    "permission_accessibility_info": "请授予无障碍权限。这将允许Mindful限制社交媒体应用和浏览器中的短视频内容（例如Reels、Shorts）访问，并过滤不当网站。",
-    "permission_accessibility_required": "Mindful需要无障碍权限才能有效阻止短内容和网站。",
-    "permission_accessibility_device_tile_label": "使用Mindful",
+    "permission_accessibility_info": "请授予无障碍权限。这将允许Solace限制社交媒体应用和浏览器中的短视频内容（例如Reels、Shorts）访问，并过滤不当网站。",
+    "permission_accessibility_required": "Solace需要无障碍权限才能有效阻止短内容和网站。",
+    "permission_accessibility_device_tile_label": "使用Solace",
     "permission_dnd_title": "请勿打扰",
-    "permission_dnd_info": "请授予请勿打扰访问权限。这将允许Mindful在睡眠时间表期间开始和停止请勿打扰模式。",
+    "permission_dnd_info": "请授予请勿打扰访问权限。这将允许Solace在睡眠时间表期间开始和停止请勿打扰模式。",
     "permission_dnd_tile_title": "开始DND",
     "permission_dnd_tile_subtitle": "同时启用请勿打扰模式。",
     "permission_battery_optimization_tile_title": "忽略电池优化",
@@ -44,13 +44,13 @@
     "permission_battery_optimization_status_disabled": "禁用后台限制",
     "permission_battery_optimization_allow_info": "允许'忽略电池优化'将在某些设备上自动授予'闹钟和提醒'权限。",
     "permission_vpn_title": "创建VPN",
-    "permission_vpn_info": "请授予创建虚拟专用网络（VPN）连接的权限。这将使Mindful能够通过在设备上创建本地VPN来限制指定应用程序的互联网访问。",
+    "permission_vpn_info": "请授予创建虚拟专用网络（VPN）连接的权限。这将使Solace能够通过在设备上创建本地VPN来限制指定应用程序的互联网访问。",
     "permission_admin_title": "管理员",
     "permission_admin_info": "仅需要管理权限进行基本操作，以确保应用程序正常工作并保持防篡改。",
     "permission_admin_snack_alert": "篡改保护只能在选定的时间窗口内禁用。",
     "permission_notification_access_title": "通知访问",
-    "permission_notification_access_info": "请授予通知访问权限。这将允许Mindful组织您的通知并按照您的日程安排进行交付。",
-    "permission_notification_access_required": "Mindful需要通知访问权限来批量和安排通知。",
+    "permission_notification_access_info": "请授予通知访问权限。这将允许Solace组织您的通知并按照您的日程安排进行交付。",
+    "permission_notification_access_required": "Solace需要通知访问权限来批量和安排通知。",
     "permission_notification_access_device_tile_label": "允许通知访问",
     "@----------------------------- DATE AND TIME -----------------------------": {},
     "day_today": "今天",
@@ -108,7 +108,7 @@
     "schedule_start_label": "开始",
     "schedule_end_label": "结束",
     "exit_without_saving_dialog_info": "您是否确定您要退出而不保存？",
-    "development_dialog_info": "Mindful 目前处于开发阶段，可能存在漏洞或不完整的功能。如果您遇到任何问题，请报告以帮助我们改进。\n\n感谢您的反馈！",
+    "development_dialog_info": "Solace 目前处于开发阶段，可能存在漏洞或不完整的功能。如果您遇到任何问题，请报告以帮助我们改进。\n\n感谢您的反馈！",
     "development_dialog_button_report_issue": "报告问题",
     "development_dialog_button_close": "关闭",
     "dnd_settings_tile_title": "勿扰设置",
@@ -123,17 +123,17 @@
     "active_period_info": "设置允许访问的时间段。超出此时间范围，访问将受到限制。",
     "minimum_distracting_apps_snack_alert": "至少选择一个分散注意力的应用。",
     "donation_card_title": "支持我们",
-    "donation_card_info": "Mindful 是免费且开源的，经过数月的奉献开发。如果它对您有帮助，您的捐款将对我们意义重大。每一份贡献都帮助我们继续改进和维护它，以造福所有人。",
+    "donation_card_info": "Solace 是免费且开源的，经过数月的奉献开发。如果它对您有帮助，您的捐款将对我们意义重大。每一份贡献都帮助我们继续改进和维护它，以造福所有人。",
     "operation_failed_snack_alert": "操作失败，出了问题！",
     "donation_card_button_donate": "捐赠",
     "app_restart_dialog_title": "需要重启",
-    "app_restart_dialog_info": "Mindful 将在倒计时结束后自动重启。请耐心等待，应用正在应用更改。",
+    "app_restart_dialog_info": "Solace 将在倒计时结束后自动重启。请耐心等待，应用正在应用更改。",
     "@----------------------------- TIPS -----------------------------": {},
-    "accessibility_tip": "需要更智能，更省电的拦截吗？为Mindful启动无障碍权限。",
-    "battery_optimization_tip": "Mindful无法运行？在设置中启用“忽略电池优化”以便可以更流畅的运行。",
+    "accessibility_tip": "需要更智能，更省电的拦截吗？为Solace启动无障碍权限。",
+    "battery_optimization_tip": "Solace无法运行？在设置中启用“忽略电池优化”以便可以更流畅的运行。",
     "invincible_mode_tip": "不小心移除了限制？使用隐藏模式锁定它们，直到第二天或调整窗口。",
     "glance_usage_tip": "想要深入了解？查看 Glance 功能，了解你的使用模式和屏幕使用时间。",
-    "tamper_protection_tip": "正在卸载 Mindful？请先启用卸载窗口以安全地禁用防篡改保护。",
+    "tamper_protection_tip": "正在卸载 Solace？请先启用卸载窗口以安全地禁用防篡改保护。",
     "notification_blocking_tip": "需要减少打扰？使用通知拦截以静音所选择的应用。",
     "usage_history_tip": "想复盘一下你的习惯吗？查看使用历史记录，了解之前的使用模式。",
     "focus_mode_tip": "需要更加专注？打开专注模式以在执行任务时不被应用和通知打扰。",
@@ -159,13 +159,13 @@
     "onboarding_skip_btn_label": "跳过",
     "onboarding_finish_setup_btn_label": "完成设置",
     "onboarding_page_one_title": "掌握专注。",
-    "onboarding_page_one_info": "暂停分散注意力的应用，屏蔽短内容，并通过可定制的专注会话保持在正轨上。不论你是在工作、学习或放松，Mindful都能帮助你保持控制。",
+    "onboarding_page_one_info": "暂停分散注意力的应用，屏蔽短内容，并通过可定制的专注会话保持在正轨上。不论你是在工作、学习或放松，Solace都能帮助你保持控制。",
     "onboarding_page_two_title": "屏蔽干扰。",
     "onboarding_page_two_info": "设置使用限制，自动暂停应用，并创建更健康的数字习惯。使用睡前模式放松并享受无干扰的夜晚。",
     "onboarding_page_three_title": "以隐私为首要。",
-    "onboarding_page_three_info": "Mindful 是 100% 开源的，并且完全离线运行。我们不收集或分享您的个人数据——您的隐私在每个方面都得到保证。",
+    "onboarding_page_three_info": "Solace 是 100% 开源的，并且完全离线运行。我们不收集或分享您的个人数据——您的隐私在每个方面都得到保证。",
     "onboarding_page_permissions_title": "必要权限。",
-    "onboarding_page_permissions_info": "Mindful 需要以下必要权限来跟踪和管理您的屏幕时间，帮助减少干扰并提高专注度。",
+    "onboarding_page_permissions_info": "Solace 需要以下必要权限来跟踪和管理您的屏幕时间，帮助减少干扰并提高专注度。",
     "@----------------------------- HOME SCREEN - DASHBOARD TAB -----------------------------": {},
     "dashboard_tab_title": "仪表盘",
     "focus_now_fab_button": "立即专注",
@@ -251,13 +251,13 @@
     "invincible_mode_include_bedtime_tile_title": "包含睡眠时间",
     "invincible_mode_include_bedtime_tile_subtitle": "防止在活跃的睡眠时间表期间进行更改。",
     "protected_access_tile_title": "受保护访问",
-    "protected_access_tile_subtitle": "使用设备锁保护Mindful。",
+    "protected_access_tile_subtitle": "使用设备锁保护Solace。",
     "protected_access_no_lock_snack_alert": "请先在设备上设置生物识别锁以启用此功能。",
     "protected_access_removed_lock_snack_alert": "您的设备锁已被移除。为了继续，请设置一个新锁。",
     "protected_access_failed_lock_snack_alert": "身份验证失败。您需要验证设备锁才能继续。",
     "tamper_protection_tile_title": "防篡改保护",
     "tamper_protection_tile_subtitle": "防止卸载和强制停止应用。",
-    "tamper_protection_confirmation_dialog_info": "一旦启用，您将无法卸载、强制停止或清除 Mindful 的数据，除非在指定的卸载时间段内。没有其他例外。\n\n请自行承担风险。",
+    "tamper_protection_confirmation_dialog_info": "一旦启用，您将无法卸载、强制停止或清除 Solace 的数据，除非在指定的卸载时间段内。没有其他例外。\n\n请自行承担风险。",
     "uninstall_window_tile_title": "卸载窗口",
     "uninstall_window_tile_subtitle": "防篡改保护可以在选定时间后的10分钟内被禁用。",
     "invincible_window_tile_title": "无敌窗口",
@@ -508,7 +508,7 @@
         "placeholders": {
             "appName": {
                 "type": "String",
-                "example": "Mindful"
+                "example": "Solace"
             }
         }
     },
@@ -517,7 +517,7 @@
         "placeholders": {
             "appName": {
                 "type": "String",
-                "example": "Mindful"
+                "example": "Solace"
             }
         }
     },
@@ -527,7 +527,7 @@
         "placeholders": {
             "appName": {
                 "type": "String",
-                "example": "Mindful"
+                "example": "Solace"
             }
         }
     },
@@ -540,7 +540,7 @@
         "placeholders": {
             "appName": {
                 "type": "String",
-                "example": "Mindful"
+                "example": "Solace"
             }
         }
     },
@@ -549,7 +549,7 @@
         "placeholders": {
             "appName": {
                 "type": "String",
-                "example": "Mindful"
+                "example": "Solace"
             }
         }
     },
@@ -575,9 +575,9 @@
     "usage_history_6_month": "6 个月",
     "usage_history_1_year": "1 年",
     "service_heading": "服务",
-    "service_stopping_warning": "如果 Mindful 意外停止工作，请授予“忽略电池优化”权限以保持后台运行。如果问题持续，请将 Mindful 加入白名单以获得无间断性能。",
-    "whitelist_app_tile_title": "将 Mindful 加入白名单",
-    "whitelist_app_tile_subtitle": "允许 Mindful 自动启动。",
+    "service_stopping_warning": "如果 Solace 意外停止工作，请授予“忽略电池优化”权限以保持后台运行。如果问题持续，请将 Solace 加入白名单以获得无间断性能。",
+    "whitelist_app_tile_title": "将 Solace 加入白名单",
+    "whitelist_app_tile_subtitle": "允许 Solace 自动启动。",
     "whitelist_app_unsupported_snack_alert": "该设备不支持自动启动管理。",
     "@----------------------------- SETTINGS SCREEN - DATABASE TAB -----------------------------": {},
     "database_tab_title": "数据库",
@@ -610,6 +610,6 @@
     "write_email_tile_title": "通过电子邮件联系我们",
     "write_email_tile_subtitle": "您将被重定向到电子邮件应用。",
     "privacy_policy_heading": "隐私政策",
-    "privacy_policy_info": "Mindful 致力于保护您的隐私。我们不收集、存储或传输任何类型的用户数据。该应用完全离线运行，不需要互联网连接，确保您的个人信息在您的设备上保持私密和安全。作为免费开源软件 (FOSS) 应用，Mindful 保证对用户数据的完全透明度和用户控制。",
+    "privacy_policy_info": "Solace 致力于保护您的隐私。我们不收集、存储或传输任何类型的用户数据。该应用完全离线运行，不需要互联网连接，确保您的个人信息在您的设备上保持私密和安全。作为免费开源软件 (FOSS) 应用，Solace 保证对用户数据的完全透明度和用户控制。",
     "more_details_button": "更多详情"
 }

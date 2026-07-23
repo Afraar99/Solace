@@ -21,6 +21,7 @@ import 'package:mindful/core/extensions/ext_num.dart';
 import 'package:mindful/core/services/auth_service.dart';
 import 'package:mindful/config/navigation/navigation_service.dart';
 import 'package:mindful/core/services/method_channel_service.dart';
+import 'package:mindful/providers/shield/shield_days_provider.dart';
 import 'package:mindful/providers/system/mindful_settings_provider.dart';
 import 'package:mindful/providers/system/parental_controls_provider.dart';
 import 'package:mindful/providers/system/permissions_provider.dart';
@@ -60,10 +61,21 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     _isAccessProtected =
         (await ref.read(parentalControlsProvider.notifier).init())
             .protectedAccess;
-    _haveAllEssentialPermissions = perms.haveUsageAccessPermission &&
-        perms.haveDisplayOverlayPermission &&
-        perms.haveAlarmsPermission &&
-        perms.haveNotificationPermission;
+
+    /// Mark today on cold start (presence graph + NSFW streak)
+    await ref.read(shieldDaysProvider.notifier).checkInToday();
+
+    /// Desktop/web UI preview: skip Android permission gate
+    if (!MethodChannelService.instance.isNativeAndroid) {
+      _haveAllEssentialPermissions = true;
+      _isOnboardingDone = true;
+      _isAccessProtected = false;
+    } else {
+      _haveAllEssentialPermissions = perms.haveUsageAccessPermission &&
+          perms.haveDisplayOverlayPermission &&
+          perms.haveAlarmsPermission &&
+          perms.haveNotificationPermission;
+    }
 
     if (mounted) setState(() {});
     _isAccessProtected ? _authenticate() : _goToNextScreen(true);
@@ -144,7 +156,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
               children: [
                 /// Title
                 const StyledText(
-                  "Mindful",
+                  "Solace",
                   fontSize: 48,
                   fontWeight: FontWeight.bold,
                   height: 1,
@@ -170,9 +182,18 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
             /// Make
             const StyledText(
-              "Made with ♥️ in 🇮🇳",
+              "Made with ♥️ in 🇱🇰",
               fontSize: 14,
               fontWeight: FontWeight.bold,
+            ),
+            Text(
+              "Mohamed Afraar",
+              style: TextStyle(
+                fontFamily: 'serif',
+                fontSize: 13,
+                fontStyle: FontStyle.italic,
+                color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.85),
+              ),
             ),
           ].animate(
             effects: DefaultEffects.transitionIn,

@@ -11,7 +11,6 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mindful/config/app_themes.dart';
 import 'package:mindful/core/enums/app_theme_mode.dart';
 import 'package:mindful/core/enums/default_home_tab.dart';
 import 'package:mindful/core/enums/item_position.dart';
@@ -23,7 +22,6 @@ import 'package:mindful/core/services/method_channel_service.dart';
 import 'package:mindful/l10n/generated/app_localizations.dart';
 import 'package:mindful/providers/system/mindful_settings_provider.dart';
 import 'package:mindful/ui/common/default_list_tile.dart';
-import 'package:mindful/ui/common/rounded_container.dart';
 import 'package:mindful/ui/common/content_section_header.dart';
 import 'package:mindful/ui/common/default_dropdown_tile.dart';
 import 'package:mindful/ui/common/sliver_tabs_bottom_padding.dart';
@@ -77,28 +75,6 @@ class TabGeneral extends ConsumerWidget {
               value: AppThemeMode.dark,
             ),
           ],
-        ).sliver,
-
-        /// Material Color
-        DefaultDropdownTile<String>(
-          position: ItemPosition.mid,
-          titleText: context.locale.material_color_tile_title,
-          dialogIcon: FluentIcons.color_20_filled,
-          value: mindfulSettings.accentColor,
-          onSelected: ref.read(mindfulSettingsProvider.notifier).changeColor,
-          trailingBuilder: (item) => RoundedContainer(
-            height: 18,
-            width: 18,
-            circularRadius: 18,
-            color: AppTheme.materialColors[item],
-          ),
-          items: AppTheme.materialColors.entries
-              .map((e) => DefaultDropdownItem(
-                    // using key for both label and value as we are storing color name in database
-                    label: e.key,
-                    value: e.key,
-                  ))
-              .toList(),
         ).sliver,
 
         /// Amoled dark
