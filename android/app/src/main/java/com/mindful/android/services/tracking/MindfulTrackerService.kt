@@ -15,7 +15,8 @@ import java.util.concurrent.ConcurrentHashMap
 class MindfulTrackerService : Service() {
     companion object {
         private const val TAG = "Mindful.MindfulTrackerService"
-        private const val BREATH_COOLDOWN_MS = 45_000L
+        /** Only prevents double-fire from usage/accessibility spam — not a real cooldown */
+        private const val BREATH_DEBOUNCE_MS = 2_500L
     }
 
     private val mBinder = ServiceBinder(this@MindfulTrackerService)
@@ -29,8 +30,9 @@ class MindfulTrackerService : Service() {
     private lateinit var launchTrackingManager: LaunchTrackingManager
     val getLaunchTrackingManager get() = launchTrackingManager
 
-    /** packageName -> cooldown expiry epoch ms (after user taps Continue) */
-    private val breathCooldowns = ConcurrentHashMap<String, Long>()
+    /** Last time breath overlay was shown per package (debounce only) */
+    private val lastBreathShownAt = ConcurrentHashMap<String, Long>()
+    private var lastForegroundPackage: String = ""
 
     override fun onCreate() {
         overlayManager = OverlayManager(this)
@@ -87,6 +89,12 @@ class MindfulTrackerService : Service() {
             reminderManager.cancelReminders()
             overlayManager.dismissSheetOverlay()
 
+            /// Left another app — next open of that app should breathe again
+            if (lastForegroundPackage.isNotEmpty() && lastForegroundPackage != packageName) {
+                lastBreathShownAt.remove(lastForegroundPackage)
+            }
+            lastForegroundPackage = packageName
+
             /// check current restrictions
             val currentOrFutureState = restrictionManager.isAppRestricted(packageName)
             Log.d(TAG, "onNewAppLaunch: $packageName's evaluated state => $currentOrFutureState")
@@ -100,13 +108,15 @@ class MindfulTrackerService : Service() {
                 return
             }
 
-            /// Breathing pause before opening selected apps
-            if (restrictionManager.needsBreathPause(packageName) && !isInBreathCooldown(packageName)) {
+            /// Breathing pause every time the user opens a selected app
+            if (restrictionManager.needsBreathPause(packageName) &&
+                !isBreathDebounced(packageName)
+            ) {
                 Log.d(TAG, "onNewAppLaunch: Showing breath pause for $packageName")
+                markBreathShown(packageName)
                 overlayManager.showBreathPauseOverlay(
                     packageName = packageName,
                     onContinue = {
-                        markBreathCooldown(packageName)
                         currentOrFutureState?.let {
                             reminderManager.scheduleReminders(
                                 packageName = packageName,
@@ -131,17 +141,13 @@ class MindfulTrackerService : Service() {
         }
     }
 
-    private fun isInBreathCooldown(packageName: String): Boolean {
-        val expiresAt = breathCooldowns[packageName] ?: return false
-        if (System.currentTimeMillis() >= expiresAt) {
-            breathCooldowns.remove(packageName)
-            return false
-        }
-        return true
+    private fun isBreathDebounced(packageName: String): Boolean {
+        val last = lastBreathShownAt[packageName] ?: return false
+        return System.currentTimeMillis() - last < BREATH_DEBOUNCE_MS
     }
 
-    private fun markBreathCooldown(packageName: String) {
-        breathCooldowns[packageName] = System.currentTimeMillis() + BREATH_COOLDOWN_MS
+    private fun markBreathShown(packageName: String) {
+        lastBreathShownAt[packageName] = System.currentTimeMillis()
     }
 
     private fun stopIfNoUsage() {

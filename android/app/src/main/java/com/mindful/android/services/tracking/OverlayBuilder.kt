@@ -20,6 +20,7 @@ import com.mindful.android.R
 import com.mindful.android.enums.RestrictionType
 import com.mindful.android.models.RestrictionState
 import com.mindful.android.utils.AppUtils
+import com.mindful.android.utils.BreathPauseQuotes
 import com.mindful.android.utils.DateTimeUtils
 import com.mindful.android.utils.MindfulQuotes
 import com.mindful.android.utils.ThreadUtils
@@ -228,6 +229,8 @@ object OverlayBuilder {
         val (appName, _) = getAppLabelAndIcon(context, packageName)
 
         root.findViewById<TextView>(R.id.breath_overlay_app_label).text = "← $appName"
+        root.findViewById<TextView>(R.id.breath_overlay_prompt).text =
+            BreathPauseQuotes.forPackage(packageName)
 
         val phaseTxt = root.findViewById<TextView>(R.id.breath_overlay_phase)
         val breathBlock = root.findViewById<View>(R.id.breath_overlay_block)
