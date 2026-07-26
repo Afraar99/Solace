@@ -43,6 +43,7 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
   final TextEditingController _nameController = TextEditingController();
   final _animCurve = Curves.easeInOut;
   final _animDuration = AppConstants.defaultAnimDuration;
+
   /// Name page only after user taps Finish Setup (no auto-advance)
   bool _namePageUnlocked = false;
 
@@ -63,15 +64,17 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
       description: context.locale.onboarding_page_three_info,
     ),
     const PermissionsPage(),
-    NameSetupPage(controller: _nameController),
+    NameSetupPage(
+      controller: _nameController,
+      onSubmitted: () => _onPrimaryAction(haveAllEssentialPermissions: true),
+    ),
   ];
 
   @override
   void initState() {
     super.initState();
 
-    final existing =
-        ref.read(mindfulSettingsProvider).username.trim();
+    final existing = ref.read(mindfulSettingsProvider).username.trim();
     if (existing.isNotEmpty && existing != AppConstants.defaultUsername) {
       _nameController.text = existing;
     }
@@ -85,8 +88,8 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
         if (!widget.isOnboardingDone) return;
 
         final username = ref.read(mindfulSettingsProvider).username.trim();
-        final hasCustomName = username.isNotEmpty &&
-            username != AppConstants.defaultUsername;
+        final hasCustomName =
+            username.isNotEmpty && username != AppConstants.defaultUsername;
         if (!hasCustomName) return;
 
         _finishOnboarding();
@@ -180,6 +183,7 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
     final perms = ref.watch(permissionProvider);
     final haveAllEssentialPermissions = _haveEssential(perms);
     final scheme = Theme.of(context).colorScheme;
+    final isKeyboardOpen = MediaQuery.viewInsetsOf(context).bottom > 0;
 
     return PopScope(
       onPopInvokedWithResult: (didPop, _) => SystemNavigator.pop(),
@@ -187,18 +191,19 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
         body: SafeArea(
           child: Column(
             children: [
-              Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: TextButton(
-                    onPressed: _goToPermissionsPage,
-                    child: Text(context.locale.onboarding_skip_btn_label),
-                  )
-                      .animate(target: showSkip ? 1 : 0)
-                      .scale(duration: 100.ms),
+              /// Collapse the top bar while the soft keyboard is up so the
+              /// input field keeps as much room as possible.
+              if (!isKeyboardOpen)
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: TextButton(
+                      onPressed: _goToPermissionsPage,
+                      child: Text(context.locale.onboarding_skip_btn_label),
+                    ).animate(target: showSkip ? 1 : 0).scale(duration: 100.ms),
+                  ),
                 ),
-              ),
               Expanded(
                 child: PageView.builder(
                   controller: _controller,
@@ -251,13 +256,13 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
                     4.hBox,
                     if (isPermissionsPage || isNamePage)
                       FilledButton(
-                        onPressed: (isPermissionsPage &&
-                                    !haveAllEssentialPermissions)
-                            ? null
-                            : () => _onPrimaryAction(
-                                  haveAllEssentialPermissions:
-                                      haveAllEssentialPermissions,
-                                ),
+                        onPressed:
+                            (isPermissionsPage && !haveAllEssentialPermissions)
+                                ? null
+                                : () => _onPrimaryAction(
+                                      haveAllEssentialPermissions:
+                                          haveAllEssentialPermissions,
+                                    ),
                         child: Text(
                           isNamePage
                               ? 'Continue'

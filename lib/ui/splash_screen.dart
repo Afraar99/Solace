@@ -133,80 +133,88 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
           automaticallyImplyLeading: false,
           backgroundColor: Theme.of(context).colorScheme.surface,
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            /// Breathing logo
-            BreathingWidget(
-              dimension: min(420, MediaQuery.of(context).size.width * 0.8),
-              child: RoundedContainer(
-                circularRadius: 420,
-                color: Theme.of(context).colorScheme.secondaryContainer,
-                padding: const EdgeInsets.all(8),
-                child: const Icon(
-                  FluentIcons.target_arrow_20_regular,
-                  size: 64,
+        body: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              /// Breathing logo
+              BreathingWidget(
+                dimension: min(
+                  min(420, MediaQuery.sizeOf(context).width * 0.8),
+                  MediaQuery.sizeOf(context).height * 0.32,
+                ),
+                child: RoundedContainer(
+                  circularRadius: 420,
+                  color: Theme.of(context).colorScheme.secondaryContainer,
+                  padding: const EdgeInsets.all(8),
+                  child: const Icon(
+                    FluentIcons.target_arrow_20_regular,
+                    size: 64,
+                  ),
                 ),
               ),
-            ),
 
-            Column(
-              children: [
-                /// Title
-                const StyledText(
-                  "Solace",
-                  fontSize: 48,
-                  fontWeight: FontWeight.bold,
-                  height: 1,
-                ),
+              Column(
+                children: [
+                  /// Title
+                  const StyledText(
+                    "Solace",
+                    fontSize: 48,
+                    fontWeight: FontWeight.bold,
+                    height: 1,
+                  ),
 
-                /// Tag line
-                StyledText(
-                  context.locale.mindful_tagline,
-                  fontSize: 16,
-                  isSubtitle: true,
-                ),
-              ],
-            ),
-
-            const Divider(color: Colors.transparent),
-            _isAccessProtected
-                ? Column(
-                    children: [
-                      FilledButton.icon(
-                        icon: const Icon(FluentIcons.fingerprint_20_regular),
-                        label: Text(context.locale.unlock_button_label),
-                        onPressed: _authenticate,
-                      ),
-                      8.vBox,
-                      StyledText(
-                        'Fingerprint or device PIN — use either one',
-                        fontSize: 12,
-                        isSubtitle: true,
-                      ),
-                    ],
-                  )
-                : 0.vBox,
-
-            /// Make
-            const StyledText(
-              "Made with ♥️ in 🇱🇰",
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
-            Text(
-              "Mohamed Afraar",
-              style: TextStyle(
-                fontFamily: 'serif',
-                fontSize: 13,
-                fontStyle: FontStyle.italic,
-                color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.85),
+                  /// Tag line
+                  StyledText(
+                    context.locale.mindful_tagline,
+                    fontSize: 16,
+                    isSubtitle: true,
+                  ),
+                ],
               ),
+
+              const Divider(color: Colors.transparent),
+              _isAccessProtected
+                  ? Column(
+                      children: [
+                        FilledButton.icon(
+                          icon: const Icon(FluentIcons.fingerprint_20_regular),
+                          label: Text(context.locale.unlock_button_label),
+                          onPressed: _authenticate,
+                        ),
+                        8.vBox,
+                        StyledText(
+                          'Fingerprint or device PIN — use either one',
+                          fontSize: 12,
+                          isSubtitle: true,
+                        ),
+                      ],
+                    )
+                  : 0.vBox,
+
+              /// Make
+              const StyledText(
+                "Made with ♥️ in 🇱🇰",
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+              Text(
+                "Mohamed Afraar",
+                style: TextStyle(
+                  fontFamily: 'serif',
+                  fontSize: 13,
+                  fontStyle: FontStyle.italic,
+                  color: Theme.of(context)
+                      .colorScheme
+                      .primary
+                      .withValues(alpha: 0.85),
+                ),
+              ),
+            ].animate(
+              effects: DefaultEffects.transitionIn,
+              delay: 100.ms,
+              interval: 100.ms,
             ),
-          ].animate(
-            effects: DefaultEffects.transitionIn,
-            delay: 100.ms,
-            interval: 100.ms,
           ),
         ),
       ),

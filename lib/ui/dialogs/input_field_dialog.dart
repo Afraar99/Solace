@@ -220,7 +220,12 @@ class _InputFieldDialogState extends State<_InputFieldDialog> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        margin: const EdgeInsets.all(48),
+        margin: EdgeInsets.fromLTRB(
+          48,
+          48,
+          48,
+          48 + MediaQuery.viewInsetsOf(context).bottom,
+        ),
         alignment: Alignment.center,
         child: SingleChildScrollView(
           child: DefaultHero(

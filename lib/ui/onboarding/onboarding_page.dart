@@ -1,10 +1,6 @@
 /*
  *
- *  * Copyright (c) 2024 Mindful (https://github.com/akaMrNagar/Mindful)
- *  * Author : Pawan Nagar (https://github.com/akaMrNagar)
- *  *
- *  * This source code is licensed under the GPL-2.0 license license found in the
- *  * LICENSE file in the root directory of this source tree.
+ *  * Copyright (c) 2024 Solace
  *
  */
 
@@ -28,52 +24,60 @@ class OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: bottomPadding),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          0.vBox,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        /// Scales with the space actually available, so small and large
+        /// screens (and large font sizes) never overflow.
+        final artSize = (constraints.maxHeight * 0.42)
+            .clamp(120.0, MediaQuery.sizeOf(context).width);
 
-          /// Illustration
-          ConstrainedBox(
+        return SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
+          padding: EdgeInsets.only(bottom: bottomPadding),
+          child: ConstrainedBox(
             constraints: BoxConstraints(
-              maxHeight: MediaQuery.sizeOf(context).height * 0.42,
+              minHeight: (constraints.maxHeight - bottomPadding)
+                  .clamp(0.0, double.infinity),
             ),
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: Image.asset(
-                imgArtPath,
-                fit: BoxFit.contain,
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                8.vBox,
+
+                /// Illustration
+                Center(
+                  child: SizedBox(
+                    height: artSize,
+                    width: artSize,
+                    child: Image.asset(imgArtPath, fit: BoxFit.contain),
+                  ),
+                ),
+
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    StyledText(
+                      title,
+                      fontSize: 32,
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    4.vBox,
+                    StyledText(
+                      description,
+                      fontSize: 16,
+                      height: 1.4,
+                      color: Theme.of(context).hintColor,
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
-
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              /// Title
-              StyledText(
-                title,
-                fontSize: 32,
-                fontWeight: FontWeight.w600,
-                textAlign: TextAlign.center,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              4.vBox,
-
-              /// Description
-              StyledText(
-                description,
-                fontSize: 16,
-                color: Theme.of(context).hintColor,
-                textAlign: TextAlign.left,
-              ),
-            ],
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

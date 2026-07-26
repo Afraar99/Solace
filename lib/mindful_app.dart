@@ -67,6 +67,12 @@ class MindfulApp extends ConsumerWidget {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
+          /// Very large system font scales (common on budget/older phones with
+          /// accessibility settings) break fixed layouts, so cap the scale.
+          builder: (context, child) => MediaQuery.withClampedTextScaling(
+            maxScaleFactor: 1.3,
+            child: child ?? const SizedBox.shrink(),
+          ),
           initialRoute: AppRoutes.rootSplashPath,
           routes: AppRoutes.routes,
           navigatorKey: NavigationService.navigatorKey,
