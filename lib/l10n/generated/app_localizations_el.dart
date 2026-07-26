@@ -777,24 +777,6 @@ class AppLocalizationsEl extends AppLocalizations {
       'Η ταυτοποίηση απέτυχε. Πρέπει να επαληθεύσεις το κλείδωμα της συσκευής σου για να συνεχίσεις.';
 
   @override
-  String get tamper_protection_tile_title => 'Προστασία παραβίασης';
-
-  @override
-  String get tamper_protection_tile_subtitle =>
-      'Αποτροπή απεγκατάστασης και αναγκαστικής διακοπής της εφαρμογής.';
-
-  @override
-  String get tamper_protection_confirmation_dialog_info =>
-      'Once enabled, you won\'t be able to uninstall, force stop, or clear Solace\'s data, except during the selected uninstall window. There are no workarounds.\n\nProceed at your own risk.';
-
-  @override
-  String get uninstall_window_tile_title => 'Παράθυρο απεγκατάστασης';
-
-  @override
-  String get uninstall_window_tile_subtitle =>
-      'Η προστασία παραβίασης μπορεί να απενεργοποιηθεί εντός 10 λεπτών από τον επιλεγμένο χρόνο.';
-
-  @override
   String get invincible_window_tile_title => 'Παράθυρο άτρωτης';
 
   @override

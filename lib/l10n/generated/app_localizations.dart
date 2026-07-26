@@ -159,7 +159,7 @@ abstract class AppLocalizations {
   /// No description provided for @unlock_button_label.
   ///
   /// In en, this message translates to:
-  /// **'Unlock'**
+  /// **'Unlock with fingerprint or PIN'**
   String get unlock_button_label;
 
   /// No description provided for @permission_status_off.
@@ -921,7 +921,7 @@ abstract class AppLocalizations {
   /// No description provided for @parental_controls_tile_subtitle.
   ///
   /// In en, this message translates to:
-  /// **'Invincible mode and tamper protection.'**
+  /// **'Invincible mode and app lock.'**
   String get parental_controls_tile_subtitle;
 
   /// No description provided for @restrictions_heading.
@@ -1347,56 +1347,26 @@ abstract class AppLocalizations {
   /// No description provided for @protected_access_tile_subtitle.
   ///
   /// In en, this message translates to:
-  /// **'Protect Solace with your device lock.'**
+  /// **'Ask for fingerprint or PIN when opening Solace.'**
   String get protected_access_tile_subtitle;
 
   /// No description provided for @protected_access_no_lock_snack_alert.
   ///
   /// In en, this message translates to:
-  /// **'Please set up a biometric lock on your device first to enable this feature.'**
+  /// **'Set up a fingerprint or device PIN in your phone settings first, then try again.'**
   String get protected_access_no_lock_snack_alert;
 
   /// No description provided for @protected_access_removed_lock_snack_alert.
   ///
   /// In en, this message translates to:
-  /// **'Your device lock has been removed. To continue, please set up a new lock.'**
+  /// **'No device lock found. Add a fingerprint or PIN in phone settings to continue.'**
   String get protected_access_removed_lock_snack_alert;
 
   /// No description provided for @protected_access_failed_lock_snack_alert.
   ///
   /// In en, this message translates to:
-  /// **'Authentication failed. You need to verify your device lock to proceed.'**
+  /// **'Authentication failed. Use fingerprint or PIN to unlock Solace.'**
   String get protected_access_failed_lock_snack_alert;
-
-  /// No description provided for @tamper_protection_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Tamper protection'**
-  String get tamper_protection_tile_title;
-
-  /// No description provided for @tamper_protection_tile_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Prevent uninstalling and force stopping the app.'**
-  String get tamper_protection_tile_subtitle;
-
-  /// No description provided for @tamper_protection_confirmation_dialog_info.
-  ///
-  /// In en, this message translates to:
-  /// **'Once enabled, you won\'t be able to uninstall, force stop, or clear Solace\'s data, except during the selected uninstall window. There are no workarounds.\n\nProceed at your own risk.'**
-  String get tamper_protection_confirmation_dialog_info;
-
-  /// No description provided for @uninstall_window_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Uninstall window'**
-  String get uninstall_window_tile_title;
-
-  /// No description provided for @uninstall_window_tile_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Tamper protection can be disabled within 10 minutes from the selected time.'**
-  String get uninstall_window_tile_subtitle;
 
   /// No description provided for @invincible_window_tile_title.
   ///

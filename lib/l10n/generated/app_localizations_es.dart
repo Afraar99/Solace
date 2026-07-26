@@ -777,24 +777,6 @@ class AppLocalizationsEs extends AppLocalizations {
       'Error de autenticación. Necesitas verificar el bloqueo de tu dispositivo para continuar.';
 
   @override
-  String get tamper_protection_tile_title => 'Protección Antimanipulación';
-
-  @override
-  String get tamper_protection_tile_subtitle =>
-      'Evita la desinstalación y el cierre forzado de la aplicación.';
-
-  @override
-  String get tamper_protection_confirmation_dialog_info =>
-      'Una vez habilitado, no podrás desinstalar, forzar detención o borrar los datos de Solace, excepto durante la ventana de desinstalación seleccionada. No hay soluciones alternativas.\n\nProcede bajo tu propio riesgo.';
-
-  @override
-  String get uninstall_window_tile_title => 'Ventana de desinstalación';
-
-  @override
-  String get uninstall_window_tile_subtitle =>
-      'La protección antimanipulación puede desactivarse dentro de los 10 minutos desde la hora seleccionada.';
-
-  @override
   String get invincible_window_tile_title => 'Modo invencible';
 
   @override

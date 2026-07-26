@@ -742,22 +742,6 @@ class AppLocalizationsJa extends AppLocalizations {
       '認証に失敗しました。続行するにはデバイスロックの確認が必要です。';
 
   @override
-  String get tamper_protection_tile_title => '改ざん防止';
-
-  @override
-  String get tamper_protection_tile_subtitle => 'アプリのアンインストールと強制終了を制限する';
-
-  @override
-  String get tamper_protection_confirmation_dialog_info =>
-      'Once enabled, you won\'t be able to uninstall, force stop, or clear Solace\'s data, except during the selected uninstall window. There are no workarounds.\n\nProceed at your own risk.';
-
-  @override
-  String get uninstall_window_tile_title => 'アンインストール画面';
-
-  @override
-  String get uninstall_window_tile_subtitle => '改ざん防止は、選択した時間から10分以内に無効にできます。';
-
-  @override
   String get invincible_window_tile_title => '無敵ウィンドウ';
 
   @override

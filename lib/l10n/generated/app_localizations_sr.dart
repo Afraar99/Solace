@@ -772,24 +772,6 @@ class AppLocalizationsSr extends AppLocalizations {
       'Аутентификација није успела. Мораш да потврдиш закључавање уређаја да би наставио.';
 
   @override
-  String get tamper_protection_tile_title => 'Заштита од манипулације';
-
-  @override
-  String get tamper_protection_tile_subtitle =>
-      'Спречи деинсталацију и присилно заустављање апликације.';
-
-  @override
-  String get tamper_protection_confirmation_dialog_info =>
-      'Када буде омогућено, нећеш моћи да деинсталираш, принудно зауставиш или очистиш податке апликације Solace, осим током изабраног периода за деинсталацију. Нема заобилазних решења.\n\nНастави на своју одговорност.';
-
-  @override
-  String get uninstall_window_tile_title => 'Прозор за деинсталацију';
-
-  @override
-  String get uninstall_window_tile_subtitle =>
-      'Заштита од манипулације може бити онемогућена у року од 10 минута од изабраног времена.';
-
-  @override
   String get invincible_window_tile_title => 'Прозор режима строге контроле';
 
   @override

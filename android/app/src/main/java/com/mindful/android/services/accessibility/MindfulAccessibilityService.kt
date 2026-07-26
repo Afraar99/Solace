@@ -27,12 +27,10 @@ import android.widget.Toast
 import com.mindful.android.AppConstants.FACEBOOK_PACKAGE
 import com.mindful.android.AppConstants.INSTAGRAM_PACKAGE
 import com.mindful.android.AppConstants.REDDIT_PACKAGE
-import com.mindful.android.AppConstants.SETTINGS_PACKAGE
 import com.mindful.android.AppConstants.SNAPCHAT_PACKAGE
 import com.mindful.android.AppConstants.YOUTUBE_PACKAGE
 import com.mindful.android.R
 import com.mindful.android.enums.PlatformFeatures
-import com.mindful.android.helpers.device.PermissionsHelper
 import com.mindful.android.helpers.storage.SharedPrefsHelper
 import com.mindful.android.models.Wellbeing
 import com.mindful.android.receivers.DeviceAppsChangedReceiver
@@ -273,10 +271,9 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
             shortsPlatformPackages.clear()
             val pm = packageManager
 
+            // Tamper / uninstall blocking removed — do not gate Settings
             // Check admin and add settings to blocked packages
-            if (PermissionsHelper.getAndAskAdminPermission(this, false)) {
-                devicePlatformPackages.add(SETTINGS_PACKAGE)
-            }
+            // (intentionally disabled)
 
             // Fetch installed browser packages
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"))

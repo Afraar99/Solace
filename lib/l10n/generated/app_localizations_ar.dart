@@ -766,24 +766,6 @@ class AppLocalizationsAr extends AppLocalizations {
       'فشل التحقق. تحتاج إلى تأكيد قفل جهازك للمتابعة.';
 
   @override
-  String get tamper_protection_tile_title => 'حماية من التلاعب';
-
-  @override
-  String get tamper_protection_tile_subtitle =>
-      'منع إلغاء التثبيت وإيقاف التطبيق قسريا.';
-
-  @override
-  String get tamper_protection_confirmation_dialog_info =>
-      'بمجرد التفعيل، لن تتمكن من إلغاء التثبيت أو إيقاف التطبيق قسريا أو مسح بيانات Solace، إلا خلال فترة إلغاء التثبيت المحددة. لا توجد حلول بديلة.\n\nتابع على مسؤوليتك الخاصة.';
-
-  @override
-  String get uninstall_window_tile_title => 'نافذة إلغاء التثبيت';
-
-  @override
-  String get uninstall_window_tile_subtitle =>
-      'يمكن تعطيل حماية التلاعب خلال 10 دقائق من الوقت المحدد.';
-
-  @override
   String get invincible_window_tile_title => 'نافذة الوضع غير القابل للهزيمة';
 
   @override

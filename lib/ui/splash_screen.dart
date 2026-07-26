@@ -96,12 +96,12 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   }
 
   void _authenticate() async {
-    final isAuthenticated = await AuthService.instance.authenticate();
+    final isAuthenticated = await AuthService.instance.authenticate(
+      reason: 'Unlock Solace with fingerprint or PIN',
+    );
 
-    /// Return if not mounted
     if (!mounted) return;
 
-    /// If removed locks
     if (isAuthenticated == null) {
       context.showSnackAlert(
         context.locale.protected_access_removed_lock_snack_alert,
@@ -110,13 +110,11 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       return;
     }
 
-    /// If aborted the auth
     if (!isAuthenticated) {
       context.showSnackAlert(
         context.locale.protected_access_failed_lock_snack_alert,
-        icon: FluentIcons.fingerprint_20_filled,
+        icon: FluentIcons.lock_closed_20_filled,
       );
-
       return;
     }
 
@@ -173,10 +171,20 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
             const Divider(color: Colors.transparent),
             _isAccessProtected
-                ? FilledButton.icon(
-                    icon: const Icon(FluentIcons.fingerprint_20_regular),
-                    label: Text(context.locale.unlock_button_label),
-                    onPressed: _authenticate,
+                ? Column(
+                    children: [
+                      FilledButton.icon(
+                        icon: const Icon(FluentIcons.fingerprint_20_regular),
+                        label: Text(context.locale.unlock_button_label),
+                        onPressed: _authenticate,
+                      ),
+                      8.vBox,
+                      StyledText(
+                        'Fingerprint or device PIN — use either one',
+                        fontSize: 12,
+                        isSubtitle: true,
+                      ),
+                    ],
                   )
                 : 0.vBox,
 

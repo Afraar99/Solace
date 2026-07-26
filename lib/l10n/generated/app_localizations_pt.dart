@@ -772,24 +772,6 @@ class AppLocalizationsPt extends AppLocalizations {
       'Falha na autenticação. Você precisa verificar o bloqueio do seu dispositivo para continuar.';
 
   @override
-  String get tamper_protection_tile_title => 'Proteção contra desinstalação';
-
-  @override
-  String get tamper_protection_tile_subtitle =>
-      'Impede a desinstalação e força a parada do aplicativo.';
-
-  @override
-  String get tamper_protection_confirmation_dialog_info =>
-      'Uma vez ativado, você não poderá desinstalar, forçar parada ou limpar os dados do Solace, exceto durante a janela de desinstalação selecionada. Não há soluções alternativas.\n\nProssiga por sua conta e risco.';
-
-  @override
-  String get uninstall_window_tile_title => 'Desinstalar uma janela';
-
-  @override
-  String get uninstall_window_tile_subtitle =>
-      'A proteção contra desinstalação pode ser desativada dentro de 10 minutos a partir horário selecionado.';
-
-  @override
   String get invincible_window_tile_title => 'Janela invencível';
 
   @override

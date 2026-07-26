@@ -1,43 +1,60 @@
 /*
  *
- *  * Copyright (c) 2024 Mindful (https://github.com/akaMrNagar/Mindful)
- *  * Author : Pawan Nagar (https://github.com/akaMrNagar)
- *  *
- *  * This source code is licensed under the GPL-2.0 license license found in the
- *  * LICENSE file in the root directory of this source tree.
+ *  * Copyright (c) 2024 Solace
  *
  */
 
 import 'package:flutter/foundation.dart';
 import 'package:local_auth/local_auth.dart';
 
-/// A service class responsible for authenticating user if needed.
+/// Authenticates with the device lock: fingerprint / face **or** PIN / pattern / password.
 class AuthService {
-  /// Private constructor to enforce singleton pattern.
   AuthService._();
 
-  /// Singleton instance of the [AuthService].
   static final AuthService instance = AuthService._();
 
-  /// Auth instance
   final _auth = LocalAuthentication();
 
-  /// Returns `TRUE` if user have setup any type of biometrics and verified successfully
-  /// otherwise `FALSE`.
-  ///
-  /// But if user does not have any biometrics available it returns `NULL`
-  Future<bool?> authenticate() async {
+  /// Returns:
+  /// - `true` if the user unlocked successfully
+  /// - `false` if they cancelled / failed
+  /// - `null` if the device has no lock set up
+  Future<bool?> authenticate({
+    String reason = 'Unlock Solace with fingerprint or PIN',
+  }) async {
     try {
-      final List<BiometricType> availableBiometrics =
-          await _auth.getAvailableBiometrics();
+      final isSupported = await _auth.isDeviceSupported();
+      if (!isSupported) return null;
 
-      /// Return null if no available biometrics
-      if (availableBiometrics.isEmpty) return null;
+      /// Prefer biometrics when present; always allow device PIN/pattern/password fallback
+      final canCheck = await _auth.canCheckBiometrics;
+      final biometrics = canCheck ? await _auth.getAvailableBiometrics() : <BiometricType>[];
 
-      /// Return status
-      return await _auth.authenticate(localizedReason: "Mindful");
+      debugPrint(
+        'AuthService: supported=$isSupported biometrics=$biometrics',
+      );
+
+      return await _auth.authenticate(
+        localizedReason: reason,
+        options: const AuthenticationOptions(
+          /// false → system shows fingerprint/face and "Use PIN" / device credential
+          biometricOnly: false,
+          stickyAuth: true,
+          useErrorDialogs: true,
+          sensitiveTransaction: false,
+        ),
+      );
     } catch (e) {
-      debugPrint("Failed to authenticate : ${e.toString()}");
+      debugPrint('AuthService failed: $e');
+      return false;
+    }
+  }
+
+  /// Whether the device can show a lock prompt (biometrics and/or PIN).
+  Future<bool> get hasDeviceLock async {
+    try {
+      return await _auth.isDeviceSupported();
+    } catch (_) {
       return false;
     }
   }

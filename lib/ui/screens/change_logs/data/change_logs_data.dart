@@ -104,7 +104,7 @@ class ChangeLogsData {
       bulletPoints: const [
         "Invincible mode for distractions.",
         "Prevent restriction changes outside the Invincible window.",
-        "Tamper protection for sneaky workarounds.",
+        "Invincible mode to lock limits until tomorrow.",
         "Biometric lock for added security.",
       ],
     ),

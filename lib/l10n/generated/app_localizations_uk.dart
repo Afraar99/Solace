@@ -779,25 +779,6 @@ class AppLocalizationsUk extends AppLocalizations {
       'Не вдалося пройти автентифікацію. Щоб продовжити, потрібно перевірити блокування пристрою.';
 
   @override
-  String get tamper_protection_tile_title =>
-      'Захист від несанкціонованого доступу';
-
-  @override
-  String get tamper_protection_tile_subtitle =>
-      'Запобігання видаленню та примусовому зупиненню програми.';
-
-  @override
-  String get tamper_protection_confirmation_dialog_info =>
-      'Після ввімкнення ви не зможете видалити, примусово зупинити або очистити дані Solace, окрім як у вибраному вікні видалення. Обхідних шляхів немає.';
-
-  @override
-  String get uninstall_window_tile_title => 'Вікно видалення';
-
-  @override
-  String get uninstall_window_tile_subtitle =>
-      'Захист від несанкціонованого доступу можна вимкнути протягом 10 хвилин від обраного часу.';
-
-  @override
   String get invincible_window_tile_title => 'Вікно незмінного режиму';
 
   @override

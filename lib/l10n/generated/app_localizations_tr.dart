@@ -773,24 +773,6 @@ class AppLocalizationsTr extends AppLocalizations {
       'Kimlik doğrulama başarısız oldu. Devam etmek için cihaz kilidinizi doğrulamanız gerekiyor.';
 
   @override
-  String get tamper_protection_tile_title => 'Kurcalama koruması';
-
-  @override
-  String get tamper_protection_tile_subtitle =>
-      'Kaldırmayı önleyin ve uygulamayı durdurmaya zorlayın.';
-
-  @override
-  String get tamper_protection_confirmation_dialog_info =>
-      'Once enabled, you won\'t be able to uninstall, force stop, or clear Solace\'s data, except during the selected uninstall window. There are no workarounds.\n\nProceed at your own risk.';
-
-  @override
-  String get uninstall_window_tile_title => 'Kaldırma penceresi';
-
-  @override
-  String get uninstall_window_tile_subtitle =>
-      'Kurcalama koruması seçilen zamandan itibaren 10 dakika içinde devre dışı bırakılabilir.';
-
-  @override
   String get invincible_window_tile_title => 'Değiştirilemez mod';
 
   @override

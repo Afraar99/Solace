@@ -12,7 +12,7 @@ class AppLocalizationsAf extends AppLocalizations {
   String get mindful_tagline => 'Focus on what truly Matters';
 
   @override
-  String get unlock_button_label => 'Unlock';
+  String get unlock_button_label => 'Unlock with fingerprint or PIN';
 
   @override
   String get permission_status_off => 'Off';
@@ -513,8 +513,7 @@ class AppLocalizationsAf extends AppLocalizations {
   String get glance_tile_subtitle => 'Take a quick glance at your usage.';
 
   @override
-  String get parental_controls_tile_subtitle =>
-      'Invincible mode and tamper protection.';
+  String get parental_controls_tile_subtitle => 'Invincible mode and app lock.';
 
   @override
   String get restrictions_heading => 'Restrictions';
@@ -751,37 +750,19 @@ class AppLocalizationsAf extends AppLocalizations {
 
   @override
   String get protected_access_tile_subtitle =>
-      'Protect Solace with your device lock.';
+      'Ask for fingerprint or PIN when opening Solace.';
 
   @override
   String get protected_access_no_lock_snack_alert =>
-      'Please set up a biometric lock on your device first to enable this feature.';
+      'Set up a fingerprint or device PIN in your phone settings first, then try again.';
 
   @override
   String get protected_access_removed_lock_snack_alert =>
-      'Your device lock has been removed. To continue, please set up a new lock.';
+      'No device lock found. Add a fingerprint or PIN in phone settings to continue.';
 
   @override
   String get protected_access_failed_lock_snack_alert =>
-      'Authentication failed. You need to verify your device lock to proceed.';
-
-  @override
-  String get tamper_protection_tile_title => 'Tamper protection';
-
-  @override
-  String get tamper_protection_tile_subtitle =>
-      'Prevent uninstalling and force stopping the app.';
-
-  @override
-  String get tamper_protection_confirmation_dialog_info =>
-      'Once enabled, you won\'t be able to uninstall, force stop, or clear Solace\'s data, except during the selected uninstall window. There are no workarounds.\n\nProceed at your own risk.';
-
-  @override
-  String get uninstall_window_tile_title => 'Uninstall window';
-
-  @override
-  String get uninstall_window_tile_subtitle =>
-      'Tamper protection can be disabled within 10 minutes from the selected time.';
+      'Authentication failed. Use fingerprint or PIN to unlock Solace.';
 
   @override
   String get invincible_window_tile_title => 'Invincible window';

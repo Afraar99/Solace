@@ -705,22 +705,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get protected_access_failed_lock_snack_alert => '身份验证失败。您需要验证设备锁才能继续。';
 
   @override
-  String get tamper_protection_tile_title => '防篡改保护';
-
-  @override
-  String get tamper_protection_tile_subtitle => '防止卸载和强制停止应用。';
-
-  @override
-  String get tamper_protection_confirmation_dialog_info =>
-      '一旦启用，您将无法卸载、强制停止或清除 Solace 的数据，除非在指定的卸载时间段内。没有其他例外。\n\n请自行承担风险。';
-
-  @override
-  String get uninstall_window_tile_title => '卸载窗口';
-
-  @override
-  String get uninstall_window_tile_subtitle => '防篡改保护可以在选定时间后的10分钟内被禁用。';
-
-  @override
   String get invincible_window_tile_title => '无敌窗口';
 
   @override
