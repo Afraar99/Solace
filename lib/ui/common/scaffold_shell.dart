@@ -10,7 +10,6 @@
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:mindful/config/app_constants.dart';
 import 'package:mindful/config/navigation/app_routes.dart';
 import 'package:mindful/core/extensions/ext_build_context.dart';
@@ -220,7 +219,7 @@ class _ScaffoldShellState extends State<ScaffoldShell>
             background: innerBoxIsScrolled ? null : navItem.appBarBg,
             collapseMode: CollapseMode.parallax,
             titlePadding: EdgeInsets.only(
-              bottom: 13,
+              bottom: 18,
               left: isRtl ? 0 : widget.bodyPadding.left + leftPadding,
               right: isRtl ? widget.bodyPadding.right + leftPadding : 0,
             ),
@@ -237,8 +236,8 @@ class _ScaffoldShellState extends State<ScaffoldShell>
       valueListenable: _isBottomNavVisible,
       builder: (context, isVisible, child) => AnimatedContainer(
         height: isVisible ? (80 + MediaQuery.of(context).padding.bottom) : 0,
-        duration: 300.ms,
-        curve: isVisible ? Curves.easeOut : Curves.easeOut.flipped,
+        duration: AppConstants.defaultAnimDuration,
+        curve: isVisible ? Curves.easeOut : Curves.easeIn,
         alignment: Alignment.bottomCenter,
         child: SingleChildScrollView(child: child),
       ),
@@ -259,12 +258,7 @@ class _ScaffoldShellState extends State<ScaffoldShell>
           return NavigationDestination(
             label: trimmedTitle,
             icon: Icon(e.icon),
-            selectedIcon: Icon(e.filledIcon).animate().scale(
-                  begin: const Offset(0.5, 0.5),
-                  end: const Offset(1.05, 1.05),
-                  curve: Curves.elasticOut,
-                  duration: 1.seconds,
-                ),
+            selectedIcon: Icon(e.filledIcon),
           );
         }).toList(),
       ),

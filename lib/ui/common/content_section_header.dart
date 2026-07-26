@@ -16,7 +16,7 @@ class ContentSectionHeader extends StatelessWidget {
   const ContentSectionHeader({
     super.key,
     required this.title,
-    this.padding = const EdgeInsets.only(top: 18, bottom: 12),
+    this.padding = const EdgeInsets.only(top: 20, bottom: 12),
     this.alignment = Alignment.centerLeft,
   });
 

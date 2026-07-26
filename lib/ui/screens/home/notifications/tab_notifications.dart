@@ -65,8 +65,14 @@ class _TabNotificationsState extends ConsumerState<TabNotifications> {
       child: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
+          16.vSliverBox,
+
           /// Information about notification groups
-          StyledText(context.locale.notifications_tab_info).sliver,
+          StyledText(
+            context.locale.notifications_tab_info,
+            fontSize: 14,
+            height: 1.45,
+          ).sliver,
 
           16.vSliverBox,
 

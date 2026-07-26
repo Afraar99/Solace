@@ -116,6 +116,41 @@ class AppTheme {
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
+      /// Off-track must stay visible on dark navy tiles
+      switchTheme: SwitchThemeData(
+        thumbColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.disabled)) {
+            return Colors.white.withValues(alpha: 0.35);
+          }
+          return Colors.white;
+        }),
+        trackColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return solaceBurgundyLight;
+          }
+          if (states.contains(WidgetState.disabled)) {
+            return const Color(0xFF2A3344);
+          }
+          return const Color(0xFF5A6578);
+        }),
+        trackOutlineColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return Colors.transparent;
+          }
+          return Colors.white.withValues(alpha: 0.45);
+        }),
+        trackOutlineWidth: const WidgetStatePropertyAll(1.5),
+      ),
+      checkboxTheme: CheckboxThemeData(
+        fillColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return solaceBurgundyLight;
+          }
+          return Colors.transparent;
+        }),
+        checkColor: const WidgetStatePropertyAll(Colors.white),
+        side: BorderSide(color: Colors.white.withValues(alpha: 0.55), width: 1.6),
+      ),
       extensions: [SkeletonizerConfigData.dark(effect: _kShimmerEffect)],
     );
   }

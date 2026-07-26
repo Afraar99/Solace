@@ -100,6 +100,10 @@ class DefaultListTile extends StatelessWidget {
                         )
                       : title ?? 0.vBox,
 
+                  if ((titleText != null || title != null) &&
+                      (subtitleText != null || subtitle != null))
+                    4.vBox,
+
                   /// Subtitle widget
                   subtitleText != null
                       ? StyledText(

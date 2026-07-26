@@ -49,7 +49,8 @@ class MindfulApp extends ConsumerWidget {
 
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          themeAnimationCurve: Curves.ease,
+          themeAnimationDuration: const Duration(milliseconds: 180),
+          themeAnimationCurve: Curves.easeOut,
           themeMode: ThemeMode.values[themeMode.index],
           darkTheme: AppTheme.darkTheme(
             isAmoled: useAmoledDark,

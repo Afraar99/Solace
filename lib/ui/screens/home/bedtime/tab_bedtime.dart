@@ -85,8 +85,17 @@ class TabBedtime extends ConsumerWidget {
     return CustomScrollView(
       physics: const BouncingScrollPhysics(),
       slivers: [
+        /// Space under collapsing "Bedtime" title
+        16.vSliverBox,
+
         /// Information about bedtime
-        StyledText(context.locale.bedtime_tab_info).sliver,
+        StyledText(
+          context.locale.bedtime_tab_info,
+          fontSize: 14,
+          height: 1.45,
+        ).sliver,
+
+        8.vSliverBox,
 
         ContentSectionHeader(title: context.locale.schedule_tile_title).sliver,
 

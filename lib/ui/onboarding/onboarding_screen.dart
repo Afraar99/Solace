@@ -43,6 +43,8 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
   final TextEditingController _nameController = TextEditingController();
   final _animCurve = Curves.easeInOut;
   final _animDuration = AppConstants.defaultAnimDuration;
+  /// Name page only after user taps Finish Setup (no auto-advance)
+  bool _namePageUnlocked = false;
 
   late final List<Widget> _pages = [
     OnboardingPage(
@@ -74,25 +76,21 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
       _nameController.text = existing;
     }
 
-    /// When all essential permissions are granted, move to name setup
-    /// (or finish immediately if this is a returning permission-only flow
-    /// and a custom name is already set).
+    /// Only auto-finish for returning users who already set a name.
+    /// First-time setup waits for the Finish Setup button.
     _subscription = ref.listenManual<PermissionsModel>(
       permissionProvider,
       (_, perms) {
         if (!_haveEssential(perms)) return;
+        if (!widget.isOnboardingDone) return;
 
         final username = ref.read(mindfulSettingsProvider).username.trim();
         final hasCustomName = username.isNotEmpty &&
             username != AppConstants.defaultUsername;
+        if (!hasCustomName) return;
 
-        if (widget.isOnboardingDone && hasCustomName) {
-          _finishOnboarding();
-          _subscription?.close();
-          return;
-        }
-
-        _goToNamePage();
+        _finishOnboarding();
+        _subscription?.close();
       },
     );
 
@@ -146,6 +144,7 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
 
   void _goToNamePage() {
     if (!mounted) return;
+    _namePageUnlocked = true;
     _controller.animateToPage(
       _nameIndex,
       duration: _animDuration,
@@ -206,9 +205,8 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
                   physics: const BouncingScrollPhysics(),
                   itemCount: _pages.length,
                   onPageChanged: (i) {
-                    /// Block swipe onto name page until permissions are granted
-                    if (i == _nameIndex &&
-                        !_haveEssential(ref.read(permissionProvider))) {
+                    /// Name page only after Finish Setup (or swipe back)
+                    if (i == _nameIndex && !_namePageUnlocked) {
                       _controller.jumpToPage(_permissionsIndex);
                       setState(() => _currentPage = _permissionsIndex);
                       return;
