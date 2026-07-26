@@ -12,7 +12,9 @@ import 'package:mindful/core/extensions/ext_build_context.dart';
 import 'package:mindful/core/extensions/ext_num.dart';
 import 'package:mindful/core/extensions/ext_widget.dart';
 import 'package:mindful/core/services/auth_service.dart';
+import 'package:mindful/providers/system/kids_mode_provider.dart';
 import 'package:mindful/providers/system/parental_controls_provider.dart';
+import 'package:mindful/providers/system/permissions_provider.dart';
 import 'package:mindful/ui/common/content_section_header.dart';
 import 'package:mindful/ui/common/default_list_tile.dart';
 import 'package:mindful/ui/common/scaffold_shell.dart';
@@ -22,6 +24,76 @@ import 'package:mindful/ui/screens/parental_controls/invincible_mode_settings.da
 
 class ParentalControlsScreen extends ConsumerWidget {
   const ParentalControlsScreen({super.key});
+
+  Future<void> _toggleKidsMode(
+    BuildContext context,
+    WidgetRef ref,
+    bool isEnabled,
+  ) async {
+    if (!isEnabled) {
+      if (!ref.read(permissionProvider).haveAccessibilityPermission) {
+        ref.read(permissionProvider.notifier).askAccessibilityPermission();
+        context.showSnackAlert(
+          context.locale.permission_accessibility_info,
+          icon: FluentIcons.accessibility_20_filled,
+        );
+        return;
+      }
+
+      final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          icon: const Icon(FluentIcons.people_community_20_regular),
+          title: Text(context.locale.kids_mode_enable_dialog_title),
+          content: Text(context.locale.kids_mode_enable_dialog_info),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext, false),
+              child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.pop(dialogContext, true),
+              child: Text(context.locale.kids_mode_enable_button),
+            ),
+          ],
+        ),
+      );
+      if (confirmed != true || !context.mounted) return;
+    }
+
+    final authenticated = await AuthService.instance.authenticate(
+      reason: isEnabled
+          ? 'Confirm fingerprint or PIN to turn off Kids Mode'
+          : 'Confirm fingerprint or PIN to protect Kids Mode',
+    );
+    if (!context.mounted) return;
+
+    if (authenticated == null) {
+      context.showSnackAlert(
+        context.locale.protected_access_no_lock_snack_alert,
+        icon: FluentIcons.lock_closed_20_filled,
+      );
+      return;
+    }
+    if (!authenticated) {
+      context.showSnackAlert(
+        context.locale.protected_access_failed_lock_snack_alert,
+        icon: FluentIcons.lock_closed_20_filled,
+      );
+      return;
+    }
+
+    final saved =
+        await ref.read(kidsModeProvider.notifier).setEnabled(!isEnabled);
+    if (!context.mounted || !saved) return;
+
+    context.showSnackAlert(
+      isEnabled
+          ? context.locale.kids_mode_disabled_snack_alert
+          : context.locale.kids_mode_enabled_snack_alert,
+      icon: FluentIcons.people_community_20_filled,
+    );
+  }
 
   void _toggleProtectedAccess(
     BuildContext context,
@@ -62,6 +134,8 @@ class ParentalControlsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final parentalControls = ref.watch(parentalControlsProvider);
+    final kidsModeState = ref.watch(kidsModeProvider);
+    final kidsModeEnabled = kidsModeState.value ?? false;
 
     return ScaffoldShell(
       items: [
@@ -72,6 +146,32 @@ class ParentalControlsScreen extends ConsumerWidget {
           sliverBody: CustomScrollView(
             physics: const BouncingScrollPhysics(),
             slivers: [
+              ContentSectionHeader(
+                title: context.locale.kids_mode_heading,
+              ).sliver,
+
+              DefaultListTile(
+                position: ItemPosition.none,
+                switchValue: kidsModeEnabled,
+                enabled: !kidsModeState.isLoading,
+                leadingIcon: FluentIcons.people_community_20_regular,
+                titleText: context.locale.kids_mode_tile_title,
+                subtitleText: context.locale.kids_mode_tile_subtitle,
+                onPressed: () => _toggleKidsMode(
+                  context,
+                  ref,
+                  kidsModeEnabled,
+                ),
+              ).sliver,
+
+              12.vSliverBox,
+              StyledText(
+                context.locale.kids_mode_info,
+                fontSize: 13,
+                height: 1.4,
+                isSubtitle: true,
+              ).sliver,
+
               const InvincibleModeSettings(),
 
               ContentSectionHeader(

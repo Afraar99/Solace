@@ -693,6 +693,37 @@ class AppLocalizationsUk extends AppLocalizations {
   String get parental_controls_tab_title => 'Батьківський контроль';
 
   @override
+  String get kids_mode_heading => 'Kids mode';
+
+  @override
+  String get kids_mode_tile_title => 'Safer viewing for kids';
+
+  @override
+  String get kids_mode_tile_subtitle =>
+      'Block regular YouTube, adult websites, and short-form feeds. YouTube Kids stays available.';
+
+  @override
+  String get kids_mode_info =>
+      'Kids Mode protects the whole device without changing your existing limits. It cannot judge whether every individual video is educational, so use YouTube Kids or a supervised Family Link account for content-level controls.';
+
+  @override
+  String get kids_mode_enable_dialog_title => 'Turn on Kids Mode?';
+
+  @override
+  String get kids_mode_enable_dialog_info =>
+      'Regular YouTube and its website will be blocked. YouTube Kids remains available, while adult websites and short-form feeds are restricted.';
+
+  @override
+  String get kids_mode_enable_button => 'Turn on';
+
+  @override
+  String get kids_mode_enabled_snack_alert =>
+      'Kids Mode is now protecting this device.';
+
+  @override
+  String get kids_mode_disabled_snack_alert => 'Kids Mode has been turned off.';
+
+  @override
   String get invincible_mode_heading => 'Захищений режим';
 
   @override

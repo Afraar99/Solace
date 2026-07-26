@@ -1230,6 +1230,60 @@ abstract class AppLocalizations {
   /// **'Parental controls'**
   String get parental_controls_tab_title;
 
+  /// No description provided for @kids_mode_heading.
+  ///
+  /// In en, this message translates to:
+  /// **'Kids mode'**
+  String get kids_mode_heading;
+
+  /// No description provided for @kids_mode_tile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Safer viewing for kids'**
+  String get kids_mode_tile_title;
+
+  /// No description provided for @kids_mode_tile_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Block regular YouTube, adult websites, and short-form feeds. YouTube Kids stays available.'**
+  String get kids_mode_tile_subtitle;
+
+  /// No description provided for @kids_mode_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Kids Mode protects the whole device without changing your existing limits. It cannot judge whether every individual video is educational, so use YouTube Kids or a supervised Family Link account for content-level controls.'**
+  String get kids_mode_info;
+
+  /// No description provided for @kids_mode_enable_dialog_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on Kids Mode?'**
+  String get kids_mode_enable_dialog_title;
+
+  /// No description provided for @kids_mode_enable_dialog_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Regular YouTube and its website will be blocked. YouTube Kids remains available, while adult websites and short-form feeds are restricted.'**
+  String get kids_mode_enable_dialog_info;
+
+  /// No description provided for @kids_mode_enable_button.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on'**
+  String get kids_mode_enable_button;
+
+  /// No description provided for @kids_mode_enabled_snack_alert.
+  ///
+  /// In en, this message translates to:
+  /// **'Kids Mode is now protecting this device.'**
+  String get kids_mode_enabled_snack_alert;
+
+  /// No description provided for @kids_mode_disabled_snack_alert.
+  ///
+  /// In en, this message translates to:
+  /// **'Kids Mode has been turned off.'**
+  String get kids_mode_disabled_snack_alert;
+
   /// No description provided for @invincible_mode_heading.
   ///
   /// In en, this message translates to:

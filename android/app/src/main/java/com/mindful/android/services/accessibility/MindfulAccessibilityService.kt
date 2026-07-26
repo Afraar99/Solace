@@ -79,6 +79,7 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
     private lateinit var trackingManager: TrackingManager
 
     private var wellbeing = Wellbeing()
+    private var kidsMode = false
     private var lastBlockedToastAtMs: Long = 0L
     private var lastForegroundPackage: String = ""
 
@@ -102,6 +103,7 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
         // Register shared prefs listener and load data
         SharedPrefsHelper.registerUnregisterListenerToListenablePrefs(this, true, this)
         wellbeing = SharedPrefsHelper.getSetWellBeingSettings(this, null)
+        kidsMode = SharedPrefsHelper.getSetKidsMode(this, null)
 
         // Register listener for install and uninstall events
         deviceAppsChangedReceiver.register(this)
@@ -152,16 +154,25 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
                     browserManager.onForegroundPackageChanged(eventPackageName)
                 }
 
+                // Do not depend on a non-null accessibility tree to close the
+                // regular YouTube app. YouTube Kids uses a different package.
+                if (kidsMode && eventPackageName == YOUTUBE_PACKAGE) {
+                    exitBlockedContent(GLOBAL_ACTION_HOME, true)
+                    return@submit
+                }
+
                 node?.let {
                     // Broadcast event
                     trackingManager.onNewEvent("${it.packageName}")
 
                     // Only process if any of the content is blocked
                     if (shouldBlockContent()) {
+                        val kidsModeEnabled = kidsMode
                         processEventInBackground(
                             packageName = eventPackageName,
                             node = it,
-                            wellBeing = wellbeing.copy()
+                            wellBeing = effectiveWellbeing(kidsModeEnabled),
+                            isKidsModeEnabled = kidsModeEnabled,
                         )
                     }
                 }
@@ -181,8 +192,16 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
         packageName: String,
         node: AccessibilityNodeInfo,
         wellBeing: Wellbeing,
+        isKidsModeEnabled: Boolean,
     ) {
         try {
+            // Kids Mode intentionally blocks regular YouTube while keeping the
+            // separate com.google.android.apps.youtube.kids app available.
+            if (isKidsModeEnabled && packageName == YOUTUBE_PACKAGE) {
+                exitBlockedContent(GLOBAL_ACTION_HOME, true)
+                return
+            }
+
             when (packageName) {
                 in devicePlatformPackages ->
                     deviceFeaturesManager.blockFeatures(packageName, node, wellBeing)
@@ -212,10 +231,26 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
      * `false` otherwise.
      */
     private fun shouldBlockContent(): Boolean {
-        return wellbeing.blockedFeatures.isNotEmpty() ||
+        return kidsMode ||
+                wellbeing.blockedFeatures.isNotEmpty() ||
                 wellbeing.blockedWebsites.isNotEmpty() ||
                 wellbeing.nsfwWebsites.isNotEmpty() ||
                 wellbeing.blockNsfwSites
+    }
+
+    /**
+     * Applies Kids Mode without overwriting the user's own wellbeing choices.
+     * Turning it off therefore restores the exact settings that existed before.
+     */
+    private fun effectiveWellbeing(isKidsModeEnabled: Boolean = kidsMode): Wellbeing {
+        if (!isKidsModeEnabled) return wellbeing.copy()
+
+        return wellbeing.copy(
+            blockNsfwSites = true,
+            allowedShortsTimeMs = -1,
+            blockedFeatures = PlatformFeatures.values().toSet(),
+            blockedWebsites = wellbeing.blockedWebsites + setOf("youtube.com", "youtu.be"),
+        )
     }
 
 
@@ -270,6 +305,7 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
             devicePlatformPackages.clear()
             shortsPlatformPackages.clear()
             val pm = packageManager
+            val effectiveSettings = effectiveWellbeing()
 
             // Tamper / uninstall blocking removed — do not gate Settings
             // Check admin and add settings to blocked packages
@@ -281,7 +317,7 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
                 browserPackages.add(it.activityInfo.packageName)
             }
 
-            wellbeing.blockedFeatures.forEach { feature ->
+            effectiveSettings.blockedFeatures.forEach { feature ->
                 when (feature) {
                     /// Instagram
                     PlatformFeatures.INSTAGRAM_REELS,
@@ -320,12 +356,12 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
 
 
             // Load nsfw website domains if needed
-            if (wellbeing.blockNsfwSites) BrowserManager.initializeNsfwDomains()
+            if (effectiveSettings.blockNsfwSites) BrowserManager.initializeNsfwDomains()
             else BrowserManager.clearNsfwDomains()
 
             Log.d(
                 TAG, "refreshServiceConfig: Accessibility service config updated successfully: " +
-                        "\n settings: $wellbeing" +
+                        "\n settings: $effectiveSettings" +
                         "\n device platforms: $devicePlatformPackages" +
                         "\n short platforms: $shortsPlatformPackages" +
                         "\n browsers: $browserPackages"
@@ -341,6 +377,10 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
             if (key == SharedPrefsHelper.PREF_KEY_WELLBEING_SETTINGS) {
                 Log.d(TAG, "OnSharedPrefsChanged: Key changed = $changedKey")
                 wellbeing = SharedPrefsHelper.getSetWellBeingSettings(this, null)
+                refreshServiceConfig()
+            } else if (key == SharedPrefsHelper.PREF_KEY_KIDS_MODE) {
+                Log.d(TAG, "OnSharedPrefsChanged: Kids Mode changed")
+                kidsMode = SharedPrefsHelper.getSetKidsMode(this, null)
                 refreshServiceConfig()
             }
         }

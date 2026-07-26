@@ -40,6 +40,7 @@ object SharedPrefsHelper {
     private var mListenablePrefs: SharedPreferences? = null
     private const val LISTENABLE_PREFS_BOX = "UniquePrefs"
     const val PREF_KEY_WELLBEING_SETTINGS: String = "wellBeingSettings"
+    const val PREF_KEY_KIDS_MODE: String = "kidsMode"
 
     private var mCrashLogPrefs: SharedPreferences? = null
     private const val CRASH_LOG_PREFS_BOX = "CrashLogPrefs"
@@ -113,6 +114,21 @@ object SharedPrefsHelper {
                 .apply()
             return Wellbeing.fromJson(jsonWellBeing)
         }
+    }
+
+    /**
+     * Gets Kids Mode when [enabled] is null, otherwise stores the new value.
+     * This preference is listenable so accessibility enforcement updates
+     * immediately without restarting the app or service.
+     */
+    fun getSetKidsMode(context: Context, enabled: Boolean?): Boolean {
+        checkAndInitializeListenablePrefs(context)
+        if (enabled == null) {
+            return mListenablePrefs!!.getBoolean(PREF_KEY_KIDS_MODE, false)
+        }
+
+        mListenablePrefs!!.edit().putBoolean(PREF_KEY_KIDS_MODE, enabled).apply()
+        return enabled
     }
 
 

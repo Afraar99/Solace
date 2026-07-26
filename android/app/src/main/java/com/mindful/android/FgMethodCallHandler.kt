@@ -228,6 +228,16 @@ class FgMethodCallHandler(
                 result.success(true)
             }
 
+            "getKidsMode" -> {
+                result.success(SharedPrefsHelper.getSetKidsMode(context, null))
+            }
+
+            "updateKidsMode" -> {
+                val enabled = call.arguments<Boolean>() ?: false
+                SharedPrefsHelper.getSetKidsMode(context, enabled)
+                result.success(true)
+            }
+
             "updateBedtimeSchedule" -> {
                 val jsonBedtimeSettings = call.arguments() ?: ""
                 val bedtimeSettings = BedtimeSchedule.fromJson(jsonBedtimeSettings)

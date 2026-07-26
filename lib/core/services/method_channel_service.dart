@@ -121,12 +121,12 @@ class MethodChannelService {
       await _invokeMethod(
         'updateExcludedApps',
         jsonEncode(excludedApps),
-      ) ?? false;
+      ) ??
+      false;
 
   /// Packages that show a breathing pause overlay on launch
   Future<List<String>> getBreathPauseApps() async {
-    final result =
-        await _invokeMethod<List<dynamic>>('getBreathPauseApps');
+    final result = await _invokeMethod<List<dynamic>>('getBreathPauseApps');
     return result?.cast<String>() ?? const [];
   }
 
@@ -134,16 +134,23 @@ class MethodChannelService {
       await _invokeMethod(
         'updateBreathPauseApps',
         jsonEncode(packages),
-      ) ?? false;
+      ) ??
+      false;
+
+  /// Parent-controlled safe mode stored and enforced by Android.
+  Future<bool> getKidsMode() async =>
+      await _invokeMethod<bool>('getKidsMode') ?? false;
+
+  Future<bool> updateKidsMode(bool enabled) async =>
+      await _invokeMethod<bool>('updateKidsMode', enabled) ?? false;
 
   /// Gets the map of device info and create and returns [DeviceInfoModel] .
-  Future<DeviceInfoModel> getDeviceInfo() async => DeviceInfoModel.fromMap(
-      await _invokeMapMethod('getDeviceInfo') ?? {});
+  Future<DeviceInfoModel> getDeviceInfo() async =>
+      DeviceInfoModel.fromMap(await _invokeMapMethod('getDeviceInfo') ?? {});
 
   /// Gets the launch counts of apps mapped to their package name.
   Future<Map<String, int>> getAppsLaunchCount() async =>
-      await _invokeMapMethod<String, int>('getAppsLaunchCount') ??
-      {};
+      await _invokeMapMethod<String, int>('getAppsLaunchCount') ?? {};
 
   /// Gets the total short screen time for the device in milliseconds.
   ///
@@ -159,8 +166,7 @@ class MethodChannelService {
     List<CrashLogsTableCompanion> crashLogs = [];
 
     try {
-      final jsonString =
-          await _invokeMethod<String>('getNativeCrashLogs');
+      final jsonString = await _invokeMethod<String>('getNativeCrashLogs');
       if (jsonString == null || jsonString.isEmpty) return crashLogs;
 
       List<dynamic> logMapsList = jsonDecode(jsonString);
@@ -212,11 +218,12 @@ class MethodChannelService {
   }) async {
     Map<String, UsageModel> usagesMap = {};
     try {
-      List<Map> results = await _invokeListMethod<Map>('getAppsUsageForInterval', {
-            "startDateTime": start.millisecondsSinceEpoch,
-            "endDateTime": end.millisecondsSinceEpoch,
-          }) ??
-          [];
+      List<Map> results =
+          await _invokeListMethod<Map>('getAppsUsageForInterval', {
+                "startDateTime": start.millisecondsSinceEpoch,
+                "endDateTime": end.millisecondsSinceEpoch,
+              }) ??
+              [];
 
       for (var map in results) {
         usagesMap[map["packageName"] as String] = UsageModel.fromMap(map);
@@ -303,7 +310,8 @@ class MethodChannelService {
       await _invokeMethod(
         'updateBedtimeSchedule',
         jsonEncode(bedtimeSettings),
-      ) ?? false;
+      ) ??
+      false;
 
   /// Uses an emergency pass and pause the tracking service.
   ///
@@ -337,7 +345,8 @@ class MethodChannelService {
       await _invokeMethod(
         'giveUpOrFinishFocusSession',
         isTheSessionSuccessful,
-      ) ?? false;
+      ) ??
+      false;
 
   // ===========================================================================================
   // ==================================== PERMISSIONS ==========================================
@@ -350,7 +359,8 @@ class MethodChannelService {
       await _invokeMethod(
         'getAndAskAdminPermission',
         askPermissionToo,
-      ) ?? true;
+      ) ??
+      true;
 
   /// Checks if the accessibility permission is granted and optionally asks for it.
   ///
@@ -360,7 +370,8 @@ class MethodChannelService {
       await _invokeMethod(
         'getAndAskAccessibilityPermission',
         askPermissionToo,
-      ) ?? true;
+      ) ??
+      true;
 
   /// Checks if the usage access permission is granted and optionally asks for it.
   ///
@@ -370,7 +381,8 @@ class MethodChannelService {
       await _invokeMethod(
         'getAndAskUsageAccessPermission',
         askPermissionToo,
-      ) ?? true;
+      ) ??
+      true;
 
   /// Checks if the display overlay permission is granted and optionally asks for it.
   ///
@@ -380,7 +392,8 @@ class MethodChannelService {
       await _invokeMethod(
         'getAndAskDisplayOverlayPermission',
         askPermissionToo,
-      ) ?? true;
+      ) ??
+      true;
 
   /// Checks if the set exact alarm permission is granted and optionally asks for it.
   ///
@@ -390,7 +403,8 @@ class MethodChannelService {
       await _invokeMethod(
         'getAndAskExactAlarmPermission',
         askPermissionToo,
-      ) ?? true;
+      ) ??
+      true;
 
   /// Checks if the VPN permission is granted and optionally asks for it.
   ///
@@ -399,7 +413,8 @@ class MethodChannelService {
       await _invokeMethod(
         'getAndAskVpnPermission',
         askPermissionToo,
-      ) ?? true;
+      ) ??
+      true;
 
   /// Checks if the ignore battery optimization permission is granted and optionally asks for it.
   ///
@@ -409,7 +424,8 @@ class MethodChannelService {
       await _invokeMethod(
         'getAndAskIgnoreBatteryOptimizationPermission',
         askPermissionToo,
-      ) ?? true;
+      ) ??
+      true;
 
   /// Checks if the notification permission is granted and optionally asks for it.
   ///
@@ -419,7 +435,8 @@ class MethodChannelService {
       await _invokeMethod(
         'getAndAskNotificationPermission',
         askPermissionToo,
-      ) ?? true;
+      ) ??
+      true;
 
   /// Checks if the Do Not Disturb (DND) permission is granted and optionally asks for it.
   ///
@@ -428,7 +445,8 @@ class MethodChannelService {
       await _invokeMethod(
         'getAndAskDndPermission',
         askPermissionToo,
-      ) ?? true;
+      ) ??
+      true;
 
   /// Checks if the Notification Access permission is granted and optionally asks for it.
   ///
@@ -438,7 +456,8 @@ class MethodChannelService {
       await _invokeMethod(
         'getAndAskNotificationAccessPermission',
         askPermissionToo,
-      ) ?? true;
+      ) ??
+      true;
 
   /// Disable device Admin if active.
   Future<bool> disableDeviceAdmin() async =>
@@ -465,22 +484,23 @@ class MethodChannelService {
       await _invokeMethod(
         'openAppWithNotificationThread',
         jsonEncode(notification),
-      ) ?? false;
+      ) ??
+      false;
 
   /// Opens the app settings for the specified app package.
   Future<bool> openAppSettingsForPackage(String appPackage) async =>
       await _invokeMethod(
         'openAppSettingsForPackage',
         appPackage,
-      ) ?? false;
+      ) ??
+      false;
 
   // ===========================================================================================
   // ==================================== UTILS ================================================
   // ===========================================================================================
 
   /// Pop animates and close the app
-  Future<bool> restartApp() async =>
-      await _invokeMethod('restartApp') ?? false;
+  Future<bool> restartApp() async => await _invokeMethod('restartApp') ?? false;
 
   /// Parses the host name from a given URL string.
   ///
@@ -503,15 +523,15 @@ class MethodChannelService {
       await _invokeMethod(
         'updateTodoWidgetSnapshot',
         snapshotJson,
-      ) ?? false;
+      ) ??
+      false;
 
   /// Todo ids completed from the home-screen widget, waiting to sync into Drift.
   Future<List<int>> consumePendingTodoCompletions() async {
-    final raw =
-        await _invokeMethod<List<dynamic>>(
-              'consumePendingTodoCompletions',
-            ) ??
-            const [];
+    final raw = await _invokeMethod<List<dynamic>>(
+          'consumePendingTodoCompletions',
+        ) ??
+        const [];
     return raw.map((e) => (e as num).toInt()).toList();
   }
 }
