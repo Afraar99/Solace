@@ -39,81 +39,40 @@ class OverlayManager(
     private val windowManager: WindowManager =
         context.getSystemService(WINDOW_SERVICE) as WindowManager
 
+    private var activeSheetOverlay: View? = null
+    private var isOverlayDismissing = false
 
-    /// Animate out the overlay
+    fun isAnySheetOverlayActive(): Boolean =
+        activeSheetOverlay != null || isOverlayDismissing
+
     fun dismissSheetOverlay() {
-        overlays.pollFirst()?.let { sheetOverlay ->
-            ThreadUtils.runOnMainThread {
-                // Breath pause overlay has a different layout
-                if (sheetOverlay.findViewById<View>(R.id.breath_overlay_root) != null) {
-                    (sheetOverlay.getTag(R.id.breath_overlay_root) as? android.animation.ValueAnimator)
-                        ?.cancel()
-                    (sheetOverlay.getTag(R.id.breath_overlay_block) as? android.animation.ValueAnimator)
-                        ?.cancel()
-                    sheetOverlay.animate()
-                        .alpha(0f)
-                        .setDuration(300)
-                        .withEndAction {
-                            runCatching { windowManager.removeView(sheetOverlay) }
-                        }
-                        .start()
-                    return@runOnMainThread
-                }
+        val sheetOverlay = activeSheetOverlay ?: overlays.pollFirst() ?: return
+        if (isOverlayDismissing) return
+        isOverlayDismissing = true
 
-                // Get views
-                val bg = sheetOverlay.findViewById<View>(R.id.overlay_background)
-                val quote = sheetOverlay.findViewById<View>(R.id.overlay_sheet_quote_panel)
-                val sheet = sheetOverlay.findViewById<LinearLayout>(R.id.overlay_sheet)
+        ThreadUtils.runOnMainThread {
+            val bg = sheetOverlay.findViewById<View>(R.id.overlay_background)
+            val quote = sheetOverlay.findViewById<View>(R.id.overlay_sheet_quote_panel)
+            val sheet = sheetOverlay.findViewById<LinearLayout>(R.id.overlay_sheet)
 
-                // Animate
-                bg.animate().alpha(0f).setDuration(400).start()
-                quote.animate().alpha(0f).setDuration(400).start()
-                sheet.animate()
-                    .translationY(SLIDE_DOWN_END_Y)
-                    .setInterpolator(OvershootInterpolator(1.5f))
-                    .setDuration(500)
-                    .withEndAction {
-                        windowManager.removeView(sheetOverlay)
-                    }
-                    .start()
-            }
+            bg.animate().alpha(0f).setDuration(400).start()
+            quote.animate().alpha(0f).setDuration(400).start()
+            sheet.animate()
+                .translationY(SLIDE_DOWN_END_Y)
+                .setInterpolator(OvershootInterpolator(1.5f))
+                .setDuration(500)
+                .withEndAction { finishOverlayRemoval(sheetOverlay) }
+                .start()
         }
     }
 
-    fun showBreathPauseOverlay(
-        packageName: String,
-        onContinue: () -> Unit,
-    ) {
-        if (overlays.isNotEmpty()) return
-
-        ThreadUtils.runOnMainThread {
-            runCatching {
-                if (!haveOverlayPermission(context)) {
-                    return@runOnMainThread
-                }
-
-                val breathOverlay = OverlayBuilder.buildBreathPauseOverlay(
-                    context = context,
-                    packageName = packageName,
-                    dismissOverlay = ::dismissSheetOverlay,
-                    onContinue = onContinue,
-                ).apply {
-                    systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-                            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                    alpha = 0f
-                }
-
-                Log.d(TAG, "showBreathPauseOverlay: Showing breath pause for $packageName")
-                windowManager.addView(breathOverlay, breathLayoutParams)
-                overlays.push(breathOverlay)
-                Utils.vibrateDevice(context, 40L)
-
-                breathOverlay.animate().alpha(1f).setDuration(350).start()
-            }.getOrElse {
-                SharedPrefsHelper.insertCrashLogToPrefs(context, it)
-            }
+    private fun finishOverlayRemoval(sheetOverlay: View) {
+        runCatching { windowManager.removeView(sheetOverlay) }
+        overlays.remove(sheetOverlay)
+        if (activeSheetOverlay == sheetOverlay) {
+            activeSheetOverlay = null
         }
+        isOverlayDismissing = false
     }
 
     fun showSheetOverlay(
@@ -121,18 +80,14 @@ class OverlayManager(
         restrictionState: RestrictionState,
         addReminderWithDelay: ((futureMinutes: Int) -> Unit)? = null,
     ) {
-        // Return if overlay is not null
-        if (overlays.isNotEmpty()) return
+        if (isAnySheetOverlayActive()) return
 
         ThreadUtils.runOnMainThread {
             runCatching {
-
-                // Notify, stop and return if don't have overlay permission
-                if (!haveOverlayPermission(context)) {
+                if (!haveOverlayPermission(context, sendHomeOnDeny = true)) {
                     return@runOnMainThread
                 }
 
-                // Build overlay
                 val sheetOverlay = OverlayBuilder.buildFullScreenOverlay(
                     context = context,
                     packageName = packageName,
@@ -140,8 +95,6 @@ class OverlayManager(
                     dismissOverlay = ::dismissSheetOverlay,
                     addReminderDelay = addReminderWithDelay,
                 ).apply {
-                    // TODO: Fix the deprecated logic
-                    // Full screen edge to edge view
                     systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
                             View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
                             View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
@@ -150,20 +103,18 @@ class OverlayManager(
                 Log.d(TAG, "showFullScreenOverlay: Showing full screen overlay for $packageName")
                 sheetOverlay.also {
                     windowManager.addView(it, sheetLayoutParams)
+                    activeSheetOverlay = it
                     overlays.push(it)
                     Utils.vibrateDevice(context, 50L)
 
-                    // Get views
                     val bg = sheetOverlay.findViewById<View>(R.id.overlay_background)
                     val quote = sheetOverlay.findViewById<View>(R.id.overlay_sheet_quote_panel)
                     val sheet = sheetOverlay.findViewById<LinearLayout>(R.id.overlay_sheet)
 
-                    // Set initial
                     bg.alpha = 0f
                     quote.alpha = 0f
                     sheet.translationY = SLIDE_UP_START_Y
 
-                    // Animate
                     bg.animate().alpha(1f).setDuration(400).start()
                     quote.animate().alpha(1f).setDuration(400).start()
                     sheet.animate()
@@ -185,10 +136,8 @@ class OverlayManager(
     ) {
         ThreadUtils.runOnMainThread {
             runCatching {
-                // Notify, stop and return if don't have overlay permission
-                if (!haveOverlayPermission(context)) return@runOnMainThread
+                if (!haveOverlayPermission(context, sendHomeOnDeny = false)) return@runOnMainThread
 
-                // Build view
                 val toastView = OverlayBuilder.buildToastOverlay(
                     context,
                     packageName,
@@ -198,13 +147,11 @@ class OverlayManager(
                 Log.d(TAG, "Showing toast overlay for $packageName")
                 windowManager.addView(toastView, toastLayoutParams)
 
-                // Fade-in
                 toastView.animate()
                     .alpha(1f)
                     .setDuration(500)
                     .start()
 
-                // Fade-out and remove after delay
                 Handler(Looper.getMainLooper()).let {
                     it.postDelayed({
                         toastView.animate()
@@ -227,11 +174,9 @@ class OverlayManager(
         packageName: String,
         screenTimeUsedInMins: Int,
     ) {
-        // Get notification manager
         val notificationManager =
             context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 
-        // Resolve app icon and label
         val (appName, appIcon) = getAppLabelAndIcon(context, packageName)
 
         val msg = context.getString(
@@ -285,23 +230,6 @@ class OverlayManager(
             gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
         }
 
-        /// Breath pause must receive touches for Continue / Home actions.
-        private val breathLayoutParams = WindowManager.LayoutParams(
-            WindowManager.LayoutParams.MATCH_PARENT,
-            WindowManager.LayoutParams.MATCH_PARENT,
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
-            } else {
-                WindowManager.LayoutParams.TYPE_PHONE
-            },
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS or
-                    WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
-                    WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR,
-            android.graphics.PixelFormat.TRANSLUCENT
-        ).apply {
-            gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
-        }
-
         private val toastLayoutParams = WindowManager.LayoutParams(
             WindowManager.LayoutParams.WRAP_CONTENT,
             WindowManager.LayoutParams.WRAP_CONTENT,
@@ -318,13 +246,16 @@ class OverlayManager(
         }
 
 
-        private fun haveOverlayPermission(context: Context): Boolean {
+        private fun haveOverlayPermission(
+            context: Context,
+            sendHomeOnDeny: Boolean,
+        ): Boolean {
             if (!Settings.canDrawOverlays(context)) {
-                // Show notification
                 NotificationHelper.pushAskOverlayPermissionNotification(context)
 
-                // Go home if accessibility is running
-                if (Utils.isServiceRunning(context, MindfulAccessibilityService::class.java)) {
+                if (sendHomeOnDeny &&
+                    Utils.isServiceRunning(context, MindfulAccessibilityService::class.java)
+                ) {
                     val serviceIntent = Intent(
                         context.applicationContext,
                         MindfulAccessibilityService::class.java
@@ -338,9 +269,8 @@ class OverlayManager(
                     "checkOverlayPermission: Display overlay permission denied, returning"
                 )
                 return false
-            } else {
-                return true
             }
+            return true
         }
     }
 }

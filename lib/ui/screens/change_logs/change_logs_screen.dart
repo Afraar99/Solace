@@ -64,19 +64,30 @@ class _ChangeLogsScreenState extends ConsumerState<ChangeLogsScreen> {
 
               24.vSliverBox,
 
-              /// Change log
-              DefaultListTile(
-                isPrimary: true,
-                leadingIcon: FluentIcons.slide_text_20_regular,
-                titleText: context.locale.full_changelog_tile_title,
-                subtitleText: context.locale.redirected_to_github_subtitle,
-                trailing: const Icon(FluentIcons.chevron_right_20_regular),
-                onPressed: () => MethodChannelService.instance.launchUrl(
-                  AppConstants.githubChangeLogUrl(
-                      MethodChannelService.instance.deviceInfo.mindfulVersion),
-                ),
-              ).sliver,
-              12.vSliverBox,
+              if (AppConstants.githubChangeLogUrl(
+                    MethodChannelService.instance.deviceInfo.mindfulVersion,
+                  ) !=
+                  null)
+                DefaultListTile(
+                  isPrimary: true,
+                  leadingIcon: FluentIcons.slide_text_20_regular,
+                  titleText: context.locale.full_changelog_tile_title,
+                  subtitleText: context.locale.redirected_to_github_subtitle,
+                  trailing: const Icon(FluentIcons.chevron_right_20_regular),
+                  onPressed: () {
+                    final url = AppConstants.githubChangeLogUrl(
+                      MethodChannelService.instance.deviceInfo.mindfulVersion,
+                    );
+                    if (url != null) {
+                      MethodChannelService.instance.launchUrl(url);
+                    }
+                  },
+                ).sliver,
+              if (AppConstants.githubChangeLogUrl(
+                    MethodChannelService.instance.deviceInfo.mindfulVersion,
+                  ) !=
+                  null)
+                12.vSliverBox,
 
               /// Change logs
               SliverList.separated(

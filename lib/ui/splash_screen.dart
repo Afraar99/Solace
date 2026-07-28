@@ -72,7 +72,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       _isAccessProtected = false;
     } else {
       _haveAllEssentialPermissions = perms.haveUsageAccessPermission &&
-          perms.haveDisplayOverlayPermission &&
           perms.haveAlarmsPermission &&
           perms.haveNotificationPermission;
     }
@@ -137,7 +136,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              /// Breathing logo
+              /// Brand logo
               BreathingWidget(
                 dimension: min(
                   min(420, MediaQuery.sizeOf(context).width * 0.8),
@@ -145,11 +144,11 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                 ),
                 child: RoundedContainer(
                   circularRadius: 420,
-                  color: Theme.of(context).colorScheme.secondaryContainer,
-                  padding: const EdgeInsets.all(8),
-                  child: const Icon(
-                    FluentIcons.target_arrow_20_regular,
-                    size: 64,
+                  color: const Color(0xFFC5D4A8),
+                  padding: const EdgeInsets.all(28),
+                  child: Image.asset(
+                    'assets/logo/solace_logo.png',
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),

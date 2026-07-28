@@ -14,14 +14,67 @@ import 'package:mindful/ui/common/rounded_container.dart';
 import 'package:mindful/ui/common/styled_text.dart';
 
 class SliverTabsBottomPadding extends StatelessWidget {
-  /// Footer: Sri Lanka + Mohamed Afraar + socials
-  const SliverTabsBottomPadding({
-    super.key,
-  });
+  /// Footer: Sri Lanka + Mohamed Afraar + optional socials
+  const SliverTabsBottomPadding({super.key});
+
+  Widget? _socialIcon({
+    required ColorScheme scheme,
+    required String assetPath,
+    required String? url,
+  }) {
+    if (url == null || url.isEmpty) return null;
+
+    return RoundedContainer(
+      height: 30,
+      width: 30,
+      circularRadius: 30,
+      padding: const EdgeInsets.all(6),
+      child: SvgPicture.asset(
+        assetPath,
+        colorFilter: ColorFilter.mode(
+          scheme.primary,
+          BlendMode.srcIn,
+        ),
+      ),
+      onPressed: () => MethodChannelService.instance.launchUrl(url),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final socialIcons = [
+      _socialIcon(
+        scheme: scheme,
+        assetPath: 'assets/vectors/github.svg',
+        url: AppConstants.githubUrl,
+      ),
+      _socialIcon(
+        scheme: scheme,
+        assetPath: 'assets/vectors/linkedin.svg',
+        url: AppConstants.linkedInUrl,
+      ),
+      _socialIcon(
+        scheme: scheme,
+        assetPath: 'assets/vectors/x.svg',
+        url: AppConstants.xUrl,
+      ),
+      _socialIcon(
+        scheme: scheme,
+        assetPath: 'assets/vectors/bmc.svg',
+        url: AppConstants.bmcUrl,
+      ),
+      _socialIcon(
+        scheme: scheme,
+        assetPath: 'assets/vectors/instagram.svg',
+        url: AppConstants.instagramUrl,
+      ),
+      _socialIcon(
+        scheme: scheme,
+        assetPath: 'assets/vectors/telegram.svg',
+        url: AppConstants.telegramUrl,
+      ),
+    ].whereType<Widget>().toList();
 
     return Padding(
       padding: const EdgeInsets.only(top: 140, bottom: 240),
@@ -29,13 +82,13 @@ class SliverTabsBottomPadding extends StatelessWidget {
         child: Column(
           children: [
             const StyledText(
-              "Made with ♥️ in 🇱🇰",
+              'Made with ♥️ in 🇱🇰',
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
             4.vBox,
             Text(
-              "Mohamed Afraar",
+              'Mohamed Afraar',
               style: TextStyle(
                 fontFamily: 'serif',
                 fontSize: 15,
@@ -45,75 +98,18 @@ class SliverTabsBottomPadding extends StatelessWidget {
                 letterSpacing: 0.3,
               ),
             ),
-            8.vBox,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                RoundedContainer(
-                  height: 30,
-                  width: 30,
-                  circularRadius: 30,
-                  padding: const EdgeInsets.all(6),
-                  child: SvgPicture.asset(
-                    "assets/vectors/github.svg",
-                    colorFilter: ColorFilter.mode(
-                      scheme.primary,
-                      BlendMode.srcIn,
-                    ),
-                  ),
-                  onPressed: () => MethodChannelService.instance
-                      .launchUrl(AppConstants.githubUrl),
-                ),
-                4.hBox,
-                RoundedContainer(
-                  height: 30,
-                  width: 30,
-                  circularRadius: 30,
-                  padding: const EdgeInsets.all(6),
-                  child: SvgPicture.asset(
-                    "assets/vectors/bmc.svg",
-                    colorFilter: ColorFilter.mode(
-                      scheme.primary,
-                      BlendMode.srcIn,
-                    ),
-                  ),
-                  onPressed: () => MethodChannelService.instance
-                      .launchUrl(AppConstants.bmcUrl),
-                ),
-                4.hBox,
-                RoundedContainer(
-                  height: 30,
-                  width: 30,
-                  circularRadius: 30,
-                  padding: const EdgeInsets.all(6),
-                  child: SvgPicture.asset(
-                    "assets/vectors/instagram.svg",
-                    colorFilter: ColorFilter.mode(
-                      scheme.primary,
-                      BlendMode.srcIn,
-                    ),
-                  ),
-                  onPressed: () => MethodChannelService.instance
-                      .launchUrl(AppConstants.instagramUrl),
-                ),
-                4.hBox,
-                RoundedContainer(
-                  height: 30,
-                  width: 30,
-                  circularRadius: 30,
-                  padding: const EdgeInsets.all(6),
-                  child: SvgPicture.asset(
-                    "assets/vectors/telegram.svg",
-                    colorFilter: ColorFilter.mode(
-                      scheme.primary,
-                      BlendMode.srcIn,
-                    ),
-                  ),
-                  onPressed: () => MethodChannelService.instance
-                      .launchUrl(AppConstants.telegramUrl),
-                ),
-              ],
-            ),
+            if (socialIcons.isNotEmpty) ...[
+              8.vBox,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  for (var i = 0; i < socialIcons.length; i++) ...[
+                    if (i > 0) 4.hBox,
+                    socialIcons[i],
+                  ],
+                ],
+              ),
+            ],
           ],
         ),
       ),

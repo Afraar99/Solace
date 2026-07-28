@@ -26,29 +26,31 @@ class AppConstants {
   static const removedAppPackage = "com.android.removed";
   static const tetheringAppPackage = "com.android.tethering";
 
-  /// Urls
-  static const githubUrl = "https://github.com/akaMrNagar/Mindful/";
-  static const bmcUrl = "https://buymeacoffee.com/akamrnagar";
-  static const instagramUrl = "https://www.instagram.com/lasthopedevelopers/";
-  static const telegramUrl = "https://t.me/fossmindful";
-  static const supportEmailUrl = "mailto:help.lasthopedevs@gmail.com";
-  static const privacyPolicyUrl = "https://bemindful.vercel.app/privacy";
-  static const faqsUrl = "https://bemindful.vercel.app/#faqs";
+  /// External links — null hides the UI entry.
+  static const String? githubUrl = "https://github.com/Afraar99/Solace";
+  static const String? linkedInUrl =
+      "https://www.linkedin.com/in/mohamed-afraar";
+  static const String? xUrl = "https://x.com/afraar_99";
 
-  static String githubChangeLogUrl(String appVersion) =>
-      "https://github.com/akaMrNagar/Mindful/releases/tag/$appVersion";
+  /// Donation — kept off for now (enable later when ready).
+  static const String? bmcUrl = null;
+  static const String? gitHubDonationSectionUrl = null;
+  static const String? githubFeedbackSectionUrl = null;
 
-  static const githubIssueDirectUrl =
-      "https://github.com/akaMrNagar/Mindful/issues/new?template=bug_report.md";
+  static const String? instagramUrl = null;
+  static const String? telegramUrl = null;
+  static const String? supportEmailUrl = null;
+  static const String? privacyPolicyUrl = null;
+  static const String? faqsUrl = null;
 
-  static const githubSuggestionDirectUrl =
-      "https://github.com/akaMrNagar/Mindful/issues/new?template=feature_request.md";
+  static String? githubChangeLogUrl(String appVersion) =>
+      "$githubUrl/releases/tag/v$appVersion";
 
-  static const gitHubDonationSectionUrl =
-      "https://github.com/akaMrNagar/Mindful?tab=readme-ov-file#donate";
+  static const String? githubIssueDirectUrl =
+      "https://github.com/Afraar99/Solace/issues/new";
 
-  static const githubFeedbackSectionUrl =
-      "https://github.com/akaMrNagar/Mindful?tab=readme-ov-file#feedback-and-support";
+  static const String? githubSuggestionDirectUrl =
+      "https://github.com/Afraar99/Solace/issues/new";
 
   /// Returns localized list of days in a week in short
   ///  e.g., ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]

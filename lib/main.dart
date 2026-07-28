@@ -36,13 +36,6 @@ Future<void> main() async {
   await DriftDbService.instance.init();
   await TodoReminderService.instance.init();
 
-  /// Ensure breath-pause apps keep the tracker alive after reboot
-  final breathPauseApps =
-      await MethodChannelService.instance.getBreathPauseApps();
-  if (breathPauseApps.isNotEmpty) {
-    await MethodChannelService.instance.updateBreathPauseApps(breathPauseApps);
-  }
-
   final pendingTodos =
       await DriftDbService.instance.driftDb.todosDao.fetchPendingTodos();
   await TodoReminderService.instance.rescheduleAll(pendingTodos);

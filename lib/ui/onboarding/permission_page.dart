@@ -1,10 +1,6 @@
 /*
  *
- *  * Copyright (c) 2024 Mindful (https://github.com/akaMrNagar/Mindful)
- *  * Author : Pawan Nagar (https://github.com/akaMrNagar)
- *  *
- *  * This source code is licensed under the GPL-2.0 license license found in the
- *  * LICENSE file in the root directory of this source tree.
+ *  * Copyright (c) 2024 Solace
  *
  */
 
@@ -12,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:mindful/core/extensions/ext_build_context.dart';
 import 'package:mindful/core/extensions/ext_num.dart';
 import 'package:mindful/core/services/method_channel_service.dart';
-import 'package:mindful/ui/onboarding/onboarding_page.dart';
+import 'package:mindful/ui/common/styled_text.dart';
 import 'package:mindful/ui/permissions/alarm_permission_tile.dart';
 import 'package:mindful/ui/permissions/battery_permission_tile.dart';
 import 'package:mindful/ui/permissions/display_overlay_permission_tile.dart';
@@ -26,30 +22,46 @@ class PermissionsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 24 is min sdk
     final sdkVersion = MethodChannelService.instance.deviceInfo.sdkVersion;
+    final scheme = Theme.of(context).colorScheme;
 
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          OnboardingPage(
-            bottomPadding: 0,
-            title: context.locale.onboarding_page_permissions_title,
-            imgArtPath: "assets/illustrations/onboarding_4.png",
-            description: context.locale.onboarding_page_permissions_info,
+          Center(
+            child: SizedBox(
+              height: 120,
+              width: 120,
+              child: Image.asset(
+                'assets/illustrations/onboarding_4.png',
+                fit: BoxFit.contain,
+              ),
+            ),
           ),
-
           12.vBox,
+          StyledText(
+            context.locale.onboarding_page_permissions_title,
+            fontSize: 28,
+            fontWeight: FontWeight.w600,
+            color: scheme.primary,
+          ),
+          8.vBox,
+          StyledText(
+            context.locale.onboarding_page_permissions_info,
+            fontSize: 15,
+            height: 1.4,
+            color: Theme.of(context).hintColor,
+          ),
+          20.vBox,
 
-          /// Permission tiles
+          /// Permission tiles — tap each one to open the enable screen
           const NotificationPermissionTile(),
           const BatteryPermissionTile(),
-
-          // Only SDK version Android(S [31]) and above need this permission
           if (sdkVersion >= 31) const AlarmPermissionTile(),
-
           const UsageAccessPermissionTile(),
+          // Overlay is optional — only needed if you use app-limit popup overlays
           const DisplayOverlayPermissionTile(),
 
           24.vBox,

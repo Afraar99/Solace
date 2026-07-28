@@ -116,7 +116,7 @@ class AppTheme {
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
-      /// Off-track must stay visible on dark navy tiles
+      /// ON = green (protection enabled); OFF track stays visible on dark tiles
       switchTheme: SwitchThemeData(
         thumbColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.disabled)) {
@@ -126,7 +126,7 @@ class AppTheme {
         }),
         trackColor: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
-            return solaceBurgundyLight;
+            return const Color(0xFF22C55E);
           }
           if (states.contains(WidgetState.disabled)) {
             return const Color(0xFF2A3344);

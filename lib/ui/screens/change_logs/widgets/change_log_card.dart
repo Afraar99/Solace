@@ -38,7 +38,7 @@ class ChangeLogCard extends StatelessWidget {
                   Icon(
                     changeLog.icon,
                     size: 36,
-                    color: Theme.of(context).colorScheme.secondary,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
 
                   12.hBox,
@@ -49,7 +49,7 @@ class ChangeLogCard extends StatelessWidget {
                       changeLog.label,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.secondary,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ],

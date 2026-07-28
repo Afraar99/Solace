@@ -1,10 +1,6 @@
 /*
  *
- *  * Copyright (c) 2024 Mindful (https://github.com/akaMrNagar/Mindful)
- *  * Author : Pawan Nagar (https://github.com/akaMrNagar)
- *  *
- *  * This source code is licensed under the GPL-2.0 license license found in the
- *  * LICENSE file in the root directory of this source tree.
+ *  * Copyright (c) 2024 Solace
  *
  */
 
@@ -35,25 +31,35 @@ class TabAbout extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final feedbackUrl = AppConstants.githubFeedbackSectionUrl;
+    final githubUrl = AppConstants.githubUrl;
+    final issueUrl = AppConstants.githubIssueDirectUrl;
+    final suggestionUrl = AppConstants.githubSuggestionDirectUrl;
+    final emailUrl = AppConstants.supportEmailUrl;
+    final privacyUrl = AppConstants.privacyPolicyUrl;
+
     return CustomScrollView(
       physics: const BouncingScrollPhysics(),
       slivers: [
         const SliverAppVersionInfo(),
 
-        /// Breathing logo
+        /// Brand logo
         BreathingWidget(
           dimension: min(360, MediaQuery.of(context).size.width * 0.7),
           child: RoundedContainer(
             circularRadius: 120,
-            color: Theme.of(context).colorScheme.secondaryContainer,
-            padding: const EdgeInsets.all(8),
-            child: const Icon(FluentIcons.target_arrow_20_regular, size: 64),
+            color: const Color(0xFFC5D4A8),
+            padding: const EdgeInsets.all(28),
+            child: Image.asset(
+              'assets/logo/solace_logo.png',
+              fit: BoxFit.contain,
+            ),
           ),
         ).sliver,
 
         /// Title
         const StyledText(
-          "Solace",
+          'Solace',
           fontSize: 32,
           fontWeight: FontWeight.bold,
         ).centered.sliver,
@@ -67,24 +73,25 @@ class TabAbout extends ConsumerWidget {
 
         24.vSliverBox,
 
-        /// Donation box
-        SliverPrimaryActionContainer(
-          isVisible: true,
-          radius: getBorderRadiusFromPosition(ItemPosition.top),
-          icon: FluentIcons.handshake_20_regular,
-          title: context.locale.donation_card_title,
-          information: context.locale.donation_card_info,
-          positiveBtn: FilledButton.icon(
-            icon: const Icon(FluentIcons.heart_20_filled),
-            label: Text(context.locale.donation_card_button_donate),
-            onPressed: () => MethodChannelService.instance
-                .launchUrl(AppConstants.githubFeedbackSectionUrl),
+        if (feedbackUrl != null)
+          SliverPrimaryActionContainer(
+            isVisible: true,
+            radius: getBorderRadiusFromPosition(ItemPosition.top),
+            icon: FluentIcons.handshake_20_regular,
+            title: context.locale.donation_card_title,
+            information: context.locale.donation_card_info,
+            positiveBtn: FilledButton.icon(
+              icon: const Icon(FluentIcons.heart_20_filled),
+              label: Text(context.locale.donation_card_button_donate),
+              onPressed: () =>
+                  MethodChannelService.instance.launchUrl(feedbackUrl),
+            ),
           ),
-        ),
 
         /// Change log
         DefaultListTile(
-          position: ItemPosition.bottom,
+          position:
+              feedbackUrl != null ? ItemPosition.bottom : ItemPosition.top,
           leadingIcon: FluentIcons.slide_text_20_regular,
           titleText: context.locale.changelog_tile_title,
           subtitleText: context.locale.changelog_tile_subtitle,
@@ -93,63 +100,85 @@ class TabAbout extends ConsumerWidget {
               Navigator.of(context).pushNamed(AppRoutes.changeLogsPath),
         ).sliver,
 
-        /// Contribute
-        ContentSectionHeader(title: context.locale.contribute_heading).sliver,
+        if (githubUrl != null ||
+            issueUrl != null ||
+            suggestionUrl != null ||
+            emailUrl != null) ...[
+          ContentSectionHeader(title: context.locale.contribute_heading).sliver,
+          if (githubUrl != null)
+            DefaultListTile(
+              position: _resolveLinkPosition(
+                isFirst: true,
+                isLast: issueUrl == null &&
+                    suggestionUrl == null &&
+                    emailUrl == null,
+              ),
+              leadingIcon: FluentIcons.code_20_regular,
+              titleText: context.locale.github_tile_title,
+              subtitleText: context.locale.github_tile_subtitle,
+              onPressed: () =>
+                  MethodChannelService.instance.launchUrl(githubUrl),
+            ).sliver,
+          if (issueUrl != null)
+            DefaultListTile(
+              position: _resolveLinkPosition(
+                isFirst: githubUrl == null,
+                isLast: suggestionUrl == null && emailUrl == null,
+              ),
+              leadingIcon: FluentIcons.bug_20_regular,
+              titleText: context.locale.report_issue_tile_title,
+              subtitleText: context.locale.redirected_to_github_subtitle,
+              onPressed: () =>
+                  MethodChannelService.instance.launchUrl(issueUrl),
+            ).sliver,
+          if (suggestionUrl != null)
+            DefaultListTile(
+              position: _resolveLinkPosition(
+                isFirst: githubUrl == null && issueUrl == null,
+                isLast: emailUrl == null,
+              ),
+              leadingIcon: FluentIcons.lightbulb_filament_20_regular,
+              titleText: context.locale.suggest_idea_tile_title,
+              subtitleText: context.locale.redirected_to_github_subtitle,
+              onPressed: () =>
+                  MethodChannelService.instance.launchUrl(suggestionUrl),
+            ).sliver,
+          if (emailUrl != null)
+            DefaultListTile(
+              position: ItemPosition.bottom,
+              leadingIcon: FluentIcons.mail_20_regular,
+              titleText: context.locale.write_email_tile_title,
+              subtitleText: context.locale.write_email_tile_subtitle,
+              onPressed: () =>
+                  MethodChannelService.instance.launchUrl(emailUrl),
+            ).sliver,
+        ],
 
-        /// Source code
-        DefaultListTile(
-          position: ItemPosition.top,
-          leadingIcon: FluentIcons.code_20_regular,
-          titleText: context.locale.github_tile_title,
-          subtitleText: context.locale.github_tile_subtitle,
-          onPressed: () =>
-              MethodChannelService.instance.launchUrl(AppConstants.githubUrl),
-        ).sliver,
-
-        /// Issue
-        DefaultListTile(
-          position: ItemPosition.mid,
-          leadingIcon: FluentIcons.bug_20_regular,
-          titleText: context.locale.report_issue_tile_title,
-          subtitleText: context.locale.redirected_to_github_subtitle,
-          onPressed: () => MethodChannelService.instance
-              .launchUrl(AppConstants.githubIssueDirectUrl),
-        ).sliver,
-
-        /// Idea
-        DefaultListTile(
-          position: ItemPosition.mid,
-          leadingIcon: FluentIcons.lightbulb_filament_20_regular,
-          titleText: context.locale.suggest_idea_tile_title,
-          subtitleText: context.locale.redirected_to_github_subtitle,
-          onPressed: () => MethodChannelService.instance
-              .launchUrl(AppConstants.githubSuggestionDirectUrl),
-        ).sliver,
-
-        /// Email
-        DefaultListTile(
-          position: ItemPosition.bottom,
-          leadingIcon: FluentIcons.mail_20_regular,
-          titleText: context.locale.write_email_tile_title,
-          subtitleText: context.locale.write_email_tile_subtitle,
-          onPressed: () => MethodChannelService.instance
-              .launchUrl(AppConstants.supportEmailUrl),
-        ).sliver,
-
-        /// Privacy policy
-        ContentSectionHeader(title: context.locale.privacy_policy_heading)
-            .sliver,
-        StyledText(context.locale.privacy_policy_info).sliver,
-        12.vSliverBox,
-        FilledButton.tonalIcon(
-          icon: const Icon(FluentIcons.info_20_regular),
-          label: Text(context.locale.more_details_button),
-          onPressed: () => MethodChannelService.instance
-              .launchUrl(AppConstants.privacyPolicyUrl),
-        ).rightCentered.sliver,
+        if (privacyUrl != null) ...[
+          ContentSectionHeader(title: context.locale.privacy_policy_heading)
+              .sliver,
+          StyledText(context.locale.privacy_policy_info).sliver,
+          12.vSliverBox,
+          FilledButton.tonalIcon(
+            icon: const Icon(FluentIcons.info_20_regular),
+            label: Text(context.locale.more_details_button),
+            onPressed: () =>
+                MethodChannelService.instance.launchUrl(privacyUrl),
+          ).rightCentered.sliver,
+        ],
 
         const SliverTabsBottomPadding(),
       ],
     );
+  }
+
+  ItemPosition _resolveLinkPosition({
+    required bool isFirst,
+    required bool isLast,
+  }) {
+    if (isFirst && isLast) return ItemPosition.none;
+    if (isFirst) return ItemPosition.top;
+    if (isLast) return ItemPosition.bottom;
+    return ItemPosition.mid;
   }
 }

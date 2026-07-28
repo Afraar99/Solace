@@ -113,18 +113,13 @@ class FgMethodCallHandler(
             }
 
             "updateBreathPauseApps" -> {
-                val apps = SharedPrefsHelper.getSetBreathPauseApps(
-                    context,
-                    call.arguments() ?: ""
-                )
-                updateTrackerBreathPauseApps(apps)
+                // Breathing pause removed — clear any leftover prefs
+                SharedPrefsHelper.getSetBreathPauseApps(context, "[]")
                 result.success(true)
             }
 
             "getBreathPauseApps" -> {
-                result.success(
-                    SharedPrefsHelper.getSetBreathPauseApps(context, null).toList()
-                )
+                result.success(emptyList<String>())
             }
 
             "updateTodoWidgetSnapshot" -> {
@@ -220,7 +215,7 @@ class FgMethodCallHandler(
             }
 
             "updateWellBeingSettings" -> {
-                // NOTE: Only updating shared prefs because accessibility service have onSharedPrefsChange listener registered which will eventually reload needed data
+                // Accessibility service listens to shared prefs and reloads
                 SharedPrefsHelper.getSetWellBeingSettings(
                     context,
                     call.arguments() ?: ""
@@ -507,14 +502,7 @@ class FgMethodCallHandler(
     }
 
     private fun updateTrackerBreathPauseApps(apps: Set<String>) {
-        if (trackerServiceConn.isActive) {
-            trackerServiceConn.service?.getRestrictionManager?.updateBreathPauseApps(apps)
-        } else if (apps.isNotEmpty()) {
-            trackerServiceConn.setOnConnectedCallback { service ->
-                service.getRestrictionManager.updateBreathPauseApps(apps)
-            }
-            trackerServiceConn.startAndBind()
-        }
+        // no-op — breathing pause feature removed
     }
 
     /**

@@ -360,7 +360,7 @@ class MethodChannelService {
         'getAndAskAdminPermission',
         askPermissionToo,
       ) ??
-      true;
+      false;
 
   /// Checks if the accessibility permission is granted and optionally asks for it.
   ///
@@ -371,7 +371,7 @@ class MethodChannelService {
         'getAndAskAccessibilityPermission',
         askPermissionToo,
       ) ??
-      true;
+      false;
 
   /// Checks if the usage access permission is granted and optionally asks for it.
   ///
@@ -382,7 +382,7 @@ class MethodChannelService {
         'getAndAskUsageAccessPermission',
         askPermissionToo,
       ) ??
-      true;
+      false;
 
   /// Checks if the display overlay permission is granted and optionally asks for it.
   ///
@@ -393,7 +393,7 @@ class MethodChannelService {
         'getAndAskDisplayOverlayPermission',
         askPermissionToo,
       ) ??
-      true;
+      false;
 
   /// Checks if the set exact alarm permission is granted and optionally asks for it.
   ///
@@ -404,7 +404,7 @@ class MethodChannelService {
         'getAndAskExactAlarmPermission',
         askPermissionToo,
       ) ??
-      true;
+      false;
 
   /// Checks if the VPN permission is granted and optionally asks for it.
   ///
@@ -414,7 +414,7 @@ class MethodChannelService {
         'getAndAskVpnPermission',
         askPermissionToo,
       ) ??
-      true;
+      false;
 
   /// Checks if the ignore battery optimization permission is granted and optionally asks for it.
   ///
@@ -425,7 +425,7 @@ class MethodChannelService {
         'getAndAskIgnoreBatteryOptimizationPermission',
         askPermissionToo,
       ) ??
-      true;
+      false;
 
   /// Checks if the notification permission is granted and optionally asks for it.
   ///
@@ -436,7 +436,7 @@ class MethodChannelService {
         'getAndAskNotificationPermission',
         askPermissionToo,
       ) ??
-      true;
+      false;
 
   /// Checks if the Do Not Disturb (DND) permission is granted and optionally asks for it.
   ///
@@ -446,7 +446,7 @@ class MethodChannelService {
         'getAndAskDndPermission',
         askPermissionToo,
       ) ??
-      true;
+      false;
 
   /// Checks if the Notification Access permission is granted and optionally asks for it.
   ///
@@ -457,7 +457,7 @@ class MethodChannelService {
         'getAndAskNotificationAccessPermission',
         askPermissionToo,
       ) ??
-      true;
+      false;
 
   /// Disable device Admin if active.
   Future<bool> disableDeviceAdmin() async =>

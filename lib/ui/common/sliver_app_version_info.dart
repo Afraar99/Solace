@@ -14,6 +14,8 @@ class SliverAppVersionInfo extends StatelessWidget {
 
     return MultiSliver(
       children: [
+        12.vBox,
+
         /// App version
         StyledText(
           appVersion,

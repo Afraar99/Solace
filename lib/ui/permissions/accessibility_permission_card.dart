@@ -34,11 +34,13 @@ class AccessibilityPermissionCard extends ConsumerWidget {
       icon: FluentIcons.accessibility_20_regular,
       title: context.locale.permission_accessibility_title,
       information: context.locale.permission_accessibility_required,
-      negativeBtn: TextButton(
-        onPressed: () =>
-            MethodChannelService.instance.launchUrl(AppConstants.faqsUrl),
-        child: Text(context.locale.permission_button_help),
-      ),
+      negativeBtn: AppConstants.faqsUrl == null
+          ? null
+          : TextButton(
+              onPressed: () => MethodChannelService.instance
+                  .launchUrl(AppConstants.faqsUrl!),
+              child: Text(context.locale.permission_button_help),
+            ),
       positiveBtn: FilledButton(
         child: Text(context.locale.permission_button_grant_permission),
         onPressed: () => showAccessibilityPermissionSheet(context, ref),

@@ -14621,6 +14621,8 @@ object NsfwDomains {
             "nonudecuties.net",
             "noobteens.com",
             "noodledude.io",
+            "noodlemagazine.com",
+            "noodle-magazine.com",
             "nopixeljaps.com",
             "norcalfeet.com",
             "nordgaytube.com",

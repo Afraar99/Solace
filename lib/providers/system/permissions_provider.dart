@@ -51,8 +51,6 @@ class PermissionNotifier extends StateNotifier<PermissionsModel>
           await MethodChannelService.instance.getAndAskExactAlarmPermission(),
       haveIgnoreOptimizationPermission: await MethodChannelService.instance
           .getAndAskIgnoreBatteryOptimizationPermission(),
-      haveAdminPermission:
-          await MethodChannelService.instance.getAndAskAdminPermission(),
       haveNotificationAccessPermission: await MethodChannelService.instance
           .getAndAskNotificationAccessPermission(),
     );
@@ -109,10 +107,7 @@ class PermissionNotifier extends StateNotifier<PermissionsModel>
           haveAlarmsPermission: await MethodChannelService.instance
               .getAndAskExactAlarmPermission(),
         ),
-      PermissionType.admin => state.copyWith(
-          haveAdminPermission:
-              await MethodChannelService.instance.getAndAskAdminPermission(),
-        ),
+      PermissionType.admin => state,
       PermissionType.notificationAccess => state.copyWith(
           haveNotificationAccessPermission: await MethodChannelService.instance
               .getAndAskNotificationAccessPermission(),

@@ -46,6 +46,8 @@ object NotificationHelper {
         "mindful.notification.channel.NOTIFICATION_BATCHING"
     private const val SERVICE_CHANNEL_ID: String =
         "mindful.notification.channel.SERVICE"
+    private const val SERVICE_MIN_CHANNEL_ID: String =
+        "mindful.notification.channel.SERVICE_MIN"
     const val USAGE_REMINDERS_CHANNEL_ID: String = "mindful.notification.channel.USAGE_REMINDERS"
 
     /**
@@ -102,6 +104,19 @@ object NotificationHelper {
                     "These are non-critical notifications. They can be disabled but are included to comply with Android requirements."
             }
 
+            val serviceMinChannel = NotificationChannel(
+                SERVICE_MIN_CHANNEL_ID,
+                "Background Activity",
+                NotificationManager.IMPORTANCE_MIN
+            ).apply {
+                setShowBadge(false)
+                enableLights(false)
+                enableVibration(false)
+                setSound(null, null)
+                description =
+                    "Minimal indicator that Solace background services are active."
+            }
+
             val usageRemindersChannel = NotificationChannel(
                 USAGE_REMINDERS_CHANNEL_ID,
                 "Usage Reminders",
@@ -123,6 +138,7 @@ object NotificationHelper {
                     bedtimeChannel,
                     notificationBatchingChannel,
                     serviceChannel,
+                    serviceMinChannel,
                     usageRemindersChannel
                 )
             )
@@ -137,10 +153,14 @@ object NotificationHelper {
      * @return A Notification object representing the foreground service notification.
      */
     fun buildFgServiceNotification(context: Context, content: String?): Notification {
-        return NotificationCompat.Builder(context, SERVICE_CHANNEL_ID)
+        return NotificationCompat.Builder(context, SERVICE_MIN_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_mindful_notification)
             .setOngoing(true)
-            .setAutoCancel(true)
+            .setSilent(true)
+            .setShowWhen(false)
+            .setOnlyAlertOnce(true)
+            .setPriority(NotificationCompat.PRIORITY_MIN)
+            .setCategory(NotificationCompat.CATEGORY_SERVICE)
             .setContentTitle(context.getString(R.string.service_running_notification_title))
             .setContentIntent(AppUtils.getPendingIntentForMindfulUri(context))
             .setContentText(content)

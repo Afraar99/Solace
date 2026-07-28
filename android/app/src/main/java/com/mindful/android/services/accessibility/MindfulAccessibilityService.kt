@@ -21,6 +21,7 @@ import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityEvent.TYPE_VIEW_SCROLLED
 import android.view.accessibility.AccessibilityEvent.TYPE_WINDOWS_CHANGED
+import android.view.accessibility.AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED
 import android.view.accessibility.AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED
 import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.Toast
@@ -33,11 +34,15 @@ import com.mindful.android.R
 import com.mindful.android.enums.PlatformFeatures
 import com.mindful.android.helpers.storage.SharedPrefsHelper
 import com.mindful.android.models.Wellbeing
+import com.mindful.android.utils.NsfwDomainRepository
+import com.mindful.android.utils.NsfwKeywords
+import com.mindful.android.workers.NsfwDomainListUpdateWorker
 import com.mindful.android.receivers.DeviceAppsChangedReceiver
 import com.mindful.android.utils.ThreadUtils
 import com.mindful.android.utils.executors.Throttler
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * An AccessibilityService that monitors app usage and blocks access to specified content based on user settings.
@@ -53,11 +58,12 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
         const val ACTION_TAMPER_PROTECTION_CHANGED =
             "com.mindful.android.action.tamperProtectionChanged"
 
-        // Set of desired events which will be processed
+        // Navigation-start + content-changed for earlier NSFW reaction
         private val desiredEvents = setOf(
             TYPE_WINDOWS_CHANGED,
             TYPE_WINDOW_STATE_CHANGED,
-            TYPE_VIEW_SCROLLED
+            TYPE_WINDOW_CONTENT_CHANGED,
+            TYPE_VIEW_SCROLLED,
         )
 
         private val browserPackages = mutableSetOf<String>()
@@ -66,9 +72,11 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
     }
 
 
-    // Fixed thread pool for parallel event processing
-    private val executorService: ExecutorService = Executors.newFixedThreadPool(4)
-    private val throttler: Throttler = Throttler(500L)
+    // Bounded pool — avoid backlog under content-changed spam
+    private val executorService: ExecutorService = Executors.newFixedThreadPool(2)
+    private val eventInFlight = AtomicBoolean(false)
+    private val throttler: Throttler = Throttler(350L)
+    private var lastBrowserPackageSeen: String = ""
     private val deviceAppsChangedReceiver: DeviceAppsChangedReceiver =
         DeviceAppsChangedReceiver(onAppsChanged = { refreshServiceConfig() })
 
@@ -139,47 +147,102 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
 
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
         try {
-            // If not desired event or executor is shutdown, then just return
             if (!desiredEvents.contains(event.eventType) || executorService.isShutdown) return
 
+            // Drop overlapping content-changed floods — keeps latency low for the next event
+            if (event.eventType == TYPE_WINDOW_CONTENT_CHANGED
+                && !eventInFlight.compareAndSet(false, true)
+            ) {
+                return
+            }
+
+            val eventPackageName = event.packageName?.toString() ?: return
+            val eventType = event.eventType
+
             executorService.submit {
-                // Determine package and event source node
-                val eventPackageName = event.packageName.toString()
-                val node = if (eventPackageName == REDDIT_PACKAGE) event.source
-                else rootInActiveWindow ?: event.source
-
-                // Sticky NSFW clears when leaving the browser that was blocked
-                if (eventPackageName != lastForegroundPackage) {
-                    lastForegroundPackage = eventPackageName
-                    browserManager.onForegroundPackageChanged(eventPackageName)
-                }
-
-                // Do not depend on a non-null accessibility tree to close the
-                // regular YouTube app. YouTube Kids uses a different package.
-                if (kidsMode && eventPackageName == YOUTUBE_PACKAGE) {
-                    exitBlockedContent(GLOBAL_ACTION_HOME, true)
-                    return@submit
-                }
-
-                node?.let {
-                    // Broadcast event
-                    trackingManager.onNewEvent("${it.packageName}")
-
-                    // Only process if any of the content is blocked
-                    if (shouldBlockContent()) {
-                        val kidsModeEnabled = kidsMode
-                        processEventInBackground(
-                            packageName = eventPackageName,
-                            node = it,
-                            wellBeing = effectiveWellbeing(kidsModeEnabled),
-                            isKidsModeEnabled = kidsModeEnabled,
-                        )
+                try {
+                    handleAccessibilityEvent(eventPackageName, eventType)
+                } finally {
+                    if (eventType == TYPE_WINDOW_CONTENT_CHANGED) {
+                        eventInFlight.set(false)
                     }
                 }
             }
-
         } catch (ignored: Exception) {
         }
+    }
+
+    private fun handleAccessibilityEvent(eventPackageName: String, eventType: Int) {
+        val isSystemUi = BrowserManager.isTransientSystemUi(eventPackageName)
+
+        // Notification shade / QS must NOT reset NSFW sticky or pause detection
+        if (!isSystemUi && eventPackageName != lastForegroundPackage) {
+            lastForegroundPackage = eventPackageName
+            browserManager.onForegroundPackageChanged(eventPackageName)
+            if (eventPackageName in browserPackages) {
+                lastBrowserPackageSeen = eventPackageName
+            }
+        }
+
+        if (kidsMode && eventPackageName == YOUTUBE_PACKAGE) {
+            exitBlockedContent(GLOBAL_ACTION_HOME, true)
+            return
+        }
+
+        if (!shouldBlockContent()) return
+
+        val kidsModeEnabled = kidsMode
+        val wellBeing = effectiveWellbeing(kidsModeEnabled)
+
+        // Prefer the real browser tree when shade is open but sticky NSFW is active
+        val targetPackage = when {
+            isSystemUi && wellBeing.blockNsfwSites && browserManager.hasActiveSticky() ->
+                browserManager.stickyBrowserPackageOrEmpty()
+                    .ifEmpty { lastBrowserPackageSeen }
+
+            isSystemUi && wellBeing.blockNsfwSites && lastBrowserPackageSeen.isNotEmpty() ->
+                lastBrowserPackageSeen
+
+            else -> eventPackageName
+        }
+
+        val node = resolveNodeForPackage(targetPackage, eventPackageName) ?: return
+
+        trackingManager.onNewEvent(node.packageName?.toString() ?: targetPackage)
+
+        processEventInBackground(
+            packageName = if (targetPackage.isNotEmpty()) targetPackage else eventPackageName,
+            node = node,
+            wellBeing = wellBeing,
+            isKidsModeEnabled = kidsModeEnabled,
+            eventType = eventType,
+        )
+    }
+
+    /**
+     * When SystemUI is focused, try to find the underlying browser window so
+     * NSFW checks keep running mid-page-load during shade pull-down.
+     */
+    private fun resolveNodeForPackage(
+        targetPackage: String,
+        eventPackageName: String,
+    ): AccessibilityNodeInfo? {
+        if (targetPackage.isNotEmpty() && targetPackage != eventPackageName) {
+            try {
+                windows?.forEach { window ->
+                    val root = window.root ?: return@forEach
+                    val pkg = root.packageName?.toString()
+                    if (pkg == targetPackage) return root
+                }
+            } catch (ignored: Exception) {
+            }
+        }
+
+        if (eventPackageName == REDDIT_PACKAGE) {
+            // Reddit needs source node for shorts — handled by caller path via root
+        }
+
+        return rootInActiveWindow
     }
 
     /**
@@ -193,10 +256,9 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
         node: AccessibilityNodeInfo,
         wellBeing: Wellbeing,
         isKidsModeEnabled: Boolean,
+        eventType: Int = 0,
     ) {
         try {
-            // Kids Mode intentionally blocks regular YouTube while keeping the
-            // separate com.google.android.apps.youtube.kids app available.
             if (isKidsModeEnabled && packageName == YOUTUBE_PACKAGE) {
                 exitBlockedContent(GLOBAL_ACTION_HOME, true)
                 return
@@ -211,6 +273,17 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
 
                 in browserPackages ->
                     browserManager.blockDistraction(packageName, node, wellBeing)
+
+                else -> {
+                    // Shade open but we resolved a browser node — still run NSFW
+                    if (wellBeing.blockNsfwSites
+                        && packageName.isNotEmpty()
+                        && (browserManager.hasActiveSticky()
+                                || packageName == lastBrowserPackageSeen)
+                    ) {
+                        browserManager.blockDistraction(packageName, node, wellBeing)
+                    }
+                }
             }
 
         } catch (e: Exception) {
@@ -355,9 +428,19 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
             }
 
 
-            // Load nsfw website domains if needed
-            if (effectiveSettings.blockNsfwSites) BrowserManager.initializeNsfwDomains()
-            else BrowserManager.clearNsfwDomains()
+            // Load maintained NSFW domain list for accessibility checks
+            if (effectiveSettings.blockNsfwSites) {
+                NsfwDomainRepository.initialize(this)
+                NsfwDomainRepository.mergeUserDomains(
+                    effectiveSettings.nsfwWebsites + effectiveSettings.blockedWebsites,
+                )
+                NsfwDomainRepository.refreshIfNeeded(this)
+                NsfwDomainListUpdateWorker.schedule(this)
+                // Warm fuzzy keyword tables on background thread for faster first match
+                Thread {
+                    NsfwKeywords.isPornSearchQuery("warmup")
+                }.start()
+            }
 
             Log.d(
                 TAG, "refreshServiceConfig: Accessibility service config updated successfully: " +

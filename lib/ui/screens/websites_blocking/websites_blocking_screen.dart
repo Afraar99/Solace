@@ -63,16 +63,13 @@ class WebsitesBlockingScreen extends ConsumerWidget {
         sliverBody: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
-            /// Information about websites blocking
             StyledText(context.locale.websites_blocking_tab_info).sliver,
 
-            /// Adult content header
             ContentSectionHeader(title: context.locale.adult_content_heading)
                 .sliver,
 
             const AccessibilityPermissionCard(),
 
-            /// Block NSFW websites
             DefaultHero(
               tag: HeroTags.blockNsfwTileTag,
               child: DefaultListTile(
@@ -85,11 +82,9 @@ class WebsitesBlockingScreen extends ConsumerWidget {
               ),
             ).sliver,
 
-            /// Blocked websites header
             ContentSectionHeader(title: context.locale.blocked_websites_heading)
                 .sliver,
 
-            /// Distracting websites list
             const SliverBlockedWebsitesList(),
 
             const SliverTabsBottomPadding(),

@@ -39,7 +39,9 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
 
   int _currentPage = 0;
   ProviderSubscription? _subscription;
-  final PageController _controller = PageController();
+  late final PageController _controller = PageController(
+    initialPage: widget.isOnboardingDone ? _permissionsIndex : 0,
+  );
   final TextEditingController _nameController = TextEditingController();
   final _animCurve = Curves.easeInOut;
   final _animDuration = AppConstants.defaultAnimDuration;
@@ -97,11 +99,9 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
       },
     );
 
-    /// Returning user missing permissions → jump to permissions page
+    /// Returning user missing permissions → land on permissions page
     if (widget.isOnboardingDone) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _goToPermissionsPage();
-      });
+      _currentPage = _permissionsIndex;
     }
   }
 
@@ -115,7 +115,6 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
 
   bool _haveEssential(PermissionsModel perms) =>
       perms.haveUsageAccessPermission &&
-      perms.haveDisplayOverlayPermission &&
       perms.haveAlarmsPermission &&
       perms.haveNotificationPermission;
 

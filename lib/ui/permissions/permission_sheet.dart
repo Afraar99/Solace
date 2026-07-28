@@ -1,10 +1,6 @@
 /*
  *
- *  * Copyright (c) 2024 Mindful (https://github.com/akaMrNagar/Mindful)
- *  * Author : Pawan Nagar (https://github.com/akaMrNagar)
- *  *
- *  * This source code is licensed under the GPL-2.0 license license found in the
- *  * LICENSE file in the root directory of this source tree.
+ *  * Copyright (c) 2024 Solace
  *
  */
 
@@ -40,79 +36,72 @@ class PermissionSheet extends StatelessWidget {
         ? context.locale.permission_button_agree_and_continue
         : context.locale.permission_button_grant_permission;
 
-    return BottomSheet(
-      enableDrag: false,
-      onClosing: () {},
-      builder: (context) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              RoundedContainer(
-                height: 8,
-                width: 48,
-                margin: const EdgeInsets.only(top: 12, bottom: 20),
-                color: Theme.of(context).hintColor,
-              ).centered,
-
-              Icon(
-                icon,
-                size: 32,
+    return Padding(
+      padding: EdgeInsets.only(
+        left: 16,
+        right: 16,
+        bottom: 16 + MediaQuery.viewInsetsOf(context).bottom,
+      ),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            RoundedContainer(
+              height: 8,
+              width: 48,
+              margin: const EdgeInsets.only(top: 12, bottom: 20),
+              color: Theme.of(context).hintColor,
+            ).centered,
+            Icon(
+              icon,
+              size: 32,
+            ),
+            8.vBox,
+            StyledText(
+              title,
+              color: Theme.of(context).colorScheme.primary,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+            6.vBox,
+            StyledText(
+              description,
+              fontSize: 13,
+            ),
+            if (deviceSwitchTileLabel != null) ...[
+              12.vBox,
+              PermissionGrantingSteps(
+                labelOfBtnToClick: positiveButtonLabel,
+                deviceSwitchTileLabel: deviceSwitchTileLabel!,
+                isAccessibilityPerm: isAccessibilityPerm,
               ),
-              8.vBox,
-
-              /// Title
-              StyledText(
-                title,
-                color: Theme.of(context).colorScheme.primary,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-              6.vBox,
-
-              /// Info
-              StyledText(
-                description,
-                fontSize: 13,
-              ),
-
-              if (deviceSwitchTileLabel != null) ...[
-                12.vBox,
-                PermissionGrantingSteps(
-                  labelOfBtnToClick: positiveButtonLabel,
-                  deviceSwitchTileLabel: deviceSwitchTileLabel!,
-                  isAccessibilityPerm: isAccessibilityPerm,
+            ],
+            20.vBox,
+            StyledText(
+              context.locale.permission_sheet_privacy_info,
+              fontSize: 13,
+              color: Theme.of(context).brightness == Brightness.light
+                  ? Colors.green[900]
+                  : Colors.green[300],
+            ),
+            24.vBox,
+            Row(
+              children: [
+                if (isAccessibilityPerm)
+                  TextButton(
+                    onPressed: Navigator.of(context).maybePop,
+                    child: Text(context.locale.permission_button_not_now),
+                  ),
+                const Spacer(),
+                FilledButton(
+                  onPressed: onTapGrantPermission,
+                  child: Text(positiveButtonLabel),
                 ),
               ],
-              20.vBox,
-              StyledText(
-                context.locale.permission_sheet_privacy_info,
-                fontSize: 13,
-                color: Theme.of(context).brightness == Brightness.light
-                    ? Colors.green[900]
-                    : Colors.green[300],
-              ),
-              40.vBox,
-
-              /// Actions
-              Row(
-                children: [
-                  if (isAccessibilityPerm)
-                    TextButton(
-                      onPressed: Navigator.of(context).maybePop,
-                      child: Text(context.locale.permission_button_not_now),
-                    ),
-                  const Spacer(),
-                  FilledButton(
-                    onPressed: onTapGrantPermission,
-                    child: Text(positiveButtonLabel),
-                  ),
-                ],
-              ),
-              32.vBox,
-            ],
-          ),
+            ),
+            16.vBox,
+          ],
         ),
       ),
     );

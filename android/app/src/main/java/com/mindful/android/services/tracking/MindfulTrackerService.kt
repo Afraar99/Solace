@@ -10,13 +10,10 @@ import com.mindful.android.R
 import com.mindful.android.generics.ServiceBinder
 import com.mindful.android.helpers.device.NotificationHelper
 import com.mindful.android.helpers.storage.SharedPrefsHelper
-import java.util.concurrent.ConcurrentHashMap
 
 class MindfulTrackerService : Service() {
     companion object {
         private const val TAG = "Mindful.MindfulTrackerService"
-        /** Only prevents double-fire from usage/accessibility spam — not a real cooldown */
-        private const val BREATH_DEBOUNCE_MS = 2_500L
     }
 
     private val mBinder = ServiceBinder(this@MindfulTrackerService)
@@ -30,8 +27,6 @@ class MindfulTrackerService : Service() {
     private lateinit var launchTrackingManager: LaunchTrackingManager
     val getLaunchTrackingManager get() = launchTrackingManager
 
-    /** Last time breath overlay was shown per package (debounce only) */
-    private val lastBreathShownAt = ConcurrentHashMap<String, Long>()
     private var lastForegroundPackage: String = ""
 
     override fun onCreate() {
@@ -86,20 +81,24 @@ class MindfulTrackerService : Service() {
     @WorkerThread
     private fun onNewAppLaunch(packageName: String) {
         try {
-            reminderManager.cancelReminders()
-            overlayManager.dismissSheetOverlay()
+            val switchingApp =
+                lastForegroundPackage.isNotEmpty() && lastForegroundPackage != packageName
 
-            /// Left another app — next open of that app should breathe again
-            if (lastForegroundPackage.isNotEmpty() && lastForegroundPackage != packageName) {
-                lastBreathShownAt.remove(lastForegroundPackage)
+            if (!switchingApp && overlayManager.isAnySheetOverlayActive()) {
+                return
             }
+
+            reminderManager.cancelReminders()
+
+            if (switchingApp) {
+                overlayManager.dismissSheetOverlay()
+            }
+
             lastForegroundPackage = packageName
 
-            /// check current restrictions
             val currentOrFutureState = restrictionManager.isAppRestricted(packageName)
             Log.d(TAG, "onNewAppLaunch: $packageName's evaluated state => $currentOrFutureState")
 
-            /// Hard-blocked apps skip the breath pause
             if (currentOrFutureState != null && currentOrFutureState.timeLeftMillis <= 0L) {
                 overlayManager.showSheetOverlay(
                     packageName = packageName,
@@ -108,27 +107,6 @@ class MindfulTrackerService : Service() {
                 return
             }
 
-            /// Breathing pause every time the user opens a selected app
-            if (restrictionManager.needsBreathPause(packageName) &&
-                !isBreathDebounced(packageName)
-            ) {
-                Log.d(TAG, "onNewAppLaunch: Showing breath pause for $packageName")
-                markBreathShown(packageName)
-                overlayManager.showBreathPauseOverlay(
-                    packageName = packageName,
-                    onContinue = {
-                        currentOrFutureState?.let {
-                            reminderManager.scheduleReminders(
-                                packageName = packageName,
-                                state = it,
-                            )
-                        }
-                    },
-                )
-                return
-            }
-
-            /// Under limit but will be exhausted in some time
             currentOrFutureState?.let {
                 reminderManager.scheduleReminders(
                     packageName = packageName,
@@ -139,15 +117,6 @@ class MindfulTrackerService : Service() {
             SharedPrefsHelper.insertCrashLogToPrefs(this, e)
             Log.e(TAG, "onNewAppLaunch: Failed to process new app launch event", e)
         }
-    }
-
-    private fun isBreathDebounced(packageName: String): Boolean {
-        val last = lastBreathShownAt[packageName] ?: return false
-        return System.currentTimeMillis() - last < BREATH_DEBOUNCE_MS
-    }
-
-    private fun markBreathShown(packageName: String) {
-        lastBreathShownAt[packageName] = System.currentTimeMillis()
     }
 
     private fun stopIfNoUsage() {
