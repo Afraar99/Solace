@@ -1,5 +1,8 @@
-![](assets/banner.png)
+# Press & features (upstream)
 
+Solace is based on [Mindful](https://github.com/akaMrNagar/Mindful). The mentions below refer to **upstream Mindful**, kept here for historical credit.
+
+![](assets/banner.png)
 
 # Videos
 
@@ -33,13 +36,8 @@
   1. Mindful was featured on <a href="https://medevel.com/mindful-app">MEDevel</a> in 'Mindful - Free App to Take Control of your Digital Routine on Android, Control your Social Media Addiction - Your Digital Detox'
 </p>
 <p align="left">
-  1. Mindful was featured on <a href="https://www.bug.hr/appdana/mindful-pomaze-smanjiti-prekomjerno-koristenje-pametnih-telefona-i-drustvenih-44831">Bug Media</a> in 'Mindful - helps reduce overuse of smartphones and social networks'
+  2. Mindful was featured on <a href="https://www.bug.hr/appdana/mindful-pomaze-smanjiti-prekomjerno-koristenje-pametnih-telefona-i-drustvenih-44831">Bug Media</a> in 'Mindful - helps reduce overuse of smartphones and social networks'
 </p>
-
 <p align="left">
-  2. Mindful was featured on <a href="https://alternativeto.net/software/mindful--focus-and-screen-time/about/">AlternativeTo</a> in 'Office & Productivity'
+  3. Mindful was featured on <a href="https://alternativeto.net/software/mindful--focus-and-screen-time/about/">AlternativeTo</a> in 'Office & Productivity'
 </p>
-
-
-</br>
-</br>

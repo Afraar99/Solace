@@ -1,18 +1,20 @@
-# 🔏 Verification
+# Verification
 
-APK released on Google Play and GitHub are signed using Google Play Signing. They can
-be verified using
-[apksigner](https://developer.android.com/studio/command-line/apksigner.html#options-verify) :
+Official Solace APKs on [GitHub Releases](https://github.com/Afraar99/Solace/releases) are signed with the Solace release keystore (not Google Play App Signing).
 
-```sh
-apksigner verify --print-certs --verbose mindful.apk
-```
-
-The certificate fingerprints should correspond to the ones listed below:
+Verify with [apksigner](https://developer.android.com/studio/command-line/apksigner.html#options-verify):
 
 ```sh
-dn: CN=Android, OU=Android, O=Google Inc., L=Mountain View, ST=California, C=US
-SHA-256 digest: BE:67:D0:87:0C:16:B4:E8:35:43:2E:03:FD:DC:D1:76:C2:86:6E:99:71:54:1F:97:97:6C:1A:01:8C:C4:0F:C8
-SHA-1 digest: 46:6E:49:25:55:62:50:44:19:ED:9B:9E:C6:D8:A5:1F:D7:48:11:D1
-MD5 digest: D2:D2:8F:6F:40:73:56:33:EC:D7:BD:EB:E2:0E:EC:AB
+apksigner verify --print-certs --verbose Solace-1.2.0-arm64-v8a.apk
 ```
+
+Fingerprints for the official release signing certificate:
+
+```text
+dn: CN=Solace, OU=Mobile, O=Mohamed Afraar, L=Colombo, ST=Western, C=LK
+SHA-256 digest: 15b1517d9f72e2c159fd3d38a6f56e123e41300df664cfdab32a8399ea16b902
+SHA-1 digest: 47e9acb05411e302a4afa8985cf316a1cf9d107e
+MD5 digest: 24ebc29679dad79a221a276ab9f643cf
+```
+
+Only install APKs whose certificate matches these digests (or that you built and signed yourself).
