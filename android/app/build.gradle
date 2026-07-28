@@ -12,6 +12,12 @@ if (localPropertiesFile.exists()) {
     }
 }
 
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
     flutterVersionCode = '1'
@@ -52,11 +58,14 @@ android {
 
     signingConfigs {
         release {
-            if (System.getenv("KEYSTORE_FILE") != null) {
-                storeFile file(System.getenv("KEYSTORE_FILE"))
-                storePassword System.getenv("STORE_PASSWORD")
-                keyAlias System.getenv("KEY_ALIAS")
-                keyPassword System.getenv("KEY_PASSWORD")
+            // Prefer env vars (CI); fall back to android/key.properties (local).
+            def storePath = System.getenv("KEYSTORE_FILE") ?: keystoreProperties['storeFile']
+            if (storePath != null) {
+                // Resolve relative paths from the android/ project root
+                storeFile rootProject.file(storePath)
+                storePassword System.getenv("STORE_PASSWORD") ?: keystoreProperties['storePassword']
+                keyAlias System.getenv("KEY_ALIAS") ?: keystoreProperties['keyAlias']
+                keyPassword System.getenv("KEY_PASSWORD") ?: keystoreProperties['keyPassword']
             }
         }
     }
@@ -67,31 +76,25 @@ android {
                 debugSymbolLevel 'full'
             }
             resValue "string", "app_name", "Solace"
-            signingConfig signingConfigs.release
-
-            // If you see "SigningConfig 'release' is missing required property 'storeFile'",  
-            // it means your release keystore is not set up due to missing environment variables.  
-            // To fix this locally, either:  
-            // 1. Use `signingConfig signingConfigs.debug` (but DO NOT commit this change).  
-            // 2. Set the following environment variables to keep signing secure:  
-            //    - KEYSTORE_FILE  
-            //    - STORE_PASSWORD  
-            //    - KEY_ALIAS  
-            //    - KEY_PASSWORD  
-            // Avoid pushing any local changes to this Gradle file, as it may break CI/CD.  
+            // Fall back to debug signing only if no release keystore is configured
+            if (signingConfigs.release.storeFile != null) {
+                signingConfig signingConfigs.release
+            } else {
+                signingConfig signingConfigs.debug
+            }
         }
 
         debug {
             applicationIdSuffix ".debug"
             resValue "string", "app_name", "Solace Debug"
-            signingConfig System.getenv("KEYSTORE_FILE") != null ? signingConfigs.release : signingConfigs.debug
+            signingConfig signingConfigs.debug
         }
 
         profile {
             // app_links library is causing error so commenting it out
             // applicationIdSuffix ".profile"
             resValue "string", "app_name", "Solace Profile"
-            signingConfig System.getenv("KEYSTORE_FILE") != null ? signingConfigs.release : signingConfigs.debug
+            signingConfig signingConfigs.debug
         }
     }
     buildFeatures {

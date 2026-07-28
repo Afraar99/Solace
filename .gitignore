@@ -47,3 +47,10 @@ app.*.map.json
 /android/app/release
 /android/app/.cxx/
 /android/build
+
+# Release signing (never commit)
+*.jks
+*.keystore
+key.properties
+android/key.properties
+android/upload-keystore.jks
