@@ -54,3 +54,7 @@ app.*.map.json
 key.properties
 android/key.properties
 android/upload-keystore.jks
+
+# Local release tooling / artifacts
+.tools/
+dist/
