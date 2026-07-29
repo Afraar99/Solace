@@ -24,6 +24,8 @@ void requestAccessibilityPermissionWithGuide(
     ref.read(permissionProvider.notifier).askAccessibilityPermission();
   }
 
+  // Android 13+ blocks accessibility for sideloaded apps until
+  // "Allow restricted settings" is enabled in App info.
   if (sdk >= 33) {
     showAccessibilitySideloadGuide(
       context,
@@ -72,20 +74,30 @@ Future<void> showAccessibilitySideloadGuide(
               isSubtitle: true,
             ),
             20.vBox,
-            OutlinedButton.icon(
-              onPressed: () {
-                MethodChannelService.instance.openSelfAppInfoSettings();
-              },
-              icon: const Icon(FluentIcons.settings_20_regular),
-              label: Text(context.locale.accessibility_sideload_button_app_info),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: () {
+                  MethodChannelService.instance.openSelfAppInfoSettings();
+                },
+                icon: const Icon(FluentIcons.settings_20_regular),
+                label: Text(
+                  context.locale.accessibility_sideload_button_app_info,
+                ),
+              ),
             ),
             8.vBox,
-            FilledButton(
-              onPressed: () {
-                Navigator.of(sheetContext).pop();
-                onContinueToAccessibility();
-              },
-              child: Text(context.locale.accessibility_sideload_button_continue),
+            SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: () {
+                  Navigator.of(sheetContext).pop();
+                  onContinueToAccessibility();
+                },
+                child: Text(
+                  context.locale.accessibility_sideload_button_continue,
+                ),
+              ),
             ),
             8.vBox,
           ],
