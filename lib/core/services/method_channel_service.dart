@@ -373,6 +373,10 @@ class MethodChannelService {
       ) ??
       false;
 
+  /// Opens Solace App info in system settings (Allow restricted settings flow).
+  Future<bool> openSelfAppInfoSettings() async =>
+      await _invokeMethod('openSelfAppInfoSettings') ?? false;
+
   /// Checks if the usage access permission is granted and optionally asks for it.
   ///
   /// Returns `true` if the permission is granted Otherwise, returns `false`.

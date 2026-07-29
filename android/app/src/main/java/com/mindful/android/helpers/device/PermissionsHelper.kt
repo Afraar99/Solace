@@ -98,6 +98,20 @@ object PermissionsHelper {
     }
 
     /**
+     * Opens this app's system App info screen (used before enabling accessibility on sideloaded builds).
+     */
+    fun openSelfAppInfoSettings(context: Context) {
+        try {
+            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .setData(Uri.parse("package:${context.packageName}"))
+            context.startActivity(intent)
+        } catch (e: Exception) {
+            Log.e(TAG, "openSelfAppInfoSettings: Failed to open app info", e)
+        }
+    }
+
+    /**
      * Checks if the usage access permission is granted and optionally asks for it if not granted.
      *
      * @param context          The application context used to check permissions and start activities.

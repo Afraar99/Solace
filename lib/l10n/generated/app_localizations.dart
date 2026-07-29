@@ -312,6 +312,42 @@ abstract class AppLocalizations {
   /// **'Use Solace'**
   String get permission_accessibility_device_tile_label;
 
+  /// No description provided for @permission_accessibility_sideload_step.
+  ///
+  /// In en, this message translates to:
+  /// **'If Solace was installed from an APK, open App info → ⋮ → Allow restricted settings first (Android 13+).'**
+  String get permission_accessibility_sideload_step;
+
+  /// No description provided for @accessibility_sideload_dialog_title.
+  ///
+  /// In en, this message translates to:
+  /// **'One extra step for APK installs'**
+  String get accessibility_sideload_dialog_title;
+
+  /// No description provided for @accessibility_sideload_dialog_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Because Solace is installed outside the Play Store, Android may block Accessibility until you allow restricted settings.\n\n1. Tap Open App info\n2. Tap ⋮ (top right) → Allow restricted settings\n3. Return here and continue to Accessibility\n4. Turn on Solace'**
+  String get accessibility_sideload_dialog_info;
+
+  /// No description provided for @accessibility_sideload_button_app_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Open App info'**
+  String get accessibility_sideload_button_app_info;
+
+  /// No description provided for @accessibility_sideload_button_continue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue to Accessibility'**
+  String get accessibility_sideload_button_continue;
+
+  /// No description provided for @block_nsfw_requires_accessibility.
+  ///
+  /// In en, this message translates to:
+  /// **'Grant Accessibility above to enable this.'**
+  String get block_nsfw_requires_accessibility;
+
   /// No description provided for @permission_dnd_title.
   ///
   /// In en, this message translates to:

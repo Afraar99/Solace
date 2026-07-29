@@ -322,6 +322,11 @@ class FgMethodCallHandler(
                 )
             }
 
+            "openSelfAppInfoSettings" -> {
+                PermissionsHelper.openSelfAppInfoSettings(context)
+                result.success(true)
+            }
+
             "getAndAskAdminPermission" -> {
                 result.success(
                     PermissionsHelper.getAndAskAdminPermission(

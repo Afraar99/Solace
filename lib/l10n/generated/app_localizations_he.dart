@@ -102,6 +102,29 @@ class AppLocalizationsHe extends AppLocalizations {
   String get permission_accessibility_device_tile_label => 'Use Solace';
 
   @override
+  String get permission_accessibility_sideload_step =>
+      'If Solace was installed from an APK, open App info → ⋮ → Allow restricted settings first (Android 13+).';
+
+  @override
+  String get accessibility_sideload_dialog_title =>
+      'One extra step for APK installs';
+
+  @override
+  String get accessibility_sideload_dialog_info =>
+      'Because Solace is installed outside the Play Store, Android may block Accessibility until you allow restricted settings.\n\n1. Tap Open App info\n2. Tap ⋮ (top right) → Allow restricted settings\n3. Return here and continue to Accessibility\n4. Turn on Solace';
+
+  @override
+  String get accessibility_sideload_button_app_info => 'Open App info';
+
+  @override
+  String get accessibility_sideload_button_continue =>
+      'Continue to Accessibility';
+
+  @override
+  String get block_nsfw_requires_accessibility =>
+      'Grant Accessibility above to enable this.';
+
+  @override
   String get permission_dnd_title => 'Do not disturb';
 
   @override

@@ -38,18 +38,24 @@ class SplashScreen extends ConsumerStatefulWidget {
 }
 
 class _SplashScreenState extends ConsumerState<SplashScreen> {
+  static const _minSplashDuration = Duration(milliseconds: 3200);
+
   bool _haveAllEssentialPermissions = false;
   bool _isOnboardingDone = false;
   bool _isAccessProtected = false;
   bool _isAppUpdated = false;
+  bool _isLeaving = false;
+  double _splashOpacity = 1;
 
   @override
   void initState() {
     super.initState();
-    _checkOnboardingAndPerms();
+    _bootstrap();
   }
 
-  void _checkOnboardingAndPerms() async {
+  Future<void> _bootstrap() async {
+    final startedAt = DateTime.now();
+
     final perms =
         await ref.read(permissionProvider.notifier).fetchPermissionsStatus();
 
@@ -62,10 +68,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
         (await ref.read(parentalControlsProvider.notifier).init())
             .protectedAccess;
 
-    /// Mark today on cold start (presence graph + NSFW streak)
     await ref.read(shieldDaysProvider.notifier).checkInToday();
 
-    /// Desktop/web UI preview: skip Android permission gate
     if (!MethodChannelService.instance.isNativeAndroid) {
       _haveAllEssentialPermissions = true;
       _isOnboardingDone = true;
@@ -76,12 +80,28 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
           perms.haveNotificationPermission;
     }
 
-    if (mounted) setState(() {});
-    _isAccessProtected ? _authenticate() : _goToNextScreen(true);
+    final elapsed = DateTime.now().difference(startedAt);
+    if (elapsed < _minSplashDuration) {
+      await Future.delayed(_minSplashDuration - elapsed);
+    }
+
+    if (!mounted) return;
+    setState(() {});
+
+    if (_isAccessProtected) return;
+
+    await _leaveSplash(shouldDelay: false);
   }
 
-  void _goToNextScreen(bool shouldDelay) async {
+  Future<void> _leaveSplash({required bool shouldDelay}) async {
+    if (_isLeaving || !mounted) return;
+    _isLeaving = true;
+
     if (shouldDelay) await Future.delayed(250.ms);
+    if (!mounted) return;
+
+    setState(() => _splashOpacity = 0);
+    await Future.delayed(const Duration(milliseconds: 450));
     if (!mounted) return;
 
     if (_haveAllEssentialPermissions && _isOnboardingDone) {
@@ -117,7 +137,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       return;
     }
 
-    _goToNextScreen(false);
+    await _leaveSplash(shouldDelay: false);
   }
 
   @override
@@ -132,87 +152,85 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
           automaticallyImplyLeading: false,
           backgroundColor: Theme.of(context).colorScheme.surface,
         ),
-        body: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              /// Brand logo
-              BreathingWidget(
-                dimension: min(
-                  min(420, MediaQuery.sizeOf(context).width * 0.8),
-                  MediaQuery.sizeOf(context).height * 0.32,
-                ),
-                child: RoundedContainer(
-                  circularRadius: 420,
-                  color: const Color(0xFFC5D4A8),
-                  padding: const EdgeInsets.all(28),
-                  child: Image.asset(
-                    'assets/logo/solace_logo.png',
-                    fit: BoxFit.contain,
+        body: AnimatedOpacity(
+          opacity: _splashOpacity,
+          duration: const Duration(milliseconds: 450),
+          curve: Curves.easeInOut,
+          child: SafeArea(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                BreathingWidget(
+                  dimension: min(
+                    min(420, MediaQuery.sizeOf(context).width * 0.8),
+                    MediaQuery.sizeOf(context).height * 0.32,
+                  ),
+                  child: RoundedContainer(
+                    circularRadius: 420,
+                    color: const Color(0xFFC5D4A8),
+                    padding: const EdgeInsets.all(28),
+                    child: Image.asset(
+                      'assets/logo/solace_logo.png',
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
-              ),
-
-              Column(
-                children: [
-                  /// Title
-                  const StyledText(
-                    "Solace",
-                    fontSize: 48,
-                    fontWeight: FontWeight.bold,
-                    height: 1,
-                  ),
-
-                  /// Tag line
-                  StyledText(
-                    context.locale.mindful_tagline,
-                    fontSize: 16,
-                    isSubtitle: true,
-                  ),
-                ],
-              ),
-
-              const Divider(color: Colors.transparent),
-              _isAccessProtected
-                  ? Column(
-                      children: [
-                        FilledButton.icon(
-                          icon: const Icon(FluentIcons.fingerprint_20_regular),
-                          label: Text(context.locale.unlock_button_label),
-                          onPressed: _authenticate,
-                        ),
-                        8.vBox,
-                        StyledText(
-                          'Fingerprint or device PIN — use either one',
-                          fontSize: 12,
-                          isSubtitle: true,
-                        ),
-                      ],
-                    )
-                  : 0.vBox,
-
-              /// Make
-              const StyledText(
-                "Made with ♥️ in 🇱🇰",
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-              Text(
-                "Mohamed Afraar",
-                style: TextStyle(
-                  fontFamily: 'serif',
-                  fontSize: 13,
-                  fontStyle: FontStyle.italic,
-                  color: Theme.of(context)
-                      .colorScheme
-                      .primary
-                      .withValues(alpha: 0.85),
+                Column(
+                  children: [
+                    const StyledText(
+                      "Solace",
+                      fontSize: 48,
+                      fontWeight: FontWeight.bold,
+                      height: 1,
+                    ),
+                    StyledText(
+                      context.locale.mindful_tagline,
+                      fontSize: 16,
+                      isSubtitle: true,
+                    ),
+                  ],
                 ),
+                const Divider(color: Colors.transparent),
+                _isAccessProtected
+                    ? Column(
+                        children: [
+                          FilledButton.icon(
+                            icon:
+                                const Icon(FluentIcons.fingerprint_20_regular),
+                            label: Text(context.locale.unlock_button_label),
+                            onPressed: _authenticate,
+                          ),
+                          8.vBox,
+                          StyledText(
+                            'Fingerprint or device PIN — use either one',
+                            fontSize: 12,
+                            isSubtitle: true,
+                          ),
+                        ],
+                      )
+                    : 0.vBox,
+                const StyledText(
+                  "Made with ♥️ in 🇱🇰",
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+                Text(
+                  "Mohamed Afraar",
+                  style: TextStyle(
+                    fontFamily: 'serif',
+                    fontSize: 13,
+                    fontStyle: FontStyle.italic,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .primary
+                        .withValues(alpha: 0.85),
+                  ),
+                ),
+              ].animate(
+                effects: DefaultEffects.transitionIn,
+                delay: 200.ms,
+                interval: 140.ms,
               ),
-            ].animate(
-              effects: DefaultEffects.transitionIn,
-              delay: 100.ms,
-              interval: 100.ms,
             ),
           ),
         ),

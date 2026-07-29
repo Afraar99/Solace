@@ -41,7 +41,8 @@ class AppConstants {
   static const String? telegramUrl = null;
   static const String? supportEmailUrl = null;
   static const String? privacyPolicyUrl = null;
-  static const String? faqsUrl = null;
+  static const String? faqsUrl =
+      "https://github.com/Afraar99/Solace#download";
 
   static String? githubChangeLogUrl(String appVersion) =>
       "$githubUrl/releases/tag/v$appVersion";

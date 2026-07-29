@@ -49,6 +49,14 @@ class PermissionGrantingSteps extends StatelessWidget {
             context.locale.permission_grant_step_two,
             fontSize: 14,
           ),
+          if (isAccessibilityPerm) ...[
+            6.vBox,
+            StyledText(
+              context.locale.permission_accessibility_sideload_step,
+              fontSize: 13,
+              isSubtitle: true,
+            ),
+          ],
           6.vBox,
           DefaultListTile(
             leading: RoundedContainer(

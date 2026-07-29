@@ -76,7 +76,9 @@ class WebsitesBlockingScreen extends ConsumerWidget {
                 enabled: haveAccessibilityPermission && !blockNsfwSites,
                 leadingIcon: FluentIcons.video_prohibited_20_regular,
                 titleText: context.locale.block_nsfw_title,
-                subtitleText: context.locale.block_nsfw_subtitle,
+                subtitleText: haveAccessibilityPermission
+                    ? context.locale.block_nsfw_subtitle
+                    : context.locale.block_nsfw_requires_accessibility,
                 switchValue: blockNsfwSites,
                 onPressed: () => _turnNsfwBlockerOn(context, ref),
               ),

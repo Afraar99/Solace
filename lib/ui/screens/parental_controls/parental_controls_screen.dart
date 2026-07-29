@@ -15,6 +15,7 @@ import 'package:mindful/core/services/auth_service.dart';
 import 'package:mindful/providers/system/kids_mode_provider.dart';
 import 'package:mindful/providers/system/parental_controls_provider.dart';
 import 'package:mindful/providers/system/permissions_provider.dart';
+import 'package:mindful/ui/permissions/accessibility_sideload_dialog.dart';
 import 'package:mindful/ui/common/content_section_header.dart';
 import 'package:mindful/ui/common/default_list_tile.dart';
 import 'package:mindful/ui/common/scaffold_shell.dart';
@@ -32,7 +33,7 @@ class ParentalControlsScreen extends ConsumerWidget {
   ) async {
     if (!isEnabled) {
       if (!ref.read(permissionProvider).haveAccessibilityPermission) {
-        ref.read(permissionProvider.notifier).askAccessibilityPermission();
+        requestAccessibilityPermissionWithGuide(context, ref);
         context.showSnackAlert(
           context.locale.permission_accessibility_info,
           icon: FluentIcons.accessibility_20_filled,

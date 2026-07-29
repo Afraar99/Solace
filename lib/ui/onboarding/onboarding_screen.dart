@@ -4,6 +4,8 @@
  *
  */
 
+import 'dart:async';
+
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -43,11 +45,13 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
     initialPage: widget.isOnboardingDone ? _permissionsIndex : 0,
   );
   final TextEditingController _nameController = TextEditingController();
-  final _animCurve = Curves.easeInOut;
-  final _animDuration = AppConstants.defaultAnimDuration;
+  final _animCurve = Curves.easeInOutCubic;
+  static const _pageAnimDuration = Duration(milliseconds: 600);
+  static const _introAutoAdvanceDelay = Duration(milliseconds: 4800);
 
   /// Name page only after user taps Finish Setup (no auto-advance)
   bool _namePageUnlocked = false;
+  Timer? _introAutoAdvanceTimer;
 
   late final List<Widget> _pages = [
     OnboardingPage(
@@ -102,11 +106,34 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
     /// Returning user missing permissions → land on permissions page
     if (widget.isOnboardingDone) {
       _currentPage = _permissionsIndex;
+    } else {
+      _scheduleIntroAutoAdvance();
     }
+  }
+
+  void _scheduleIntroAutoAdvance() {
+    _introAutoAdvanceTimer?.cancel();
+    if (widget.isOnboardingDone || _currentPage >= _permissionsIndex - 1) {
+      return;
+    }
+
+    _introAutoAdvanceTimer = Timer(_introAutoAdvanceDelay, () {
+      if (!mounted || _currentPage >= _permissionsIndex - 1) return;
+      _controller.nextPage(
+        duration: _pageAnimDuration,
+        curve: _animCurve,
+      );
+    });
+  }
+
+  void _cancelIntroAutoAdvance() {
+    _introAutoAdvanceTimer?.cancel();
+    _introAutoAdvanceTimer = null;
   }
 
   @override
   void dispose() {
+    _cancelIntroAutoAdvance();
     _subscription?.close();
     _nameController.dispose();
     _controller.dispose();
@@ -139,7 +166,7 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
     if (!mounted) return;
     _controller.animateToPage(
       _permissionsIndex,
-      duration: _animDuration,
+      duration: _pageAnimDuration,
       curve: _animCurve,
     );
   }
@@ -149,7 +176,7 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
     _namePageUnlocked = true;
     _controller.animateToPage(
       _nameIndex,
-      duration: _animDuration,
+      duration: _pageAnimDuration,
       curve: _animCurve,
     );
   }
@@ -216,6 +243,7 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
                       return;
                     }
                     setState(() => _currentPage = i);
+                    _scheduleIntroAutoAdvance();
                   },
                   itemBuilder: (context, index) => Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -243,10 +271,13 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
                     ),
                     const Spacer(),
                     IconButton.filledTonal(
-                      onPressed: () => _controller.previousPage(
+                      onPressed: () {
+                        _cancelIntroAutoAdvance();
+                        _controller.previousPage(
                         curve: _animCurve,
-                        duration: _animDuration,
-                      ),
+                        duration: _pageAnimDuration,
+                      );
+                      },
                       padding: const EdgeInsets.all(10),
                       icon: const Icon(FluentIcons.caret_left_20_filled),
                     )
@@ -276,17 +307,17 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
                       IconButton.filled(
                         padding: const EdgeInsets.all(10),
                         onPressed: () {
-                          /// Don't enter name page until permissions are ready
+                          _cancelIntroAutoAdvance();
                           if (_currentPage == _permissionsIndex - 1) {
                             _controller.nextPage(
                               curve: _animCurve,
-                              duration: _animDuration,
+                              duration: _pageAnimDuration,
                             );
                             return;
                           }
                           _controller.nextPage(
                             curve: _animCurve,
-                            duration: _animDuration,
+                            duration: _pageAnimDuration,
                           );
                         },
                         icon: const Icon(FluentIcons.caret_right_20_filled),

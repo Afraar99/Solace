@@ -2,7 +2,7 @@ name: mindful # Dart package name (imports); app brand is Solace
 description: Solace — privacy-first focus, screen time limits, and content blocking for Android.
 homepage: https://github.com/Afraar99/Solace
 publish_to: "none"
-version: 1.2.0+120
+version: 1.2.1+121
 
 environment:
   sdk: ">=3.1.0 <4.0.0"
